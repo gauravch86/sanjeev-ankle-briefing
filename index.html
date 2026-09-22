@@ -571,6 +571,22 @@ td .poss-name { display: block; font-weight: 700; color: var(--text); margin-bot
 .hypo-box h3 { margin: 0 0 6px; color: var(--amber); font-size: 1rem; }
 .hypo-box p { margin: 0; color: var(--text); font-size: .92rem; }
 
+
+.btn-lang {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-lang:hover { background: rgba(77,182,255,.12); color: var(--text); }
+
 </style>
 </head>
 <body>
@@ -593,6 +609,7 @@ td .poss-name { display: block; font-weight: 700; color: var(--text); margin-bot
     <a href="#actions">This week</a>
     <a href="#sources">Sources</a>
   </div>
+  <a class="btn-lang" href="hi.html" lang="hi" hreflang="hi" title="हिंदी संस्करण">हिंदी</a>
   <button type="button" class="btn-print" onclick="window.print()" title="Print or save as PDF">Print / PDF</button>
 </nav>
 
@@ -1302,7 +1319,7 @@ td .poss-name { display: block; font-weight: 700; color: var(--text); margin-bot
 
 <footer class="footer-note">
   Family briefing with reports + annotated MRI films · Print / Save PDF · en-IN<br />
-  Educational synthesis — not a diagnosis · Sampling route is the treating team’s call
+  Educational synthesis — not a diagnosis · Sampling route is the treating team’s call · <a href="hi.html" hreflang="hi">हिंदी</a>
 </footer>
 
 </div>

@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>दायाँ टखना ब्रीफिंग — श्री संजीव चौधरी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0b1220;
+  --bg2: #111a2e;
+  --card: #162038;
+  --card2: #1a2744;
+  --border: #2a3a5c;
+  --text: #e8eef9;
+  --muted: #9bb0d0;
+  --accent: #4db6ff;
+  --accent2: #7c9cff;
+  --green: #3dd68c;
+  --green-bg: rgba(61,214,140,.12);
+  --amber: #f5c542;
+  --amber-bg: rgba(245,197,66,.12);
+  --red: #ff6b7a;
+  --red-bg: rgba(255,107,122,.12);
+  --disclaimer: #3a2a12;
+  --disclaimer-border: #c9892e;
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0,0,0,.35);
+  --nav-h: 56px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: linear-gradient(180deg, #070d18 0%, var(--bg) 120px);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+img, svg { max-width: 100%; height: auto; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px 64px; }
+
+/* Sticky nav */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(11,18,32,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 10px;
+}
+.topnav .brand {
+  font-weight: 700; font-size: .92rem; white-space: nowrap;
+  color: var(--accent); padding: 0 6px; flex-shrink: 0;
+}
+.nav-scroll {
+  display: flex; gap: 4px; overflow-x: auto; flex: 1;
+  scrollbar-width: none; -ms-overflow-style: none;
+  padding: 6px 0;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-scroll a {
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.nav-scroll a:hover, .nav-scroll a:focus {
+  color: var(--text);
+  background: var(--card);
+  border-color: var(--border);
+}
+.btn-print {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: #061018;
+  border: none;
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-print:hover { filter: brightness(1.08); }
+
+/* Hero */
+.hero {
+  margin-top: 20px;
+  background: radial-gradient(ellipse at top right, rgba(77,182,255,.18), transparent 55%),
+              linear-gradient(145deg, var(--card) 0%, #0e1830 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow);
+}
+.hero .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--muted);
+}
+.badge.amber { color: var(--amber); border-color: rgba(245,197,66,.35); background: var(--amber-bg); }
+.badge.green { color: var(--green); border-color: rgba(61,214,140,.35); background: var(--green-bg); }
+.badge.red { color: var(--red); border-color: rgba(255,107,122,.35); background: var(--red-bg); }
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.45rem, 4.5vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+.hero .sub { color: var(--muted); margin: 0 0 18px; font-size: .98rem; }
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.meta {
+  background: rgba(0,0,0,.25);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.meta .k { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+.meta .v { font-size: .95rem; font-weight: 700; margin-top: 2px; }
+
+/* Disclaimer banner */
+.disclaimer {
+  margin: 18px 0;
+  padding: 14px 16px;
+  background: linear-gradient(90deg, #3a2a12, #2a2210);
+  border: 1px solid var(--disclaimer-border);
+  border-left: 5px solid var(--amber);
+  border-radius: 12px;
+  color: #ffe8b8;
+  font-size: .92rem;
+}
+.disclaimer strong { color: #ffd27a; }
+.disclaimer.compact { margin: 12px 0 0; font-size: .85rem; padding: 10px 12px; }
+
+section {
+  margin-top: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.2);
+}
+section h2 {
+  margin: 0 0 6px;
+  font-size: 1.28rem;
+  letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+section h2 .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(77,182,255,.15); color: var(--accent);
+  font-size: .85rem; font-weight: 800;
+}
+.lead { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px; padding-left: 1.2em; }
+li { margin-bottom: 6px; }
+li::marker { color: var(--accent2); }
+
+/* Traffic lights */
+.tl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.tl {
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.tl .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  display: inline-block; margin-right: 8px;
+  vertical-align: middle;
+}
+.tl.green { border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.tl.green .dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.tl.amber { border-color: rgba(245,197,66,.4); background: var(--amber-bg); }
+.tl.amber .dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.tl.red { border-color: rgba(255,107,122,.4); background: var(--red-bg); }
+.tl.red .dot { background: var(--red); box-shadow: 0 0 8px var(--red); }
+.tl h3 { margin: 0 0 6px; font-size: .98rem; }
+.tl p { margin: 0; font-size: .88rem; color: var(--muted); }
+
+/* Finding cards */
+.findings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .findings { grid-template-columns: 1fr 1fr; }
+}
+.fcard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.fcard .tag {
+  align-self: flex-start;
+  font-size: .68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: 3px 8px; border-radius: 6px;
+  background: rgba(77,182,255,.15); color: var(--accent);
+}
+.fcard .tag.warn { background: var(--amber-bg); color: var(--amber); }
+.fcard .tag.ok { background: var(--green-bg); color: var(--green); }
+.fcard h3 { margin: 0; font-size: 1rem; }
+.fcard .report { font-size: .86rem; color: #c5d4ef; border-left: 3px solid var(--accent2); padding-left: 10px; }
+.fcard .lay { font-size: .88rem; color: var(--muted); }
+.fcard .lay strong { color: var(--text); }
+
+/* SVG diagram */
+.diagram-box {
+  margin: 16px 0 4px;
+  background: #0a1222;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.diagram-box figcaption {
+  margin-top: 10px;
+  font-size: .82rem;
+  color: var(--muted);
+}
+.legend {
+  display: flex; flex-wrap: wrap; gap: 10px 16px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: .8rem;
+  color: var(--muted);
+}
+.legend span::before {
+  content: "";
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -2px;
+}
+.leg-subtalar::before { background: #ff6b7a; }
+.leg-talus::before { background: #f5c542; }
+.leg-effusion::before { background: #4db6ff; }
+.leg-normal::before { background: #3dd68c; }
+
+/* Sampling approach cards */
+.sample-diagram {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+@media (min-width: 700px) {
+  .sample-diagram { grid-template-columns: 1fr 1fr 1fr; }
+}
+.sample-card {
+  background: #0a1222;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 10px 10px;
+  text-align: center;
+}
+.sample-card svg { width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto 8px; }
+.sample-card .sc-title { font-weight: 800; font-size: .95rem; color: var(--text); margin: 0 0 4px; }
+.sample-card .sc-note { font-size: .78rem; color: var(--muted); margin: 0; }
+.hi { color: var(--accent); font-weight: 700; }
+.gloss { color: var(--muted); font-size: .85em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  min-width: 560px;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: #0e1830;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+tr:nth-child(even) td { background: rgba(0,0,0,.18); }
+td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* Checklist */
+.check-list { list-style: none; padding: 0; margin: 0; }
+.check-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.check-list .box {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  margin-top: 2px;
+}
+.check-list .txt { flex: 1; font-size: .92rem; }
+.check-list .txt em { color: var(--muted); font-style: normal; display: block; font-size: .82rem; margin-top: 2px; }
+
+/* Action steps */
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 14px 14px 14px 56px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute; left: 14px; top: 14px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #061018;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+}
+
+.callout {
+  background: rgba(77,182,255,.08);
+  border: 1px solid rgba(77,182,255,.3);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: .92rem;
+}
+.callout.warn {
+  background: var(--amber-bg);
+  border-color: rgba(245,197,66,.4);
+}
+.callout.danger {
+  background: var(--red-bg);
+  border-color: rgba(255,107,122,.4);
+}
+
+.footer-note {
+  margin-top: 28px;
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .82rem;
+  border-top: 1px solid var(--border);
+}
+.impression-box {
+  margin: 14px 0;
+  padding: 14px 16px;
+  background: rgba(255,107,122,.1);
+  border: 1px solid rgba(255,107,122,.35);
+  border-radius: 12px;
+  font-size: .95rem;
+}
+.impression-box code {
+  display: block;
+  margin-top: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .86rem;
+  color: #ffc2c8;
+  white-space: pre-wrap;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; color: #111; font-size: 11pt; }
+  .topnav, .btn-print { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  section, .hero {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #111;
+  }
+  .disclaimer {
+    background: #fff8e6 !important;
+    color: #333 !important;
+    border-color: #c9892e !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tl, .fcard, .meta, .check-list li, .steps li {
+    background: #f7f7f7 !important;
+    color: #111;
+    border-color: #ccc;
+  }
+  .tl p, .lead, .hero .sub, .fcard .lay, .meta .k { color: #444 !important; }
+  a { color: #06c; }
+  h1, h2, h3 { color: #111; }
+  table { min-width: 0; }
+  th { background: #eee !important; color: #111 !important; }
+  .impression-box { background: #fff0f0 !important; color: #111; }
+  .impression-box code { color: #600; }
+  html { scroll-padding-top: 0; }
+}
+
+/* Media cards — reports & MRI films */
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 14px 0;
+}
+@media (min-width: 700px) {
+  .media-grid.two { grid-template-columns: 1fr 1fr; }
+  .media-grid.films { grid-template-columns: 1fr 1fr; }
+}
+.media-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+.media-card a.img-link {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  line-height: 0;
+}
+.media-card img.scan {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+.media-card figcaption,
+.media-card .cap {
+  margin-top: 10px;
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.media-card .cap strong { color: var(--text); }
+.media-card .hint {
+  font-size: .75rem;
+  color: var(--accent2);
+  margin-top: 6px;
+}
+.explain-bullets {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px 12px 28px;
+  margin: 12px 0 16px;
+}
+.explain-bullets li { margin: 6px 0; color: var(--muted); font-size: .92rem; }
+.explain-bullets li strong { color: var(--text); }
+.gallery-note {
+  font-size: .86rem;
+  color: var(--muted);
+  margin: 8px 0 4px;
+}
+
+
+/* Likelihood badges & chips (differential) */
+.badge.blue { color: #6eb6ff; border-color: rgba(110,182,255,.35); background: rgba(110,182,255,.12); }
+.badge.low { opacity: .95; font-weight: 600; }
+.likeli {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid;
+  white-space: nowrap;
+}
+.likeli.amber { color: var(--amber); border-color: rgba(245,197,66,.45); background: var(--amber-bg); }
+.likeli.red { color: var(--red); border-color: rgba(255,107,122,.45); background: var(--red-bg); }
+.likeli.blue { color: #6eb6ff; border-color: rgba(110,182,255,.4); background: rgba(110,182,255,.12); }
+.likeli.green { color: var(--green); border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip {
+  font-size: .72rem; color: var(--muted);
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 8px; line-height: 1.35;
+}
+.chip strong { color: var(--text); font-weight: 650; }
+tr.diff-amber td:first-child { box-shadow: inset 4px 0 0 var(--amber); }
+tr.diff-red td:first-child { box-shadow: inset 4px 0 0 var(--red); }
+tr.diff-blue td:first-child { box-shadow: inset 4px 0 0 #6eb6ff; }
+tr.diff-green td:first-child { box-shadow: inset 4px 0 0 var(--green); }
+td .poss-name { display: block; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+
+/* Phone teaching cards */
+.media-grid.teach { grid-template-columns: 1fr; }
+@media (min-width: 700px) {
+  .media-grid.teach { grid-template-columns: 1fr 1fr; }
+  .media-grid.teach .span2 { grid-column: 1 / -1; }
+}
+.media-card.teach-card {
+  border-color: rgba(77,182,255,.35);
+  background: linear-gradient(180deg, #162038, #111a2e);
+}
+.media-card.teach-card .cap { font-size: .9rem; color: var(--text); }
+.media-card.teach-card .cap .hi { color: var(--amber); }
+.media-card.teach-card .cap .lo { color: var(--muted); font-size: .82rem; display: block; margin-top: 4px; }
+
+/* Expert pathways */
+.expert-grid {
+  display: grid; gap: 12px; margin: 14px 0;
+}
+@media (min-width: 800px) {
+  .expert-grid.paths { grid-template-columns: repeat(3, 1fr); }
+}
+.path-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow);
+}
+.path-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.path-card .burden {
+  display: inline-block; margin-top: 8px; font-size: .78rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+}
+.path-card.short .burden { color: var(--green); border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.path-card.mid .burden { color: var(--amber); border-color: rgba(245,197,66,.4); background: var(--amber-bg); }
+.path-card.long .burden { color: var(--red); border-color: rgba(255,107,122,.4); background: var(--red-bg); }
+.path-card p { margin: 0; font-size: .88rem; color: var(--muted); }
+.tree {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px; margin: 14px 0;
+}
+.tree ol { margin: 8px 0 0; padding-left: 22px; }
+.tree li { margin: 10px 0; color: var(--muted); font-size: .92rem; line-height: 1.45; }
+.tree li strong { color: var(--text); }
+.tree-svg-wrap { overflow-x: auto; margin: 12px 0; }
+.hypo-box {
+  background: var(--amber-bg); border: 1px solid rgba(245,197,66,.35);
+  border-radius: 12px; padding: 14px 16px; margin: 12px 0;
+}
+.hypo-box h3 { margin: 0 0 6px; color: var(--amber); font-size: 1rem; }
+.hypo-box p { margin: 0; color: var(--text); font-size: .92rem; }
+
+
+.btn-lang {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-lang:hover { background: rgba(77,182,255,.12); color: var(--text); }
+
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="अनुभाग नेविगेशन">
+  <div class="brand">टखना ब्रीफिंग</div>
+  <div class="nav-scroll" role="navigation">
+    <a href="#hero">होम</a>
+    <a href="#summary">सारांश</a>
+    <a href="#reports">रिपोर्ट</a>
+    <a href="#mri">एमआरआई</a>
+    <a href="#films">स्कैन</a>
+    <a href="#xray">एक्स-रे</a>
+    <a href="#diff">डिफरेंशियल</a>
+    <a href="#expert">विशेषज्ञ दृष्टि</a>
+    <a href="#biopsy">बायोप्सी</a>
+    <a href="#sampling">सुई बनाम चीरा</a>
+    <a href="#ask">सर्जन से पूछें</a>
+    <a href="#weight">वज़न</a>
+    <a href="#flags">चेतावनी</a>
+    <a href="#actions">इस सप्ताह</a>
+    <a href="#sources">स्रोत</a>
+  </div>
+  <a class="btn-lang" href="index.html" lang="en" hreflang="en" title="English version">English</a>
+  <button type="button" class="btn-print" onclick="window.print()" title="प्रिंट या PDF सहेजें">प्रिंट / PDF</button>
+</nav>
+
+<div class="wrap">
+
+<header class="hero" id="hero">
+  <div class="badge-row">
+    <span class="badge amber">पारिवारिक शिक्षा पैक</span>
+    <span class="badge">दायाँ टखना</span>
+    <span class="badge red">यह निदान नहीं है</span>
+    <span class="badge green">डॉक्टर से चर्चा करें</span>
+  </div>
+  <h1>श्री संजीव चौधरी — दायाँ टखना ब्रीफिंग</h1>
+  <p class="sub">शांत, स्पष्ट नोट्स ताकि परिवार यशोदा सुपर स्पेशियलिटी हॉस्पिटल्स, कौशांबी की ऑर्थोपेडिक टीम से साफ़ बात कर सके।</p>
+  <div class="meta-grid">
+    <div class="meta"><div class="k">उम्र / लिंग</div><div class="v">42 / पुरुष</div></div>
+    <div class="meta"><div class="k">वज़न</div><div class="v">115 किग्रा</div></div>
+    <div class="meta"><div class="k">अस्पताल</div><div class="v">यशोदा, कौशांबी</div></div>
+    <div class="meta"><div class="k">रेफ़र किया</div><div class="v">डॉ. अखिल कुलश्रेष्ठ</div></div>
+    <div class="meta"><div class="k">एक्स-रे</div><div class="v">14 सितंबर 2026</div></div>
+    <div class="meta"><div class="k">एमआरआई</div><div class="v">15 सितंबर 2026</div></div>
+  </div>
+  <div class="disclaimer compact" role="note">
+    <strong>अस्वीकरण:</strong> परिवार की डॉक्टर-चर्चा के लिए शैक्षिक सार — <strong>यह निदान नहीं है</strong>, ऑर्थोपेडिक / संक्रामक-रोग विशेषज्ञ की सलाह का विकल्प नहीं। सर्जन अक्सर सैंपलिंग की बात करते हैं; पहले सुई आज़माई जा सकती है, पर अक्सर ऊतक (tissue) ज़रूरी होता है — इलाज करने वाली टीम का फ़ैसला मानें।
+  </div>
+</header>
+
+<section id="summary" aria-labelledby="h-summary">
+  <h2 id="h-summary"><span class="num">1</span> सरल हिंदी में सारांश</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> परिवार की डॉक्टर-चर्चा के लिए शैक्षिक सार — यह निदान नहीं है, डॉक्टर की सलाह का विकल्प नहीं। सैंपलिंग का तरीका इलाज करने वाली टीम तय करेगी।</div>
+  <p>दाएँ टखने की एमआरआई (MRI) में <strong>संक्रमण जैसे गठिया (infective arthritis)</strong> का पैटर्न दिखता है, मुख्यतः <strong>सबटेलर जोड़ (subtalar joint)</strong> पर (टेलस/talus और एड़ी की हड्डी के बीच), टेलस में मज्जा सूजन (marrow oedema), एड़ी के अगले हिस्से (anterior calcaneum) तक सूजन, और टेलस में दो सबकॉन्ड्रल सिस्ट (subchondral cysts) — लगभग 13×11 मिमी और 16×10 मिमी।</p>
+  <p>सबटेलर जोड़ में खंडित/झिल्लीदार द्रव (loculated / septated fluid) और हल्की सिनोवियल मोटाई (synovial thickening) है; मुख्य टखने के जोड़ — टिबियोटेलर (tibiotalar) — में हल्का “प्रतिक्रियात्मक” द्रव (reactionary effusion); पैर और निचली टाँग के आसपास हल्की नरम-ऊतक सूजन।</p>
+  <p>एक दिन पहले का सादा एक्स-रे <strong>लगभग सामान्य</strong> लगता है — हड्डियाँ और जोड़ की जगह फ़िल्म पर ठीक दिखती हैं। अक्सर इसका मतलब होता है कि हड्डी का विनाश अभी एक्स-रे पर दिखने लायक नहीं बढ़ा, इसलिए विनाश के पैमाने पर बीमारी <strong>प्रारंभिक-से-मध्यम</strong> हो सकती है — भले लक्षण वर्षों से हों।</p>
+  <p>रेडियोलॉजिस्ट की धारणा (impression): लक्षण <em>संक्रामक गठिया — ? ट्यूबरकुलर (infective arthritis — ? tubercular)</em> की ओर इशारा करते हैं; नैदानिक सहसंबंध (clinical correlation) माँगा गया है। भारत में लंबे समय से एक जोड़ में समस्या पर ऑस्टियोआर्टिकुलर टीबी (osteoarticular TB) एक महत्वपूर्ण संभावना है — पर <strong>केवल एमआरआई से टीबी की पुष्टि नहीं होती</strong>।</p>
+  <p>115 किग्रा पर हर कदम टखने पर भारी बोझ डालता है; वज़न एक लोड कारक और रीहैब साथी है — न “कारण” और न अकेले इलाज।</p>
+  <p>परिवार की समझ: डॉक्टर <strong>सैंपल कैसे लें</strong> पर चर्चा करेंगे (पहले नीडल एस्पिरेशन; अक्सर कीहोल या ओपन बायोप्सी से ऊतक चाहिए), फिर संक्रमण साफ़ करने और क्षतिग्रस्त कार्टिलेज के लिए संभव सर्जरी — उसी ऊतक जाँच से टीबी बनाम पायोजेनिक संक्रमण साबित होता है। देखें <a href="#sampling">सुई बनाम चीरा</a>।</p>
+  <div class="tl-grid">
+    <div class="tl amber"><h3><span class="dot"></span>एमआरआई: संक्रमण पैटर्न</h3><p>सबटेलर फोकस + टेलस सिस्ट/सूजन — ऊतक प्रमाण ज़रूरी।</p></div>
+    <div class="tl green"><h3><span class="dot"></span>एक्स-रे: अभी लगभग सामान्य</h3><p>अक्सर मतलब: सादे फ़िल्म पर विनाश अभी उन्नत नहीं।</p></div>
+    <div class="tl red"><h3><span class="dot"></span>टीबी = केवल संदेह</h3><p>“? ट्यूबरकुलर” मुख्य अनुमान है, पुष्टि नहीं।</p></div>
+  </div>
+</section>
+<section id="reports" aria-labelledby="h-reports">
+  <h2 id="h-reports"><span class="num">★</span> मूल अस्पताल रिपोर्ट</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> यशोदा सुपर स्पेशियलिटी हॉस्पिटल्स, कौशांबी की लिखित रिपोर्ट की स्कैन। किसी भी चित्र पर टैप कर पूर्ण आकार खोलें। शैक्षिक पैक — नया निदान नहीं।</div>
+  <p class="lead">ऑर्थोपेडिक टीम से मिलते समय इन्हें एमआरआई फ़िल्मों के साथ रखें।</p>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/report-mri.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-report-mri.jpg" alt="एमआरआई लिखित रिपोर्ट — दायाँ टखना, लैब 3110748" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>एमआरआई रिपोर्ट</strong> — लैब <strong>3110748</strong>, अंतिम <strong>15/09/2026</strong>,
+        डॉ. <strong>ममता मोतला</strong> (प्रमुख व कंसल्टेंट रेडियोलॉजिस्ट)।
+        धारणा: संक्रामक गठिया — ? ट्यूबरकुलर (नैदानिक सहसंबंध)।
+      </figcaption>
+      <div class="hint">पूर्ण आकार के लिए टैप करें</div>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/report-xray.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-report-xray.jpg" alt="एक्स-रे लिखित रिपोर्ट — दोनों टखने, लैब 3110696" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>एक्स-रे रिपोर्ट</strong> — लैब <strong>3110696</strong>, <strong>14/09/2026</strong>,
+        डॉ. <strong>हर्ष गोयल</strong>। दोनों टखने AP/LAT — मूलतः सामान्य सादी फ़िल्म।
+      </figcaption>
+      <div class="hint">पूर्ण आकार के लिए टैप करें</div>
+    </figure>
+  </div>
+</section>
+
+<section id="mri" aria-labelledby="h-mri">
+  <h2 id="h-mri"><span class="num">2</span> एमआरआई में क्या मिला</h2>
+  <p class="lead">लैब 3110748 · अंतिम 15/09/2026 शाम 5:36 · डॉ. ममता मोतला (प्रमुख व कंसल्टेंट रेडियोलॉजिस्ट) · दायाँ टखना एमआरआई</p>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> शैक्षिक सार — यह निदान नहीं है। एमआरआई फ़िल्में (4 पृष्ठ, 15 सितंबर 2026) केवल दृश्य संदर्भ हैं; इस रिपोर्ट से आगे स्लाइस-स्तर का नया निदान न गढ़ें।</div>
+
+  <div class="impression-box">
+    <strong>आधिकारिक धारणा (शब्दशः अंग्रेज़ी)</strong>
+    <code>MR FEATURES ARE SUGGESTIVE OF INFECTIVE ARTHRITIS - ? TUBERCULAR. PLEASE CORRELATE CLINICALLY.</code>
+  </div>
+
+  <div class="findings">
+    <article class="fcard">
+      <span class="tag warn">मुख्य फोकस</span>
+      <h3>सबटेलर जोड़ — सूजन + अनियमितता</h3>
+      <p class="report">मज्जा एडिमा (T2/STIR hyper, T1 hypo) टेलस में, कॉर्टिकल अनियमितता मुख्यतः <strong>सबटेलर जोड़</strong> पर; एडिमा पूर्ववर्ती कैल्केनियम तक।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> टखने की हड्डी (टेलस) के नीचे, एड़ी पर बैठा “निचला” जोड़ — अंदर मज्जा में सूजन; संक्रमण लंबे समय तक यहीं चुपचाप बैठ सकता है।</p>
+    </article>
+    <article class="fcard">
+      <span class="tag warn">द्रव + अस्तर</span>
+      <h3>सेप्टेटेड इफ़्यूज़न + सिनोवियल मोटाई</h3>
+      <p class="report">लोकुलेटेड/सेप्टेटेड जोड़ द्रव + हल्की सिनोवियल मोटाई <strong>सबटेलर जोड़</strong> पर।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> चिपचिपा, खंडों में बँटा द्रव और जोड़ की झिल्ली थोड़ी मोटी — साधारण मोच के साफ़ पानी से ज़्यादा सूजन/संक्रमित सिनोवियम जैसा।</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">टेलस में सिस्ट</span>
+      <h3>दो सबकॉन्ड्रल सिस्टिक बदलाव</h3>
+      <p class="report">टेलस के डोम पर <strong>13×11 मिमी</strong> तथा निचले जोड़ पहलू पर <strong>16×10 मिमी</strong>।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> जोड़ की सतह के पास छोटे द्रव-भरे थैले — संक्रमण, गठिया या कार्टिलेज तनाव में दिख सकते हैं; यहाँ संक्रमण-पैटर्न के अंदर बैठे हैं।</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">मुख्य टखना जोड़</span>
+      <h3>टिबियोटेलर प्रतिक्रियात्मक इफ़्यूज़न</h3>
+      <p class="report"><strong>टिबियोटेलर जोड़</strong> पर प्रतिक्रियात्मक जोड़ द्रव।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> “ऊपरी” टखने (पिंडली–टेलस) में अतिरिक्त द्रव — अक्सर नीचे सबटेलर की गरम प्रक्रिया के कारण प्रतिक्रिया।</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">नरम ऊतक</span>
+      <h3>हल्की सबक्यूटेनियस एडिमा</h3>
+      <p class="report">पैर और निचली टाँग के आसपास हल्की सामान्यीकृत सबक्यूटेनियस एडिमा।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> नरम ऊतकों में हल्की पानी जैसी सूजन — जो दिखती/महसूस होती है; निदान का मुख्य चालक नहीं।</p>
+    </article>
+    <article class="fcard">
+      <span class="tag ok">राहत देने वाली बात</span>
+      <h3>अन्य हड्डियाँ व टेंडन ठीक</h3>
+      <p class="report">शेष हड्डियाँ/मांसपेशियाँ/मांसपेशी-टेंडन जोड़ सामान्य आकारिकी।</p>
+      <p class="lay"><strong>सरल भाषा:</strong> व्यापक हड्डी ढहने या बड़े टेंडन फटने की रिपोर्ट नहीं — समस्या वर्णित जोड़/मज्जा पैटर्न तक सीमित।</p>
+    </article>
+  </div>
+
+  <figure class="diagram-box" aria-label="सरल टखना हड्डी आरेख">
+    <svg viewBox="0 0 420 320" width="420" height="320" role="img" aria-labelledby="svgTitleHi svgDescHi">
+      <title id="svgTitleHi">सरलीकृत दायाँ टखना — सबटेलर हाइलाइट</title>
+      <desc id="svgDescHi">ऊपर टिबिया, बीच में टेलस (एम्बर सिस्ट), नीचे कैल्केनस; सबटेलर जोड़ पर लाल; नीला द्रव संकेत।</desc>
+      <rect x="155" y="20" width="110" height="95" rx="8" fill="#3dd68c" opacity="0.85"/>
+      <text x="210" y="75" text-anchor="middle" fill="#061018" font-size="16" font-weight="700" font-family="system-ui,sans-serif">Tibia</text>
+      <rect x="150" y="118" width="120" height="10" rx="3" fill="#4db6ff" opacity="0.7"/>
+      <text x="320" y="126" fill="#4db6ff" font-size="11" font-family="system-ui,sans-serif">Tibiotalar fluid</text>
+      <path d="M145 130 L275 130 L290 175 L260 195 L160 195 L130 175 Z" fill="#f5c542" opacity="0.9"/>
+      <text x="210" y="165" text-anchor="middle" fill="#061018" font-size="15" font-weight="700" font-family="system-ui,sans-serif">Talus</text>
+      <circle cx="190" cy="142" r="9" fill="#fff" opacity="0.55" stroke="#c9892e" stroke-width="2"/>
+      <circle cx="230" cy="185" r="10" fill="#fff" opacity="0.55" stroke="#c9892e" stroke-width="2"/>
+      <text x="70" y="148" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">Cyst ~13×11</text>
+      <text x="70" y="190" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">Cyst ~16×10</text>
+      <rect x="145" y="198" width="130" height="14" rx="4" fill="#ff6b7a"/>
+      <text x="340" y="210" fill="#ff6b7a" font-size="12" font-weight="700" font-family="system-ui,sans-serif">SUBTALAR ★</text>
+      <path d="M100 215 L300 215 L310 280 L90 280 Z" fill="#7c9cff" opacity="0.85"/>
+      <text x="200" y="255" text-anchor="middle" fill="#061018" font-size="15" font-weight="700" font-family="system-ui,sans-serif">Calcaneus (heel)</text>
+      <text x="145" y="272" fill="#ffc2c8" font-size="11" font-family="system-ui,sans-serif">Anterior calcaneum oedema →</text>
+      <rect x="120" y="40" width="28" height="75" rx="6" fill="#3dd68c" opacity="0.45"/>
+      <text x="134" y="35" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Fibula</text>
+    </svg>
+    <div class="legend">
+      <span class="leg-subtalar">सबटेलर (मुख्य एमआरआई फोकस)</span>
+      <span class="leg-talus">टेलस + सिस्ट</span>
+      <span class="leg-effusion">जोड़ द्रव</span>
+      <span class="leg-normal">टिबिया (रिपोर्ट पर सामान्य आकारिकी)</span>
+    </div>
+    <figcaption>सरल शिक्षण आरेख — एमआरआई स्लाइस का पैमाना नहीं। तारा = रिपोर्ट का केंद्र: सबटेलर संक्रमण-पैटर्न बदलाव।</figcaption>
+  </figure>
+</section>
+<section id="films" aria-labelledby="h-films">
+  <h2 id="h-films"><span class="num">★</span> शिक्षण लेबल वाली एमआरआई फ़िल्में</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> रंगीन ओवरले केवल परिवार की समझ के लिए <em>शैक्षिक</em> हैं। नई रेडियोलॉजी रिपोर्ट नहीं। अर्थ इलाज करने वाले डॉक्टर तय करते हैं। एमआरआई धारणा वही: <strong>संक्रामक गठिया — ? ट्यूबरकुलर</strong> (केवल संदेह)।</div>
+
+  <ul class="explain-bullets">
+    <li><strong>A = सिस्ट (Cyst)</strong> — टेलस हड्डी के अंदर द्रव-भरा थैला (रिपोर्ट आकार लगभग <strong>13×11 मिमी</strong> और <strong>16×10 मिमी</strong>)।</li>
+    <li><strong>B = सबटेलर (Subtalar)</strong> — टखने की हड्डी के नीचे का जोड़ (टेलस–कैल्केनस) जहाँ एमआरआई सूजन/द्रव दिखाती है — <strong>मुख्य फोकस</strong>।</li>
+    <li><strong>पहले फ़ोन कार्ड</strong> — बड़े द्विभाषी लेबल; पूर्ण शीट बाद में।</li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">फ़ोन शिक्षण कार्ड (यहाँ से शुरू करें)</h3>
+  <div class="media-grid teach">
+    <figure class="media-card teach-card">
+      <a class="img-link" href="media/teach-cyst-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-cyst-phone.jpg" alt="फ़ोन शिक्षण कार्ड A — टेलस सिस्ट, बड़ा द्विभाषी लेबल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <span class="hi">A — टेलस सिस्ट / हड्डी में सिस्ट</span>
+        टेलस के अंदर चमकीला थैला। रिपोर्ट आकार लगभग 13×11 मिमी और 16×10 मिमी।
+        <span class="lo">HTML कैप्शन बैकअप: पीला = सिस्ट। शैक्षिक ओवरले — नया निदान नहीं।</span>
+      </figcaption>
+      <div class="hint">फ़ोन पर बिना ज़ूम पढ़ें · पूर्ण आकार के लिए टैप</div>
+    </figure>
+    <figure class="media-card teach-card">
+      <a class="img-link" href="media/teach-subtalar-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-subtalar-phone.jpg" alt="फ़ोन शिक्षण कार्ड B — सबटेलर जोड़, बड़ा द्विभाषी लेबल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <span class="hi" style="color:var(--red)">B — सबटेलर जोड़ / Subtalar</span>
+        टखने की हड्डी के नीचे का जोड़ — एमआरआई में जलन/द्रव; डॉक्टर जिस मुख्य समस्या पर बात करते हैं।
+        <span class="lo">HTML कैप्शन बैकअप: लाल = सबटेलर। शैक्षिक ओवरले — नया निदान नहीं।</span>
+      </figcaption>
+      <div class="hint">फ़ोन पर बिना ज़ूम पढ़ें · पूर्ण आकार के लिए टैप</div>
+    </figure>
+    <figure class="media-card teach-card span2">
+      <a class="img-link" href="media/teach-both-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-both-phone.jpg" alt="संयुक्त फ़ोन शिक्षण कार्ड — A सिस्ट और B सबटेलर लेबल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>A + B एक साथ</strong> — एक फ़ोन कार्ड पर दोनों निष्कर्ष (<code>teach-legend-phone.jpg</code> जैसी लेजेंड)।
+        <span class="lo">A = टेलस सिस्ट (पीला) · B = सबटेलर जोड़ (लाल)।</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">पूर्ण फ़िल्म शीट (द्वितीयक — नीचे बैनर में लेबल)</h3>
+  <p class="gallery-note">कॉलआउट टेक्स्ट <strong>नीचे सुरक्षित हाशिए</strong> में है (दाएँ किनारे पर नहीं), ताकि स्लाइस ज़ूम करने पर A/B व्याख्या न कटे।</p>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/web-mri-film-1-annotated.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-1-annotated.jpg" alt="एनोटेटेड सैजिटल एमआरआई फ़िल्म पृष्ठ 1 — नीचे बैनर A/B लेबल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>फ़िल्म 1/4 (सैजिटल) — पूर्ण शीट।</strong> पीले निशान = टेलस सिस्ट (A); लाल पट्टियाँ = सबटेलर (B)। व्याख्या नीचे गोलियों में।
+        एमआरआई धारणा: <em>संक्रामक गठिया — ? ट्यूबरकुलर</em> (केवल संदेह)।
+      </figcaption>
+      <div class="hint">पूर्ण आकार के लिए टैप</div>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/web-mri-film-3-annotated.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-3-annotated.jpg" alt="एनोटेटेड एक्सियल एमआरआई फ़िल्म पृष्ठ 3 — नीचे बैनर A/B लेबल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>फ़िल्म 3/4 (एक्सियल) — पूर्ण शीट।</strong> पीला = सिस्ट फोकस (A); लाल = सबटेलर इंटरफ़ेस (B)। नीचे बैनर पूरे चित्र देखने पर भी बचता है।
+        एमआरआई धारणा: <em>संक्रामक गठिया — ? ट्यूबरकुलर</em> (केवल संदेह)।
+      </figcaption>
+      <div class="hint">पूर्ण आकार के लिए टैप</div>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">क्लोज़-अप (वैकल्पिक)</h3>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/web-cyst-closeup.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-cyst-closeup.jpg" alt="क्लोज़-अप — टेलस सिस्ट, फ्रेम में A कैप्शन" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>A — सिस्ट क्लोज़-अप</strong> — सैजिटल फ़िल्म से क्रॉप; कैप्शन चित्र के अंदर।</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/web-subtalar-closeup.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-subtalar-closeup.jpg" alt="क्लोज़-अप — सबटेलर जोड़, फ्रेम में B कैप्शन" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>B — सबटेलर क्लोज़-अप</strong> — सैजिटल फ़िल्म से क्रॉप; कैप्शन चित्र के अंदर।</figcaption>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">सभी 4 मूल एमआरआई फ़िल्म पृष्ठ (बिना लेबल)</h3>
+  <p class="gallery-note">फ़ोल्डर के लिए पूर्ण अस्पताल शीट सेट — शिक्षण ओवरले नहीं।</p>
+  <div class="media-grid films">
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-1.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-1.jpg" alt="एमआरआई फ़िल्म पृष्ठ 1/4 सैजिटल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>पृष्ठ 1/4</strong> — सैजिटल (सिस्ट/सबटेलर दिख सकते हैं)</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-2.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-2.jpg" alt="एमआरआई फ़िल्म पृष्ठ 2/4" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>पृष्ठ 2/4</strong></figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-3.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-3.jpg" alt="एमआरआई फ़िल्म पृष्ठ 3/4 एक्सियल" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>पृष्ठ 3/4</strong> — एक्सियल (सिस्ट अक्सर चमकीला/साफ़)</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-4.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-4.jpg" alt="एमआरआई फ़िल्म पृष्ठ 4/4" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>पृष्ठ 4/4</strong></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="xray" aria-labelledby="h-xray">
+  <h2 id="h-xray"><span class="num">3</span> एक्स-रे सामान्य क्यों हो सकता है</h2>
+  <p class="lead">लैब 3110696 · अंतिम 14/09/2026 रात 7:37 · डॉ. हर्ष गोयल · दोनों टखने AP/LAT</p>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> शैक्षिक सार — यह निदान नहीं है, डॉक्टर की सलाह का विकल्प नहीं।</div>
+
+  <div class="tl-grid">
+    <div class="tl green">
+      <h3><span class="dot"></span>एक्स-रे ने क्या कहा</h3>
+      <p>संरेखण ठीक; सामान्य रूपरेखा/घनत्व; कोई लायटिक/स्क्लेरोटिक घाव नहीं; जोड़ स्थान असामान्य नहीं; नरम ऊतक सामान्य। मूलतः <strong>सामान्य सादी फ़िल्म</strong>।</p>
+    </div>
+    <div class="tl amber">
+      <h3><span class="dot"></span>यह फिर भी क्यों फिट बैठता है</h3>
+      <p>प्रारंभिक ऑस्टियोआर्टिकुलर टीबी और प्रारंभिक सेप्टिक आर्थराइटिस हफ्तों–महीनों तक एक्स-रे पर शांत दिख सकते हैं, जबकि एमआरआई पहले ही मज्जा एडिमा, सिनोवाइटिस और द्रव दिखा चुकी होती है।</p>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>याद रखें:</strong> सामान्य एक्स-रे असामान्य एमआरआई को रद्द नहीं करता। प्रारंभिक मज्जा और नरम-ऊतक संक्रमण के लिए एक्स-रे कम संवेदनशील है। यहाँ एमआरआई “जल्दी चेतावनी” का काम कर रही है; पुष्टि ऊतक सैंपलिंग से होती है।
+  </div>
+  <ul>
+    <li><strong>एक्स-रे की ताकत:</strong> संरेखण, बड़ा हड्डी नुकसान, स्पष्ट फ्रैक्चर।</li>
+    <li><strong>एमआरआई की ताकत:</strong> मज्जा एडिमा, सिनोवाइटिस, लोकुलेटेड द्रव, प्रारंभिक कार्टिलेज/सबकॉन्ड्रल बदलाव।</li>
+    <li><strong>क्लासिक पैटर्न:</strong> दीर्घकालिक एक-जोड़ दर्द + सामान्य एक्स-रे + “संक्रामक” एमआरआई → टीबी/सेप्टिक जाँच बढ़ाएँ; “उम्र का गठिया” पर न रुकें।</li>
+  </ul>
+</section>
+<section id="diff" aria-labelledby="h-diff">
+  <h2 id="h-diff"><span class="num">4</span> डिफरेंशियल निदान (भारत संदर्भ)</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> शैक्षिक सार — एमआरआई धारणा <strong>संदेह</strong> है, टीबी की पुष्टि नहीं। अंतिम लेबल के लिए नैदानिक जाँच + लैब + ऊतक ज़रूरी। रंग बैज केवल शिक्षण संकेत हैं, संभावना प्रतिशत नहीं।</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>संभावना · संकेत</th>
+          <th>विशिष्ट पैटर्न</th>
+          <th>संजीव की तस्वीर से मेल</th>
+          <th>आमतौर पर अगला कदम</th>
+          <th>सापेक्ष रिकवरी / आराम बोझ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="diff-amber">
+          <td>
+            <span class="poss-name">ऑस्टियोआर्टिकुलर टीबी (Osteoarticular TB)</span>
+            <span class="likeli amber">एम्बर · एमआरआई पर मुख्य संदेह</span>
+            <div class="chip-row"><span class="chip"><strong>पुष्टि नहीं</strong> — केवल “?”</span></div>
+          </td>
+          <td>भारत में पश्चिम से अधिक; अक्सर एक जोड़; महीनों–वर्षों का क्रोनिक कोर्स; कभी ठंडा फोड़ा; कार्टिलेज नुकसान अक्सर गरम पायोजेनिक संक्रमण से धीमा</td>
+          <td>रेडियोलॉजिस्ट का मुख्य “?” — वर्षों दर्द/सूजन, एक टखना, एमआरआई संक्रामक पैटर्न</td>
+          <td>ऊतक/द्रव: <strong>जीनएक्सपर्ट (GeneXpert) + हिस्टो + AFB कल्चर</strong> + सामान्य कल्चर; ऑर्थो फॉलो-अप; ATT केवल पुष्टि/टीम के मजबूत संकेत पर</td>
+          <td><span class="chip"><strong>यदि टीबी+</strong>: अक्सर महीनों ATT + लोड योजना — सबसे लंबा रास्ता</span></td>
+        </tr>
+        <tr class="diff-red">
+          <td>
+            <span class="poss-name">पायोजेनिक सेप्टिक आर्थराइटिस</span>
+            <span class="likeli red">लाल · अवश्य बाहर करें</span>
+          </td>
+          <td>आमतौर पर अधिक तीव्र (दिन–सप्ताह), बुखार अधिक आम — पर क्रोनिक मंद रूप भी होते हैं</td>
+          <td><strong>उसी सैंपल</strong> पर बाहर करना ज़रूरी (ग्राम स्टेन + बैक्टीरियल कल्चर)</td>
+          <td>तुरंत कल्चर; पुष्टि पर एंटीबायोटिक ± ड्रेनेज — टीम के अनुसार</td>
+          <td><span class="chip"><strong>यदि पायोजेनिक+</strong>: एंटीबायोटिक/ड्रेनेज — समय सर्जन/ID तय करें</span></td>
+        </tr>
+        <tr class="diff-blue">
+          <td>
+            <span class="poss-name">सूजन वाला गठिया (RA / सेरोनेगेटिव)</span>
+            <span class="likeli blue">नीला · कम विशिष्ट</span>
+            <div class="chip-row"><span class="chip">वर्षों एक जोड़ = कम मेल</span></div>
+          </td>
+          <td>अक्सर कई जोड़, सुबह जकड़न, प्रणालीगत संकेत</td>
+          <td>केवल एक टखना वर्षों तक — कम विशिष्ट; फिर भी ब्लड मार्कर डॉक्टर से चर्चा करें</td>
+          <td>संक्रमण जाँच नकारात्मक / मार्कर सूजन की ओर → रुमेटोलॉजी पथ</td>
+          <td><span class="chip">दवा + फिजियो पथ — एमआरआई की मुख्य कहानी नहीं</span></td>
+        </tr>
+        <tr class="diff-green">
+          <td>
+            <span class="poss-name">उन्नत OA + सिस्ट</span>
+            <span class="likeli green">हरा · अकेले कम संभावना</span>
+          </td>
+          <td>यांत्रिक घिसाव, ऑस्टियोफाइट, एक्स-रे पर जोड़ स्थान कम होना</td>
+          <td>एक्स-रे लगभग सामान्य; एमआरआई में सेप्टेटेड द्रव + सिनोवाइटिस + संक्रामक-पैटर्न एडिमा — <strong>शुद्ध यांत्रिक OA नहीं</strong></td>
+          <td>संक्रमण जाँच की जगह नहीं लेता; पुनर्निर्माण बात केवल संक्रमण नियंत्रण के बाद</td>
+          <td><span class="chip">लगभग सामान्य एक्स-रे शुद्ध उन्नत OA के खिलाफ</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <strong>परिवार के लिए ज़ोर:</strong> “Suggestive of infective arthritis — ? tubercular” का मतलब है <em>यह पैटर्न संक्रमण जैसा लगता है, और भारत में टीबी शीर्ष डिफरेंशियल में है</em>। इसका मतलब <strong>नहीं</strong> कि “साबित टीबी टखना” है — जब तक ऊतक/द्रव परीक्षण न कहें।
+  </div>
+  <p class="gallery-note" style="margin-top:12px">शैक्षिक डाउनटाइम सीमाएँ (नुस्खा नहीं): <strong>सुई / डे-केयर</strong> आमतौर पर सबसे कम आराम → <strong>आर्थ्रोस्कोपी (कीहोल)</strong> अक्सर सप्ताह → <strong>ओपन सर्जरी + लंबा ATT यदि टीबी</strong> महीनों तक हो सकता है। असली योजना इलाज टीम तय करती है।</p>
+</section>
+
+<section id="expert" aria-labelledby="h-expert">
+  <h2 id="h-expert"><span class="num">★</span> विशेषज्ञ दृष्टि — कार्यशील सार</h2>
+  <div class="disclaimer" role="note"><strong>GC_Health शैक्षिक सार</strong> परिवार–डॉक्टर चर्चा के लिए। यह <strong>नुस्खा नहीं</strong>, रेडियोलॉजी पुनः-पठन नहीं, और यशोदा ऑर्थोपेडिक / ID टीम का <strong>विकल्प नहीं</strong>। एमआरआई फ़िल्में व रिपोर्ट प्राथमिक अस्पताल रिकॉर्ड हैं।</div>
+
+  <div class="hypo-box">
+    <h3>कार्यशील परिकल्पना (असिद्ध)</h3>
+    <p><strong>सबटेलर जोड़</strong> पर केंद्रित संक्रामक गठिया, मज्जा बदलाव और <strong>टेलस सबकॉन्ड्रल सिस्ट</strong> के साथ। भारत में इस एमआरआई पैटर्न पर <strong>ऑस्टियोआर्टिकुलर टीबी</strong> महत्वपूर्ण डिफरेंशियल है — पर <strong>असिद्ध</strong> जब तक जीनएक्सपर्ट / कल्चर / हिस्टोपैथोलॉजी (और नैदानिक सहसंबंध) न कहें। उसी सैंपल पर पायोजेनिक संक्रमण भी बाहर करें।</p>
+  </div>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent);">निर्णय वृक्ष (पारिवारिक चेकलिस्ट)</h3>
+  <div class="tree">
+    <div class="tree-svg-wrap" aria-hidden="true">
+      <svg viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="सरल छह-चरण निर्णय पथ">
+        <defs>
+          <marker id="arrowHi" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4db6ff"/></marker>
+        </defs>
+        <rect x="8" y="20" width="110" height="54" rx="10" fill="#1a2744" stroke="#4db6ff"/>
+        <text x="63" y="42" text-anchor="middle" fill="#e8eef9" font-size="11" font-family="system-ui,sans-serif">1 Sample plan</text>
+        <text x="63" y="58" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">with ortho</text>
+        <line x1="118" y1="47" x2="148" y2="47" stroke="#4db6ff" marker-end="url(#arrowHi)"/>
+        <rect x="150" y="20" width="110" height="54" rx="10" fill="#1a2744" stroke="#f5c542"/>
+        <text x="205" y="42" text-anchor="middle" fill="#e8eef9" font-size="11" font-family="system-ui,sans-serif">2 Full panel</text>
+        <text x="205" y="58" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">GX+histo+AFB+bact</text>
+        <line x1="260" y1="47" x2="290" y2="47" stroke="#4db6ff" marker-end="url(#arrowHi)"/>
+        <rect x="292" y="8" width="100" height="40" rx="8" fill="#2a2210" stroke="#f5c542"/>
+        <text x="342" y="32" text-anchor="middle" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">3 If TB+</text>
+        <rect x="292" y="56" width="100" height="40" rx="8" fill="#2a1518" stroke="#ff6b7a"/>
+        <text x="342" y="80" text-anchor="middle" fill="#ff6b7a" font-size="11" font-family="system-ui,sans-serif">4 If pyogenic+</text>
+        <rect x="410" y="8" width="130" height="40" rx="8" fill="#1a2744" stroke="#f5c542"/>
+        <text x="475" y="32" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">ATT + ortho / load</text>
+        <rect x="410" y="56" width="130" height="40" rx="8" fill="#1a2744" stroke="#ff6b7a"/>
+        <text x="475" y="80" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Abx ± drainage</text>
+        <rect x="292" y="120" width="100" height="40" rx="8" fill="#152030" stroke="#6eb6ff"/>
+        <text x="342" y="144" text-anchor="middle" fill="#6eb6ff" font-size="11" font-family="system-ui,sans-serif">5 Inflammatory</text>
+        <rect x="410" y="120" width="130" height="40" rx="8" fill="#1a2744" stroke="#6eb6ff"/>
+        <text x="475" y="144" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Rheumatology path</text>
+        <rect x="560" y="70" width="150" height="54" rx="10" fill="#142218" stroke="#3dd68c"/>
+        <text x="635" y="92" text-anchor="middle" fill="#3dd68c" font-size="11" font-family="system-ui,sans-serif">6 Cartilage later</text>
+        <text x="635" y="108" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">after infection controlled</text>
+        <line x1="392" y1="28" x2="408" y2="28" stroke="#f5c542"/>
+        <line x1="392" y1="76" x2="408" y2="76" stroke="#ff6b7a"/>
+        <line x1="392" y1="140" x2="408" y2="140" stroke="#6eb6ff"/>
+      </svg>
+    </div>
+    <ol>
+      <li><strong>ऑर्थो के साथ सैंपल योजना पुष्टि करें</strong> — यदि एस्पिरेशन मात्रा/गुणवत्ता अपर्याप्त लगे तो पर्याप्त ऊतक को प्राथमिकता दें।</li>
+      <li><strong>पूरा पैनल भेजें:</strong> जीनएक्सपर्ट/CBNAAT + हिस्टोपैथोलॉजी + AFB/माइकोबैक्टीरियल कल्चर + सामान्य बैक्टीरियल कल्चर/ग्राम स्टेन।</li>
+      <li><strong>यदि टीबी सकारात्मक / टीम ATT शुरू करे:</strong> दवा उपचार + ऑर्थोपेडिक फॉलो-अप; वज़न-बेयरिंग / लोड योजना तय करें।</li>
+      <li><strong>यदि पायोजेनिक सकारात्मक:</strong> सर्जिकल/ID टीम के अनुसार एंटीबायोटिक और ड्रेनेज रणनीति।</li>
+      <li><strong>यदि सूजन वाला पथ:</strong> संक्रमण उचित रूप से बाहर होने पर रुमेटोलॉजी जाँच।</li>
+      <li><strong>कार्टिलेज / पुनर्निर्माण बात</strong> केवल संक्रमण प्रश्न नियंत्रित होने के बाद — ऊतक उत्तर से पहले नहीं।</li>
+    </ol>
+  </div>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent);">संभव समाधान पथ · अनुमानित आराम बोझ</h3>
+  <p class="gallery-note">परिवार अभिविन्यास के लिए शैक्षिक सीमाएँ — असली डाउनटाइम इलाज टीम और अंतिम निदान तय करते हैं।</p>
+  <div class="expert-grid paths">
+    <div class="path-card short">
+      <h3>पथ 1 — सुई / डे-केयर</h3>
+      <p>इमेज-गाइडेड या क्लिनिक एस्पिरेशन / नीडल बायोप्सी जब द्रव/ऊतक सुरक्षित मिले। उपयोगी पहला कदम; कभी-कभी अनिर्णायक।</p>
+      <span class="burden">आमतौर पर सबसे कम डाउनटाइम</span>
+    </div>
+    <div class="path-card mid">
+      <h3>पथ 2 — कीहोल (आर्थ्रोस्कोपी)</h3>
+      <p>बेहतर ऊतक + धुलाई विकल्प जब सुई पर्याप्त न हो या सर्जन को जोड़ देखना हो।</p>
+      <span class="burden">अक्सर सप्ताह सापेक्ष आराम</span>
+    </div>
+    <div class="path-card long">
+      <h3>पथ 3 — ओपन ± लंबा ATT</h3>
+      <p>ज़रूरत पर ओपन डीब्राइडमेंट; टीबी पुष्टि पर एंटी-टीबी थेरेपी अक्सर महीनों, ऑर्थो फॉलो-अप और लोड योजना के साथ।</p>
+      <span class="burden">सबसे लंबा पथ (टीबी पर महीने)</span>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>याद रखें:</strong> सुई &lt; कीहोल सप्ताह &lt; ओपन + लंबा ATT महीने — केवल शिक्षण स्केच। असली क्रम यशोदा टीम चुनती है।
+  </div>
+</section>
+<section id="biopsy" aria-labelledby="h-biopsy">
+  <h2 id="h-biopsy"><span class="num">5</span> सैंपल / बायोप्सी / सर्जरी क्यों चर्चा में है</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> सर्जन अक्सर ऊतक सैंपलिंग की बात करते हैं। पहले सुई आज़माई जा सकती है, पर ऑस्टियोआर्टिकुलर टीबी जाँच के लिए अक्सर ऊतक ज़रूरी। यह खंड <em>क्यों</em> समझाता है — सहमति फॉर्म नहीं; फ़ैसला इलाज टीम का।</div>
+
+  <p>संदिग्ध ऑस्टियोआर्टिकुलर टीबी के लिए <strong>स्वर्ण मानक</strong> ऊतक और/या द्रव का पूरा पैनल है — केवल एमआरआई नहीं:</p>
+  <ul>
+    <li><strong>जीनएक्सपर्ट / CBNAAT</strong> ऊतक या मवाद पर (तेज़ टीबी DNA + रिफैम्पिसिन प्रतिरोध संकेत)</li>
+    <li><strong>AFB स्मीयर</strong> और <strong>माइकोबैक्टीरियल कल्चर</strong> (कल्चर समय लेता है पर महत्वपूर्ण रहता है)</li>
+    <li><strong>हिस्टोपैथोलॉजी</strong> — ग्रैनुलोमा, केसिएशन, सिनोवाइटिस पैटर्न</li>
+    <li><strong>साथ ही</strong> सामान्य <strong>बैक्टीरियल कल्चर + ग्राम स्टेन</strong> — ताकि पायोजेनिक सेप्टिक आर्थराइटिस छूटे नहीं</li>
+  </ul>
+  <div class="tl-grid">
+    <div class="tl amber">
+      <h3><span class="dot"></span>केवल एस्पिरेशन</h3>
+      <p>सुई से द्रव मदद करता है, पर कभी मात्रा कम या जीवाणु दुर्लभ — परिणाम अनिर्णायक हो सकता है।</p>
+    </div>
+    <div class="tl red">
+      <h3><span class="dot"></span>आर्थ्रोस्कोपिक / ओपन बायोप्सी</h3>
+      <p>जब केवल द्रव पर्याप्त न हो तो अक्सर ज़रूरी। छोटे पोर्टल या चीरा से सर्जन देख सकता है, ऊतक ले सकता है, और अक्सर संक्रमित सिनोवियम/मवाद <strong>डीब्राइड</strong> कर सकता है — नैदानिक और कभी चिकित्सीय। देखें <a href="#sampling">सुई बनाम चीरा</a>।</p>
+    </div>
+    <div class="tl green">
+      <h3><span class="dot"></span>यह क्यों मायने रखता है</h3>
+      <p>गलत अनुभविक इलाज ठीक होने में देरी करता है। सही सैंपल ATT बनाम एंटीबायोटिक बनाम दोनों, और अतिरिक्त कार्टिलेज कार्य ज़रूरी है या नहीं — मार्गदर्शन देता है।</p>
+    </div>
+  </div>
+  <div class="callout">
+    परिवार-कथित योजना: उचित सैंपल लें (सुरक्षित हो तो पहले सुई, फिर ऊतक के लिए कीहोल/ओपन) → फिर संभवतः सेप्टिक आर्थराइटिस / संक्रमण / क्षतिग्रस्त कार्टिलेज के लिए आगे सर्जरी। सटीक कदम, जोखिम और सहमति शब्द ऑपरेटिंग सर्जन से पुष्टि करें।
+  </div>
+</section>
+
+<section id="sampling" aria-labelledby="h-sampling">
+  <h2 id="h-sampling"><span class="num">5ब</span> क्या टीबी सैंपल सुई से बिना बड़े चीरे लिया जा सकता है?</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> केवल पारिवारिक शिक्षा। सबसे सुरक्षित सैंपलिंग मार्ग इलाज करने वाली ऑर्थोपेडिक / टीबी टीम तय करेगी। यह <strong>सहमति फॉर्म या नुस्खा नहीं</strong>।</div>
+
+  <p class="lead">संक्षिप्त उत्तर: <strong>सुई</strong> <span class="gloss">(aspiration)</span> कभी-कभी पहले द्रव ले सकती है — पर टखना/पैर टीबी संदेह पर डॉक्टर अक्सर फिर भी <strong>ऊतक</strong> <span class="gloss">(tissue)</span> छोटे कीहोल या ओपन बायोप्सी से चाहते हैं।</p>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent)">सैंपल किसके लिए है</h3>
+  <p>एमआरआई का “? ट्यूबरकुलर” <strong>केवल संदेह</strong> है। द्रव/ऊतक की लैब जाँच का लक्ष्य:</p>
+  <ul>
+    <li><strong>जीनएक्सपर्ट / CBNAAT</strong> — तेज़ टीबी DNA ± रिफैम्पिसिन प्रतिरोध संकेत</li>
+    <li><strong>हिस्टोपैथोलॉजी</strong> — माइक्रोस्कोप पर ग्रैनुलोमा / केसिएशन पैटर्न</li>
+    <li><strong>माइकोबैक्टीरियल कल्चर</strong> — धीमा, फिर भी महत्वपूर्ण</li>
+    <li><strong>और</strong> सामान्य <strong>बैक्टीरियल कल्चर + ग्राम स्टेन</strong> — ताकि साधारण (पायोजेनिक) संक्रमण छूटे नहीं</li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">चार दृष्टिकोण (कम → अधिक आक्रामक)</h3>
+  <ol>
+    <li><strong>अ. नीडल एस्पिरेशन (आर्थ्रोसेंटेसिस)</strong> — आमतौर पर टांके नहीं; पर्याप्त द्रव चाहिए। टखना/पैर टीबी के लिए अक्सर <strong>अकेले पर्याप्त नहीं</strong>। नकारात्मक द्रव ≠ टीबी नहीं।</li>
+    <li><strong>ब. इमेज-गाइडेड नीडल / कोर बायोप्सी</strong> — फिर भी सुई; एमआरआई फोकस के पास सिनोवियम या हड्डी सैंपल हो सकती है।</li>
+    <li><strong>स. आर्थ्रोस्कोपिक (कीहोल) बायोप्सी</strong> <span class="gloss">(keyhole)</span> — छोटे पोर्टल ~0.5–1 सेमी; बेहतर ऊतक; कभी डीब्राइडमेंट; अक्सर प्रति पोर्टल 1–2 महीन टांके या स्ट्रिप।</li>
+    <li><strong>द. ओपन बायोप्सी / डीब्राइडमेंट</strong> — उचित चीरा + टांके जब फोकस पहुँचना कठिन हो या बड़ा सफ़ाई नियोजित हो।</li>
+  </ol>
+
+  <figure class="diagram-box" aria-label="सुई बनाम कीहोल बनाम ओपन सैंपलिंग">
+    <div class="sample-diagram">
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="जोड़ में सुई">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <ellipse cx="110" cy="78" rx="48" ry="32" fill="#162038" stroke="#4db6ff" stroke-width="2"/>
+          <ellipse cx="110" cy="78" rx="22" ry="14" fill="#1a2744" stroke="#7c9cff" stroke-dasharray="3 2"/>
+          <rect x="18" y="48" width="36" height="18" rx="3" fill="#9bb0d0" stroke="#e8eef9"/>
+          <rect x="54" y="52" width="42" height="10" rx="2" fill="#4db6ff"/>
+          <line x1="96" y1="57" x2="128" y2="72" stroke="#e8eef9" stroke-width="2.5"/>
+          <circle cx="130" cy="74" r="3" fill="#ff6b7a"/>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Needle: fluid or core</text>
+        </svg>
+        <p class="sc-title">सुई</p>
+        <p class="sc-note">टांके आमतौर पर <strong style="color:#3dd68c">नहीं</strong></p>
+      </div>
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="कीहोल आर्थ्रोस्कोपी पोर्टल">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <ellipse cx="100" cy="72" rx="52" ry="34" fill="#162038" stroke="#7c9cff" stroke-width="2"/>
+          <circle cx="72" cy="70" r="8" fill="#0b1220" stroke="#f5c542" stroke-width="2"/>
+          <circle cx="128" cy="70" r="8" fill="#0b1220" stroke="#f5c542" stroke-width="2"/>
+          <rect x="30" y="66" width="38" height="6" rx="2" fill="#4db6ff"/>
+          <rect x="136" y="66" width="34" height="6" rx="2" fill="#3dd68c"/>
+          <text x="72" y="74" text-anchor="middle" fill="#f5c542" font-size="8" font-family="system-ui,sans-serif">●</text>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Keyhole: camera + tissue</text>
+        </svg>
+        <p class="sc-title">कीहोल (आर्थ्रोस्कोपी)</p>
+        <p class="sc-note">टांके आमतौर पर <strong style="color:#f5c542">कुछ छोटे</strong></p>
+      </div>
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ओपन चीरा">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <ellipse cx="100" cy="72" rx="52" ry="34" fill="#162038" stroke="#ff6b7a" stroke-width="2"/>
+          <line x1="70" y1="55" x2="130" y2="90" stroke="#ff6b7a" stroke-width="3" stroke-linecap="round"/>
+          <line x1="78" y1="52" x2="82" y2="60" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="90" y1="58" x2="94" y2="66" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="102" y1="66" x2="106" y2="74" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="114" y1="74" x2="118" y2="82" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="124" y1="82" x2="128" y2="90" stroke="#e8eef9" stroke-width="1.5"/>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Open: larger cut</text>
+        </svg>
+        <p class="sc-title">ओपन बायोप्सी</p>
+        <p class="sc-note">टांके आमतौर पर <strong style="color:#ff6b7a">अधिक</strong></p>
+      </div>
+    </div>
+    <figcaption>कैप्शन: टांके — आमतौर पर नहीं / कुछ छोटे / अधिक, दृष्टिकोण पर निर्भर। डार्क-थीम शिक्षण स्केच — ऑपरेटिव योजना नहीं।</figcaption>
+  </figure>
+
+  <div class="callout warn">
+    <strong>“केवल इंजेक्शन” की आशा पर:</strong> पूछना सही है कि क्या सुरक्षित द्रव थैले से <strong>पहले इमेज-गाइडेड एस्पिरेशन</strong> संभव है। पर ऑस्टियोआर्टिकुलर टीबी जाँच में अक्सर <strong>ऊतक</strong> चाहिए। छोटे चीरे से बचने के लिए ज़रूरी बायोप्सी छोड़ना सही दवा में देरी कर सकता है। नियोजित सैंपल से पहले <strong>बेतरतीब एंटीबायोटिक या ATT शुरू न करें</strong> जब तक डॉक्टर आदेश न दें।
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">सर्जन से प्रश्न (चेकलिस्ट)</h3>
+  <ul class="check-list">
+    <li><span class="box" aria-hidden="true"></span><span class="txt">यदि सुरक्षित द्रव थैला हो तो क्या पहले <strong>इमेज-गाइडेड एस्पिरेशन</strong> आज़मा सकते हैं?<em>सबसे कम आक्रामक शुरुआत — केवल यदि टीम उपयोगी माने।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">यदि द्रव लिया जाए: <strong>जीनएक्सपर्ट + माइकोबैक्टीरियल कल्चर + सामान्य बैक्टीरियल कल्चर/ग्राम</strong> भेजें?<em>रिक्वेस्ट फॉर्म पर तीनों लिखवाएँ।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">यदि ड्राई टैप या नकारात्मक द्रव — योजना ब: <strong>आर्थ्रोस्कोपिक ऊतक</strong> बनाम <strong>ओपन</strong>?<em>क्लिनिक छोड़ने से पहले अगला कदम जानें।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">कीहोल/ओपन पर उसी बैठक में <strong>हिस्टोपैथोलॉजी</strong> होगी?<em>हिस्टो + माइक्रो एक साथ मजबूत।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">सैंपलिंग <strong>सबटेलर</strong> फोकस (एमआरआई फोकस) पर होगी, केवल आसान टिबियोटेलर जोड़ पर नहीं?<em>बीमारी का सैंपल लें — केवल आसान जोड़ का नहीं।</em></span></li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">आराम / ठीक होना — सामान्य चर्चा सीमाएँ</h3>
+  <div class="disclaimer compact" role="note"><strong>नोट:</strong> केवल पारिवारिक चर्चा की सामान्य सीमाएँ — <strong>नुस्खा नहीं</strong>। आपके सर्जन की योजना मान्य। <strong>115 किग्रा</strong> पर चलने की सीमा अक्सर सख्त।</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>दृष्टिकोण</th>
+          <th>रुकना</th>
+          <th>घाव</th>
+          <th>चलना (परिवर्तनशील; 115 किग्रा पर सख्त)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>एस्पिरेशन</td>
+          <td>डे-केयर</td>
+          <td>~1–3 दिन</td>
+          <td>अक्सर छोटा सापेक्ष आराम</td>
+        </tr>
+        <tr>
+          <td>इमेज-गाइडेड सुई</td>
+          <td>डे-केयर / रात भर</td>
+          <td>छोटा घाव</td>
+          <td>यदि हड्डी सैंपल तो कुछ दिन सीमित लोड</td>
+        </tr>
+        <tr>
+          <td>आर्थ्रोस्कोपी</td>
+          <td>डे-केयर से 1–2 रात</td>
+          <td>पोर्टल ~1–2 सप्ताह; टांके ~10–14 दिन यदि लगे</td>
+          <td>आंशिक / गैर-वज़न अक्सर सप्ताह</td>
+        </tr>
+        <tr>
+          <td>ओपन</td>
+          <td>लंबा संभव</td>
+          <td>चीरा ~10–14+ दिन</td>
+          <td>सप्ताह गैर-वज़न आम</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>यदि टीबी पुष्टि हो, <strong>ATT</strong> <span class="gloss">(एंटी-टीबी दवाएँ)</span> अक्सर कई महीने चलता है (ऑस्टियोआर्टिकुलर भारतीय अभ्यास में आमतौर पर <strong>9–12 महीने</strong> — टीम का फ़ैसला)। <strong>घाव ठीक होना ≠ ATT घड़ी</strong> — टांके दवा समाप्त होने से बहुत पहले निकलते हैं।</p>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">साक्ष्य / स्रोत नोट (संक्षिप्त, ईमानदार)</h3>
+  <ul>
+    <li>प्रकाशित ऑर्थोपेडिक / ऑस्टियोआर्टिकुलर-टीबी साहित्य और भारतीय अभ्यास सारांश OA-TB निदान के लिए स्वैब/साइनस सामग्री से अधिक <strong>ऊतक</strong> पसंद करते हैं (WAIOT-शैली मार्गदर्शन और OA-TB समीक्षाएँ)।</li>
+    <li>टखना आर्थ्रोस्कोपी श्रृंखला बताती हैं कि जब अकेले एस्पिरेशन अनिर्णायक हो तो पुष्टि दर ऊँची — ड्राई या नकारात्मक टैप के बाद कीहोल सैंपलिंग मदद कर सकती है।</li>
+    <li>ऊतक पर जीनएक्सपर्ट केवल कल्चर से तेज़ टीबी पहचान देता है; <strong>कल्चर फिर भी ज़रूरी</strong>।</li>
+  </ul>
+  <p class="lead">वैकल्पिक पठन संकेत (संजीव की अस्पताल पेपर नहीं): Journal of Orthopaedic Surgery and Research आर्थ्रोस्कोपिक टखना टीबी श्रृंखला; ऑस्टियोआर्टिकुलर पैर/टखना टीबी में सर्जरी की भूमिका पर PMC समीक्षाएँ। स्थानीय प्रोटोकॉल इलाज टीम से पूछें।</p>
+</section>
+<section id="ask" aria-labelledby="h-ask">
+  <h2 id="h-ask"><span class="num">6</span> सहमति से पहले सर्जन से क्या पूछें</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> सशक्त चर्चा की चेकलिस्ट — चिकित्सा आदेश नहीं। इलाज टीम के साथ टिक करें।</div>
+  <ul class="check-list">
+    <li><span class="box" aria-hidden="true"></span><span class="txt">क्या ऊतक <strong>जीनएक्सपर्ट / CBNAAT</strong> के लिए जाएगा (केवल कल्चर नहीं)?<em>रिक्वेस्ट फॉर्म पर लिखवाएँ।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">उसी बैठक में <strong>हिस्टोपैथोलॉजी</strong> (ग्रैनुलोमा / केसिएशन) होगी?<em>हिस्टो + माइक्रो एक साथ किसी एक से मजबूत।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">बैक्टीरियल कल्चर + ग्राम स्टेन भी ऑर्डर?<em>पायोजेनिक सेप्टिक आर्थराइटिस कवर करता है।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">कितने पोर्टल / चीरे? ओपन बनाम आर्थ्रोस्कोपिक?<em>निशान और दृष्टिकोण जानें।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">सर्जरी के बाद वज़न-बेयरिंग योजना?<em>गैर-वज़न / आंशिक / वॉकर समयरेखा — 115 किग्रा पर महत्वपूर्ण।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">यदि टीबी+: ATT अवधि? (ऑस्टियोआर्टिकुलर अक्सर <strong>9–12 महीने</strong>)<em>ID / ऑर्थोपेडिक टीबी प्रोटोकॉल से पुष्टि करें।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">फेफड़े टीबी स्क्रीन के लिए छाती एक्स-रे / थूक?<em>जोड़ टीबी सक्रिय फेफड़े रोग के साथ या बिना हो सकता है।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">बेसलाइन <strong>CRP, ESR, CBC, HIV</strong> (और अन्य सुझाई लैब)?<em>सूजन ट्रैक करें और महत्वपूर्ण सह-कारक बाहर करें।</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">बड़े कार्टिलेज कार्य से पहले <strong>ऑर्थोपेडिक संक्रमण विशेषज्ञ</strong> की दूसरी राय उपयोगी?<em>जब संक्रमण बनाम सूजन खुला हो तो उचित।</em></span></li>
+  </ul>
+</section>
+
+<section id="weight" aria-labelledby="h-weight">
+  <h2 id="h-weight"><span class="num">7</span> वज़न 115 किग्रा — बोझ, दोष नहीं</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> वज़न कम करना एक <strong>सहायक</strong> कदम है, संदिग्ध संक्रामक गठिया का इलाज नहीं। डाइट प्लान के लिए बायोप्सी/सर्जरी न टालें।</div>
+  <p>हर कदम टखने से बल गुणा करता है। 115 किग्रा (मोटापा) पर वह बोझ दर्द बढ़ाता है, सूजन बनाए रखता है, और ऑपरेशन के बाद रीहैब कठिन बनाता है — खासकर यदि वज़न-बेयरिंग सीमित हो।</p>
+  <div class="tl-grid">
+    <div class="tl amber">
+      <h3><span class="dot"></span>सर्जरी से पहले / आसपास</h3>
+      <p>वॉकर/बैसाखी फिट, बिस्तर-से-कुर्सी स्थानांतरण, और घर सहायता चर्चा करें। ऊँचा लोड + गैर-वज़न-बेयरिंग के लिए असली योजना चाहिए।</p>
+    </div>
+    <div class="tl green">
+      <h3><span class="dot"></span>सहायक लक्ष्य</h3>
+      <p>स्थिर, डॉक्टर-अनुमोदित वज़न कमी लंबे समय जोड़ आराम और हृदय/मेटाबॉलिक स्वास्थ्य में मदद करती है — समानांतर पथ, संक्रमण जाँच का विकल्प नहीं।</p>
+    </div>
+  </div>
+</section>
+
+<section id="flags" aria-labelledby="h-flags">
+  <h2 id="h-flags"><span class="num">8</span> समयरेखा व लाल झंडे → तत्काल देखभाल</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> केवल शैक्षिक। संदेह हो तो आपातकालीन जाएं / इलाज डॉक्टर को कॉल करें।</div>
+  <div class="callout danger">
+    <strong>तत्काल देखभाल लें यदि:</strong> ठंड के साथ बुखार, नई/बढ़ती रात पसीना, टखने के पास डिस्चार्जिंग साइनस, अचानक पैर न रख/चल पाना, नई सुन्नता या फुट-ड्रॉप जैसा अहसास, तेज़ी से फैलती लालिमा, या गंभीर अनियंत्रित दर्द।
+  </div>
+  <ul>
+    <li><strong>क्रोनिक पृष्ठभूमि:</strong> वर्षों चलने में कठिनाई, लगातार दर्द, सूजन — मंद प्रक्रिया से मेल; फिर भी नियोजित (आतंकित नहीं) जाँच चाहिए।</li>
+    <li><strong>बायोप्सी/सर्जरी के बाद:</strong> घाव डिस्चार्ज, बुखार, पिंडली सूजन (क्लॉट जोखिम सर्जन से चर्चा), और ATT शुरू हो तो दवा दुष्प्रभाव देखें।</li>
+  </ul>
+</section>
+
+<section id="actions" aria-labelledby="h-actions">
+  <h2 id="h-actions"><span class="num">9</span> परिवार के लिए एक्शन पैक — इस सप्ताह</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> व्यावहारिक पारिवारिक कदम — अंतिम चिकित्सा निर्णय यशोदा इलाज टीम के।</div>
+  <ol class="steps">
+    <li><strong>दोनों रिपोर्ट</strong> (एक्स-रे 14 सितंबर + एमआरआई 15 सितंबर) और 4-पृष्ठ एमआरआई फ़िल्में एक फ़ोल्डर / फ़ोन एलबम में रखें।</li>
+    <li>खंड 6 की चेकलिस्ट प्रिंट या फ़ोन पर लेकर ऑर्थोपेडिक समीक्षा बुक/उपस्थित हों।</li>
+    <li>स्पष्ट पूछें कि बायोप्सी ऊतक अनुरोध में <strong>जीनएक्सपर्ट + हिस्टो + माइकोबैक्टीरियल कल्चर + सामान्य बैक्टीरियल कल्चर</strong> शामिल हों।</li>
+    <li>सर्जन चाहे बेसलाइन लैब लें (अक्सर CRP/ESR/CBC; सलाह पर HIV) और छाती इमेजिंग पूछें।</li>
+    <li>किसी भी प्रक्रिया के बाद सीमित चलने के लिए घर सहायता योजना बनाएँ (कुर्सी, वॉकर पथ, बाथरूम सुरक्षा) — 115 किग्रा लोड देखते हुए।</li>
+    <li>सैंपलिंग से पहले <strong>बेतरतीब एंटीबायोटिक या स्टेरॉयड शुरू न करें</strong> जब तक डॉक्टर आदेश न दें — कल्चर धुंधले हो सकते हैं।</li>
+    <li>बाद में टीबी पुष्टि हो तो लंबे ATT कोर्स (हड्डी/जोड़ पर अक्सर 9–12 महीने) के लिए पालन सहायता तैयार रखें।</li>
+  </ol>
+</section>
+
+<section id="sources" aria-labelledby="h-sources">
+  <h2 id="h-sources"><span class="num">10</span> स्रोत नोट</h2>
+  <div class="disclaimer" role="note"><strong>अस्वीकरण:</strong> यह पैक अस्पताल की दूसरी राय <strong>नहीं</strong> है।</div>
+  <p>संलग्न यशोदा सुपर स्पेशियलिटी हॉस्पिटल्स, कौशांबी रिपोर्टों पर आधारित:</p>
+  <ul>
+    <li>एमआरआई दायाँ टखना — लैब <strong>3110748</strong>, अंतिम <strong>15/09/2026 शाम 5:36</strong>, डॉ. ममता मोतला (प्रमुख व कंसल्टेंट रेडियोलॉजिस्ट)</li>
+    <li>एक्स-रे दोनों टखना AP/LAT — लैब <strong>3110696</strong>, अंतिम <strong>14/09/2026 रात 7:37</strong>, डॉ. हर्ष गोयल</li>
+    <li>परिवार से रोगी संदर्भ: लक्षण वर्षों; डॉ. अखिल कुलश्रेष्ठ द्वारा रेफ़र; सैंपल/बायोप्सी ± सर्जरी चर्चा योजना</li>
+    <li><strong>सुई बनाम ओपन सैंपलिंग</strong> पर पारिवारिक प्रश्नोत्तर जोड़ा <strong>सितंबर 2026</strong> (खंड <a href="#sampling">सुई बनाम चीरा</a>)</li>
+  </ul>
+  <p>डिफरेंशियल, “बायोप्सी क्यों”, और सुई-बनाम-चीरा विकल्प का ढाँचा <strong>मानक भारतीय मस्कुलोस्केलेटल / ऑस्टियोआर्टिकुलर टीबी इमेजिंग व नैदानिक साहित्य</strong> और प्रकाशित OA-TB / टखना आर्थ्रोस्कोपी अभ्यास सारांश पर आधारित (सामान्य ज्ञान — संजीव के अस्पताल का उद्धरण नहीं)। एमआरआई फ़िल्में केवल दृश्य संदर्भ; कोई काल्पनिक स्लाइस-स्तर निदान नहीं।</p>
+  <p class="lead" style="margin-top:14px">श्री संजीव चौधरी के परिवार के लिए तैयार (गौरव के जीजा) — इलाज डॉक्टरों से शांत चर्चा सहायक।</p>
+</section>
+
+<footer class="footer-note">
+  रिपोर्ट + एनोटेटेड एमआरआई फ़िल्मों के साथ पारिवारिक ब्रीफिंग · प्रिंट / PDF सहेजें · hi-IN<br />
+  शैक्षिक सार — यह निदान नहीं है · सैंपलिंग मार्ग इलाज टीम का फ़ैसला है ·
+  <a href="index.html" hreflang="en">English</a>
+</footer>
+
+</div>
+<script>
+(function () {
+  var links = document.querySelectorAll('.nav-scroll a');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href');
+    if (id && id.charAt(0) === '#') map[id.slice(1)] = a;
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.style.color = ''; a.style.background = ''; a.style.borderColor = ''; });
+      var a = map[e.target.id];
+      if (a) {
+        a.style.color = '#e8eef9';
+        a.style.background = '#162038';
+        a.style.borderColor = '#2a3a5c';
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  Object.keys(map).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
