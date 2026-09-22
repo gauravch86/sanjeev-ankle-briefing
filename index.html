@@ -268,6 +268,29 @@ li::marker { color: var(--accent2); }
 .leg-effusion::before { background: #4db6ff; }
 .leg-normal::before { background: #3dd68c; }
 
+/* Sampling approach cards */
+.sample-diagram {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+@media (min-width: 700px) {
+  .sample-diagram { grid-template-columns: 1fr 1fr 1fr; }
+}
+.sample-card {
+  background: #0a1222;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 10px 10px;
+  text-align: center;
+}
+.sample-card svg { width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto 8px; }
+.sample-card .sc-title { font-weight: 800; font-size: .95rem; color: var(--text); margin: 0 0 4px; }
+.sample-card .sc-note { font-size: .78rem; color: var(--muted); margin: 0; }
+.hi { color: var(--accent); font-weight: 700; }
+.gloss { color: var(--muted); font-size: .85em; }
+
 /* Tables */
 .table-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
 table {
@@ -486,6 +509,7 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     <a href="#xray">X-ray</a>
     <a href="#diff">Differential</a>
     <a href="#biopsy">Biopsy</a>
+    <a href="#sampling">Needle vs cut</a>
     <a href="#ask">Ask surgeon</a>
     <a href="#weight">Weight</a>
     <a href="#flags">Red flags</a>
@@ -516,20 +540,20 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     <div class="meta"><div class="k">MRI</div><div class="v">15 Sep 2026</div></div>
   </div>
   <div class="disclaimer compact" role="note">
-    <strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — <strong>NOT a diagnosis</strong>, NOT a substitute for orthopaedic / infectious-disease judgment. Do <strong>not</strong> skip biopsy if doctors advise it.
+    <strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — <strong>NOT a diagnosis</strong>, NOT a substitute for orthopaedic / infectious-disease judgment. Surgeons often discuss sampling; a needle may be tried first, but tissue is often needed — follow the treating team.
   </div>
 </header>
 
 <!-- 2. SUMMARY -->
 <section id="summary" aria-labelledby="h-summary">
   <h2 id="h-summary"><span class="num">1</span> Plain-English summary</h2>
-  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis, NOT a substitute for orthopaedic / infectious-disease judgment. Do not skip biopsy if doctors advise it.</div>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis, NOT a substitute for orthopaedic / infectious-disease judgment. Sampling approach is the treating team’s call.</div>
   <p>MRI of the right ankle shows an <strong>infection-pattern arthritis</strong>, focused mainly on the <strong>subtalar joint</strong> (between talus and heel bone), with marrow oedema in the talus, oedema reaching the front of the calcaneum, and two subchondral cysts in the talus (about 13×11 mm and 16×10 mm).</p>
   <p>There is loculated / septated fluid and mild synovial thickening at the subtalar joint, plus a milder “reactionary” effusion at the tibiotalar (main ankle) joint, and mild soft-tissue swelling around the foot and distal leg.</p>
   <p>The plain X-ray a day earlier looks <strong>almost normal</strong> — bones and joint spaces look fine on film. That often means bone destruction has not yet advanced far enough to show on X-ray, so disease may still be <strong>early-to-moderate</strong> on the destruction scale, even though symptoms have lasted years.</p>
   <p>The radiologist’s impression is: features <em>suggestive of infective arthritis — ? tubercular</em>, and asks for clinical correlation. In India, osteoarticular TB is an important possibility for a long-standing single joint — but MRI alone does <strong>not confirm TB</strong>.</p>
   <p>At 115 kg, every step loads the ankle heavily; weight is a load factor and rehab partner, not a “cause” or a cure by itself.</p>
-  <p>Family understanding of the plan: <strong>sample / biopsy with cuts</strong>, then possibly surgery to clear infection and address damaged cartilage — that tissue work is how TB vs pyogenic infection is actually proved.</p>
+  <p>Family understanding of the plan: doctors will discuss <strong>how to get a sample</strong> (needle aspiration may be tried first; keyhole or open biopsy often needed for tissue), then possibly surgery to clear infection and address damaged cartilage — that tissue work is how TB vs pyogenic infection is actually proved. See <a href="#sampling">Needle vs cut</a>.</p>
   <div class="tl-grid">
     <div class="tl amber"><h3><span class="dot"></span>MRI: infection pattern</h3><p>Subtalar focus + talus cysts/oedema — needs tissue proof.</p></div>
     <div class="tl green"><h3><span class="dot"></span>X-ray: still nearly normal</h3><p>Often means destruction is not yet advanced on plain film.</p></div>
@@ -810,8 +834,8 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
 
 <!-- 6. BIOPSY -->
 <section id="biopsy" aria-labelledby="h-biopsy">
-  <h2 id="h-biopsy"><span class="num">5</span> Why sample / cuts / surgery is being discussed</h2>
-  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Do <strong>not</strong> tell anyone to skip biopsy if doctors advise it. This section explains <em>why</em> surgeons ask for tissue — it is not a consent form.</div>
+  <h2 id="h-biopsy"><span class="num">5</span> Why sample / biopsy / surgery is being discussed</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Surgeons often discuss tissue sampling. A needle may be tried first, but tissue is often needed for osteoarticular TB work-up. This section explains <em>why</em> — it is not a consent form; the treating team decides.</div>
 
   <p>For suspected osteoarticular TB, the <strong>gold standard</strong> is tissue and/or fluid sent for a full panel — not MRI alone:</p>
   <ul>
@@ -827,7 +851,7 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     </div>
     <div class="tl red">
       <h3><span class="dot"></span>Arthroscopic / open biopsy</h3>
-      <p>Commonly needed for proper tissue. “Cuts” / portals let the surgeon see, sample, and often <strong>debride</strong> infected synovium or pus — diagnostic and sometimes therapeutic.</p>
+      <p>Often needed when fluid alone is not enough. Small portals or an incision let the surgeon see, sample tissue, and often <strong>debride</strong> infected synovium or pus — diagnostic and sometimes therapeutic. See <a href="#sampling">Needle vs cut</a>.</p>
     </div>
     <div class="tl green">
       <h3><span class="dot"></span>Why this matters</h3>
@@ -835,8 +859,150 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     </div>
   </div>
   <div class="callout">
-    Family-reported plan: sample/biopsy with cuts → then possibly further surgery for septic arthritis / infection / damaged cartilage. Confirm exact steps, risks, and consent wording with the operating surgeon.
+    Family-reported plan: get a proper sample (needle first if safe, then keyhole/open if tissue needed) → then possibly further surgery for septic arthritis / infection / damaged cartilage. Confirm exact steps, risks, and consent wording with the operating surgeon.
   </div>
+</section>
+
+<!-- 5b. SAMPLING: NEEDLE VS CUT -->
+<section id="sampling" aria-labelledby="h-sampling">
+  <h2 id="h-sampling"><span class="num">5b</span> Can TB sample be taken with a needle (no big cuts)?</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Family education only. The treating orthopaedic / TB team decides the safest sampling route. This is <strong>not</strong> a consent form or a prescription.</div>
+
+  <p class="lead">Short answer: a <strong>needle</strong> <span class="gloss">(सुई / aspiration)</span> can sometimes get fluid first — but for ankle/foot TB suspicion, doctors often still need <strong>tissue</strong> <span class="gloss">(ऊतक)</span> from a small keyhole or open biopsy.</p>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent)">What the sample is for</h3>
+  <p>MRI saying “? tubercular” is <strong>suspicion only</strong>. Lab work on fluid/tissue aims for:</p>
+  <ul>
+    <li><strong>GeneXpert / CBNAAT</strong> — rapid TB DNA ± rifampicin resistance clue</li>
+    <li><strong>Histopathology</strong> — granuloma / caseation pattern under the microscope</li>
+    <li><strong>Mycobacterial culture</strong> — slower, still important</li>
+    <li><strong>AND</strong> routine <strong>bacterial culture + Gram stain</strong> — so pyogenic (ordinary) infection is not missed</li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">Four approaches (least → more invasive)</h3>
+  <ol>
+    <li><strong>A. Needle aspiration (arthrocentesis)</strong> — usually no stitches; needs enough fluid. Often <strong>not enough alone</strong> for ankle/foot TB. Negative fluid ≠ no TB.</li>
+    <li><strong>B. Image-guided needle / core biopsy</strong> — still a needle; may sample synovium or bone near the MRI focus.</li>
+    <li><strong>C. Arthroscopic (keyhole) biopsy</strong> <span class="gloss">(कीहोल)</span> — small portals ~0.5–1 cm; better tissue; sometimes debridement; often 1–2 fine stitches or strips per portal.</li>
+    <li><strong>D. Open biopsy / debridement</strong> — proper incision + stitches when the focus is hard to reach or a bigger clean-out is planned.</li>
+  </ol>
+
+  <figure class="diagram-box" aria-label="Needle vs keyhole vs open sampling">
+    <div class="sample-diagram">
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Needle into joint">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <!-- joint outline -->
+          <ellipse cx="110" cy="78" rx="48" ry="32" fill="#162038" stroke="#4db6ff" stroke-width="2"/>
+          <ellipse cx="110" cy="78" rx="22" ry="14" fill="#1a2744" stroke="#7c9cff" stroke-dasharray="3 2"/>
+          <!-- syringe -->
+          <rect x="18" y="48" width="36" height="18" rx="3" fill="#9bb0d0" stroke="#e8eef9"/>
+          <rect x="54" y="52" width="42" height="10" rx="2" fill="#4db6ff"/>
+          <line x1="96" y1="57" x2="128" y2="72" stroke="#e8eef9" stroke-width="2.5"/>
+          <circle cx="130" cy="74" r="3" fill="#ff6b7a"/>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Needle: fluid or core</text>
+        </svg>
+        <p class="sc-title">Needle</p>
+        <p class="sc-note">Stitches usually <strong style="color:#3dd68c">none</strong></p>
+      </div>
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Keyhole arthroscopy portals">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <ellipse cx="100" cy="72" rx="52" ry="34" fill="#162038" stroke="#7c9cff" stroke-width="2"/>
+          <!-- two portals -->
+          <circle cx="72" cy="70" r="8" fill="#0b1220" stroke="#f5c542" stroke-width="2"/>
+          <circle cx="128" cy="70" r="8" fill="#0b1220" stroke="#f5c542" stroke-width="2"/>
+          <!-- scope stick -->
+          <rect x="30" y="66" width="38" height="6" rx="2" fill="#4db6ff"/>
+          <rect x="136" y="66" width="34" height="6" rx="2" fill="#3dd68c"/>
+          <text x="72" y="74" text-anchor="middle" fill="#f5c542" font-size="8" font-family="system-ui,sans-serif">●</text>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Keyhole: camera + tissue</text>
+        </svg>
+        <p class="sc-title">Keyhole (arthroscopy)</p>
+        <p class="sc-note">Stitches usually <strong style="color:#f5c542">few small</strong></p>
+      </div>
+      <div class="sample-card">
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Open incision">
+          <rect x="1" y="1" width="198" height="138" rx="10" fill="#0a1222" stroke="#2a3a5c"/>
+          <ellipse cx="100" cy="72" rx="52" ry="34" fill="#162038" stroke="#ff6b7a" stroke-width="2"/>
+          <!-- incision line with stitch marks -->
+          <line x1="70" y1="55" x2="130" y2="90" stroke="#ff6b7a" stroke-width="3" stroke-linecap="round"/>
+          <line x1="78" y1="52" x2="82" y2="60" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="90" y1="58" x2="94" y2="66" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="102" y1="66" x2="106" y2="74" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="114" y1="74" x2="118" y2="82" stroke="#e8eef9" stroke-width="1.5"/>
+          <line x1="124" y1="82" x2="128" y2="90" stroke="#e8eef9" stroke-width="1.5"/>
+          <text x="100" y="128" text-anchor="middle" fill="#9bb0d0" font-size="11" font-family="system-ui,sans-serif">Open: larger cut</text>
+        </svg>
+        <p class="sc-title">Open biopsy</p>
+        <p class="sc-note">Stitches usually <strong style="color:#ff6b7a">more</strong></p>
+      </div>
+    </div>
+    <figcaption>Caption: stitches — usually none / few small / more, depending on approach. Dark-theme teaching sketch only — not an operative plan.</figcaption>
+  </figure>
+
+  <div class="callout warn">
+    <strong>About the “injection only” hope:</strong> It is reasonable to ask whether a safe fluid pocket allows <strong>image-guided aspiration first</strong>. But osteoarticular TB work-ups often need <strong>tissue</strong>. Skipping a needed biopsy just to avoid a small cut can delay the correct medicine. Do <strong>not</strong> start random antibiotics or ATT before the planned sample unless the doctors order it.
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">Questions for the surgeon (checklist)</h3>
+  <ul class="check-list">
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Can we try <strong>image-guided aspiration</strong> first if a safe fluid pocket exists?<em>Least invasive start — only if the team agrees it is useful.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">If fluid is taken: send for <strong>GeneXpert + mycobacterial culture + routine bacterial culture/Gram</strong>?<em>Write all three on the request form.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">If dry tap or negative fluid — what is Plan B: <strong>arthroscopic tissue</strong> vs <strong>open</strong>?<em>Know the next step before leaving clinic.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Will <strong>histopathology</strong> be done in the same sitting if keyhole/open?<em>Histo + micro together are stronger.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Will sampling target the <strong>subtalar</strong> focus (MRI focus), not only the easier tibiotalar joint?<em>Sample the disease — not only the easy joint.</em></span></li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">Rest / healing — typical discussion ranges</h3>
+  <div class="disclaimer compact" role="note"><strong>Note:</strong> Typical ranges for family discussion only — <strong>NOT a prescription</strong>. Your surgeon’s plan wins. At <strong>115 kg</strong>, walking limits are often stricter.</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>Stay</th>
+          <th>Wound</th>
+          <th>Walking (variable; stricter at 115 kg)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aspiration</td>
+          <td>Day-care</td>
+          <td>~1–3 days</td>
+          <td>Often short relative rest</td>
+        </tr>
+        <tr>
+          <td>Image-guided needle</td>
+          <td>Day-care / overnight</td>
+          <td>Small wound</td>
+          <td>Few days limited load if bone sampled</td>
+        </tr>
+        <tr>
+          <td>Arthroscopy</td>
+          <td>Day-care to 1–2 nights</td>
+          <td>Portals ~1–2 weeks; stitches ~10–14 d if used</td>
+          <td>Partial / non-weight often weeks</td>
+        </tr>
+        <tr>
+          <td>Open</td>
+          <td>Longer possible</td>
+          <td>Incision ~10–14+ days</td>
+          <td>Weeks non-weight common</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>If TB is confirmed, <strong>ATT</strong> <span class="gloss">(anti-TB medicines)</span> often runs many months (osteoarticular typically <strong>9–12 months</strong> in Indian practice — team’s call). <strong>Wound healing ≠ ATT clock</strong> — stitches come out long before medicines finish.</p>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent)">Evidence / sources note (short, honest)</h3>
+  <ul>
+    <li>Published orthopaedic / osteoarticular-TB literature and Indian practice summaries prefer <strong>tissue</strong> over swab/sinus material for OA-TB diagnosis (WAIOT-style guidance and OA-TB reviews).</li>
+    <li>Ankle arthroscopy series report higher confirmation rates when aspiration alone is inconclusive — keyhole sampling can help after a dry or negative tap.</li>
+    <li>GeneXpert on tissue speeds TB detection vs culture alone; <strong>culture is still needed</strong>.</li>
+  </ul>
+  <p class="lead">Optional reading pointers (not Sanjeev’s hospital papers): Journal of Orthopaedic Surgery and Research arthroscopic ankle TB series; PMC reviews on the role of surgery in osteoarticular foot/ankle TB. Ask the treating team which local protocol they follow.</p>
 </section>
 
 <!-- 7. ASK SURGEON -->
@@ -910,14 +1076,15 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     <li>MRI Right Ankle — Lab <strong>3110748</strong>, finalised <strong>15/09/2026 5:36 PM</strong>, Dr Mamta Motla (Head &amp; Consultant Radiologist)</li>
     <li>X-ray Both Ankle AP/LAT — Lab <strong>3110696</strong>, finalised <strong>14/09/2026 7:37 PM</strong>, Dr Harsh Goyal</li>
     <li>Patient context from family: symptoms years; referred by Dr Akhil Kulshreshtha; plan discussion of sample/biopsy ± surgery</li>
+    <li>Family Q&amp;A on <strong>needle vs open sampling</strong> added <strong>Sep 2026</strong> (section <a href="#sampling">Needle vs cut</a>)</li>
   </ul>
-  <p>Framing of differentials and “why biopsy” draws on <strong>standard Indian musculoskeletal / osteoarticular TB imaging and clinical literature</strong> (general knowledge — not a citation of Sanjeev’s hospital). MRI films used only as visual context; no invented slice-level diagnoses.</p>
+  <p>Framing of differentials, “why biopsy”, and needle-vs-cut options draws on <strong>standard Indian musculoskeletal / osteoarticular TB imaging and clinical literature</strong> and published OA-TB / ankle arthroscopy practice summaries (general knowledge — not a citation of Sanjeev’s hospital). MRI films used only as visual context; no invented slice-level diagnoses.</p>
   <p class="lead" style="margin-top:14px">Prepared for the family of Mr Sanjeev Chaudhary (brother-in-law of Gaurav) — calm discussion aid for the treating doctors.</p>
 </section>
 
 <footer class="footer-note">
   Family briefing with reports + annotated MRI films · Print / Save PDF · en-IN<br />
-  Educational synthesis — not a diagnosis · Do not skip biopsy if advised
+  Educational synthesis — not a diagnosis · Sampling route is the treating team’s call
 </footer>
 
 </div>
