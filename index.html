@@ -495,6 +495,82 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   margin: 8px 0 4px;
 }
 
+
+/* Likelihood badges & chips (differential) */
+.badge.blue { color: #6eb6ff; border-color: rgba(110,182,255,.35); background: rgba(110,182,255,.12); }
+.badge.low { opacity: .95; font-weight: 600; }
+.likeli {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid;
+  white-space: nowrap;
+}
+.likeli.amber { color: var(--amber); border-color: rgba(245,197,66,.45); background: var(--amber-bg); }
+.likeli.red { color: var(--red); border-color: rgba(255,107,122,.45); background: var(--red-bg); }
+.likeli.blue { color: #6eb6ff; border-color: rgba(110,182,255,.4); background: rgba(110,182,255,.12); }
+.likeli.green { color: var(--green); border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip {
+  font-size: .72rem; color: var(--muted);
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 8px; line-height: 1.35;
+}
+.chip strong { color: var(--text); font-weight: 650; }
+tr.diff-amber td:first-child { box-shadow: inset 4px 0 0 var(--amber); }
+tr.diff-red td:first-child { box-shadow: inset 4px 0 0 var(--red); }
+tr.diff-blue td:first-child { box-shadow: inset 4px 0 0 #6eb6ff; }
+tr.diff-green td:first-child { box-shadow: inset 4px 0 0 var(--green); }
+td .poss-name { display: block; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+
+/* Phone teaching cards */
+.media-grid.teach { grid-template-columns: 1fr; }
+@media (min-width: 700px) {
+  .media-grid.teach { grid-template-columns: 1fr 1fr; }
+  .media-grid.teach .span2 { grid-column: 1 / -1; }
+}
+.media-card.teach-card {
+  border-color: rgba(77,182,255,.35);
+  background: linear-gradient(180deg, #162038, #111a2e);
+}
+.media-card.teach-card .cap { font-size: .9rem; color: var(--text); }
+.media-card.teach-card .cap .hi { color: var(--amber); }
+.media-card.teach-card .cap .lo { color: var(--muted); font-size: .82rem; display: block; margin-top: 4px; }
+
+/* Expert pathways */
+.expert-grid {
+  display: grid; gap: 12px; margin: 14px 0;
+}
+@media (min-width: 800px) {
+  .expert-grid.paths { grid-template-columns: repeat(3, 1fr); }
+}
+.path-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow);
+}
+.path-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.path-card .burden {
+  display: inline-block; margin-top: 8px; font-size: .78rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+}
+.path-card.short .burden { color: var(--green); border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.path-card.mid .burden { color: var(--amber); border-color: rgba(245,197,66,.4); background: var(--amber-bg); }
+.path-card.long .burden { color: var(--red); border-color: rgba(255,107,122,.4); background: var(--red-bg); }
+.path-card p { margin: 0; font-size: .88rem; color: var(--muted); }
+.tree {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px; margin: 14px 0;
+}
+.tree ol { margin: 8px 0 0; padding-left: 22px; }
+.tree li { margin: 10px 0; color: var(--muted); font-size: .92rem; line-height: 1.45; }
+.tree li strong { color: var(--text); }
+.tree-svg-wrap { overflow-x: auto; margin: 12px 0; }
+.hypo-box {
+  background: var(--amber-bg); border: 1px solid rgba(245,197,66,.35);
+  border-radius: 12px; padding: 14px 16px; margin: 12px 0;
+}
+.hypo-box h3 { margin: 0 0 6px; color: var(--amber); font-size: 1rem; }
+.hypo-box p { margin: 0; color: var(--text); font-size: .92rem; }
+
 </style>
 </head>
 <body>
@@ -508,6 +584,7 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     <a href="#films">Scans</a>
     <a href="#xray">X-ray</a>
     <a href="#diff">Differential</a>
+    <a href="#expert">Expert view</a>
     <a href="#biopsy">Biopsy</a>
     <a href="#sampling">Needle vs cut</a>
     <a href="#ask">Ask surgeon</a>
@@ -688,29 +765,65 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Coloured overlays are <em>educational only</em> for family understanding. They are not a new radiology report. Treating doctors decide meaning. MRI impression remains: <strong>infective arthritis — ? tubercular</strong> (suspicion only).</div>
 
   <ul class="explain-bullets">
-    <li><strong>Cyst</strong> = fluid-filled pocket inside the talus bone (report sizes about <strong>13×11 mm</strong> and <strong>16×10 mm</strong>).</li>
-    <li><strong>Subtalar</strong> = the joint under the ankle bone (talus on calcaneus) where MRI shows inflammation/fluid — the <strong>main focus</strong>.</li>
-    <li><strong>Labels</strong> are educational overlays on the hospital films — treating doctors decide clinical meaning.</li>
+    <li><strong>A = Cyst</strong> — fluid-filled pocket inside the talus bone (report sizes about <strong>13×11 mm</strong> and <strong>16×10 mm</strong>).</li>
+    <li><strong>B = Subtalar</strong> — the joint under the ankle bone (talus on calcaneus) where MRI shows inflammation/fluid — the <strong>main focus</strong>.</li>
+    <li><strong>Phone cards first</strong> — large in-frame bilingual labels so you can read without zooming; full sheets are secondary.</li>
   </ul>
 
-  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">Annotated teaching views (most important)</h3>
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">Phone teaching cards (start here)</h3>
+  <div class="media-grid teach">
+    <figure class="media-card teach-card">
+      <a class="img-link" href="media/teach-cyst-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-cyst-phone.jpg" alt="Phone teaching card A — talus cyst with large bilingual label" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <span class="hi">A — Talus cyst / हड्डी में सिस्ट</span>
+        Bright pocket inside the talus. Report size about 13×11 mm and 16×10 mm.
+        <span class="lo">HTML caption backup: Yellow = cyst. Educational overlay — not a new diagnosis.</span>
+      </figcaption>
+      <div class="hint">Readable on phone without zoom · tap for full size</div>
+    </figure>
+    <figure class="media-card teach-card">
+      <a class="img-link" href="media/teach-subtalar-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-subtalar-phone.jpg" alt="Phone teaching card B — subtalar joint with large bilingual label" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <span class="hi" style="color:var(--red)">B — Subtalar joint / सबटेलर जोड़</span>
+        Joint under the ankle bone — MRI irritation/fluid; main problem area doctors discuss.
+        <span class="lo">HTML caption backup: Red = subtalar. Educational overlay — not a new diagnosis.</span>
+      </figcaption>
+      <div class="hint">Readable on phone without zoom · tap for full size</div>
+    </figure>
+    <figure class="media-card teach-card span2">
+      <a class="img-link" href="media/teach-both-phone.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/teach-both-phone.jpg" alt="Combined phone teaching card showing A cyst and B subtalar labels" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>A + B together</strong> — both findings on one phone card (same legend as <code>teach-legend-phone.jpg</code>).
+        <span class="lo">A = talus cyst (yellow) · B = subtalar joint (red).</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">Full film sheets (secondary — labels in bottom banner)</h3>
+  <p class="gallery-note">Callout text is in the <strong>bottom safe margin</strong> (not the right edge), so zooming into slices does not crop A/B explanations.</p>
   <div class="media-grid two">
     <figure class="media-card">
       <a class="img-link" href="media/web-mri-film-1-annotated.jpg" target="_blank" rel="noopener">
-        <img class="scan" src="media/web-mri-film-1-annotated.jpg" alt="Annotated sagittal MRI film page 1 — talus cyst and subtalar labels" loading="lazy" decoding="async" />
+        <img class="scan" src="media/web-mri-film-1-annotated.jpg" alt="Annotated sagittal MRI film page 1 — bottom banner A/B labels" loading="lazy" decoding="async" />
       </a>
       <figcaption class="cap">
-        <strong>Film 1/4 (sagittal) — labelled.</strong> Yellow = talus cyst; red = subtalar joint irritation/fluid.
+        <strong>Film 1/4 (sagittal) — full sheet.</strong> Yellow on-slice marks = talus cyst (A); red bars = subtalar (B). Explanations in bottom pills.
         MRI impression: <em>infective arthritis — ? tubercular</em> (suspicion only).
       </figcaption>
       <div class="hint">Tap for full size</div>
     </figure>
     <figure class="media-card">
       <a class="img-link" href="media/web-mri-film-3-annotated.jpg" target="_blank" rel="noopener">
-        <img class="scan" src="media/web-mri-film-3-annotated.jpg" alt="Annotated axial MRI film page 3 — talus cyst and subtalar labels" loading="lazy" decoding="async" />
+        <img class="scan" src="media/web-mri-film-3-annotated.jpg" alt="Annotated axial MRI film page 3 — bottom banner A/B labels" loading="lazy" decoding="async" />
       </a>
       <figcaption class="cap">
-        <strong>Film 3/4 (axial) — labelled.</strong> Yellow circle/box on bright cyst focus; red on subtalar interface.
+        <strong>Film 3/4 (axial) — full sheet.</strong> Yellow = cyst focus (A); red = subtalar interface (B). Bottom banner survives crop-less whole-image viewing.
         MRI impression: <em>infective arthritis — ? tubercular</em> (suspicion only).
       </figcaption>
       <div class="hint">Tap for full size</div>
@@ -721,15 +834,15 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   <div class="media-grid two">
     <figure class="media-card">
       <a class="img-link" href="media/web-cyst-closeup.jpg" target="_blank" rel="noopener">
-        <img class="scan" src="media/web-cyst-closeup.jpg" alt="Close-up crop highlighting talus cyst on sagittal film" loading="lazy" decoding="async" />
+        <img class="scan" src="media/web-cyst-closeup.jpg" alt="Close-up crop highlighting talus cyst with in-frame A caption" loading="lazy" decoding="async" />
       </a>
-      <figcaption class="cap"><strong>Cyst close-up</strong> — crop from sagittal teaching film (educational overlay).</figcaption>
+      <figcaption class="cap"><strong>A — Cyst close-up</strong> — crop from sagittal film; caption inside image (no right-edge text).</figcaption>
     </figure>
     <figure class="media-card">
       <a class="img-link" href="media/web-subtalar-closeup.jpg" target="_blank" rel="noopener">
-        <img class="scan" src="media/web-subtalar-closeup.jpg" alt="Close-up crop highlighting subtalar joint on sagittal film" loading="lazy" decoding="async" />
+        <img class="scan" src="media/web-subtalar-closeup.jpg" alt="Close-up crop highlighting subtalar joint with in-frame B caption" loading="lazy" decoding="async" />
       </a>
-      <figcaption class="cap"><strong>Subtalar close-up</strong> — crop from sagittal teaching film (educational overlay).</figcaption>
+      <figcaption class="cap"><strong>B — Subtalar close-up</strong> — crop from sagittal film; caption inside image (no right-edge text).</figcaption>
     </figure>
   </div>
 
@@ -792,43 +905,148 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
 <!-- 5. DIFFERENTIAL -->
 <section id="diff" aria-labelledby="h-diff">
   <h2 id="h-diff"><span class="num">4</span> Differential diagnosis (India context)</h2>
-  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis — MRI impression is <strong>suspicion</strong>, not confirmation of TB. Final label needs clinical exam + labs + tissue.</div>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis — MRI impression is <strong>suspicion</strong>, not confirmation of TB. Final label needs clinical exam + labs + tissue. Colour badges = teaching likelihood cues only, not probabilities.</div>
 
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th>Possibility</th>
+          <th>Possibility · likelihood</th>
           <th>Typical pattern</th>
           <th>How it fits Sanjeev’s picture</th>
+          <th>Typical next step</th>
+          <th>Relative recovery / rest burden</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Osteoarticular TB</td>
+        <tr class="diff-amber">
+          <td>
+            <span class="poss-name">Osteoarticular TB</span>
+            <span class="likeli amber">AMBER · Leading suspicion on MRI</span>
+            <div class="chip-row"><span class="chip"><strong>Not confirmed</strong> — “?” only</span></div>
+          </td>
           <td>Commoner in India than West; often one joint; chronic months–years; may have cold abscess; cartilage loss often slower than hot pyogenic infection</td>
-          <td>Radiologist’s leading “?” — years of pain/swelling, monoarticular ankle, MRI infective pattern. <strong>Needs GeneXpert / culture / histo</strong></td>
+          <td>Radiologist’s leading “?” — years of pain/swelling, monoarticular ankle, MRI infective pattern</td>
+          <td>Tissue/fluid: <strong>GeneXpert + histo + AFB culture</strong> + routine culture; ortho follow-up; ATT only if confirmed/strongly indicated by team</td>
+          <td><span class="chip"><strong>If TB+</strong>: often months of ATT + load plan — longest pathway</span></td>
         </tr>
-        <tr>
-          <td>Pyogenic septic arthritis</td>
+        <tr class="diff-red">
+          <td>
+            <span class="poss-name">Pyogenic septic arthritis</span>
+            <span class="likeli red">RED · Must exclude</span>
+          </td>
           <td>Usually more acute (days–weeks), fever more common — but chronic smoldering forms exist</td>
-          <td>Must still be ruled out with routine bacterial culture / Gram stain on the same sample</td>
+          <td>Must still be ruled out on the <strong>same sample</strong> (Gram stain + bacterial culture)</td>
+          <td>Urgent culture; antibiotics ± drainage per treating team if confirmed</td>
+          <td><span class="chip"><strong>If pyogenic+</strong>: antibiotics/drainage — timing set by surgeons/ID</span></td>
         </tr>
-        <tr>
-          <td>Inflammatory arthritis (RA / seronegative)</td>
+        <tr class="diff-blue">
+          <td>
+            <span class="poss-name">Inflammatory arthritis (RA / seronegative)</span>
+            <span class="likeli blue">BLUE · Less typical</span>
+            <div class="chip-row"><span class="chip">Monoarticular years = lower fit</span></div>
+          </td>
           <td>Often multiple joints, morning stiffness, systemic clues</td>
           <td>Less typical as <em>only</em> one ankle for years — still discuss blood markers with doctors</td>
+          <td>Rheumatology path if infection work-up negative / markers point inflammatory</td>
+          <td><span class="chip">Meds + physio path — not the MRI’s leading story</span></td>
         </tr>
-        <tr>
-          <td>Advanced OA + cysts</td>
+        <tr class="diff-green">
+          <td>
+            <span class="poss-name">Advanced OA + cysts</span>
+            <span class="likeli green">GREEN · Low likelihood alone</span>
+          </td>
           <td>Mechanical wear, osteophytes, joint-space loss on X-ray</td>
           <td>X-ray nearly normal; MRI shows septated effusion + synovitis + infective-pattern oedema — <strong>not pure mechanical OA</strong></td>
+          <td>Does not replace infection work-up; reconstructive talk only <em>after</em> infection controlled if needed</td>
+          <td><span class="chip">X-ray nearly normal argues against pure advanced OA</span></td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="callout warn">
     <strong>Emphasise for family:</strong> “Suggestive of infective arthritis — ? tubercular” means <em>this pattern looks like infection, and TB is a top Indian differential</em>. It does <strong>not</strong> mean “he has proven TB ankle” until tissue/fluid tests say so.
+  </div>
+  <p class="gallery-note" style="margin-top:12px">Educational downtime ranges (not prescriptions): <strong>needle / day-care</strong> usually shortest rest → <strong>arthroscopy (keyhole)</strong> often weeks → <strong>open surgery + long ATT if TB</strong> can mean months. Treating team sets the real plan.</p>
+</section>
+
+
+<!-- 5b. EXPERT VIEW (educational synthesis) -->
+<section id="expert" aria-labelledby="h-expert">
+  <h2 id="h-expert"><span class="num">★</span> Expert view — working synthesis</h2>
+  <div class="disclaimer" role="note"><strong>GC_Health educational synthesis</strong> for family–doctor discussion. This is <strong>NOT a prescription</strong>, NOT a radiology re-read, and does <strong>NOT replace</strong> the Yashoda orthopaedic / ID team. MRI films and reports remain the primary hospital record.</div>
+
+  <div class="hypo-box">
+    <h3>Working hypothesis (unproven)</h3>
+    <p>Infective arthritis focused at the <strong>subtalar joint</strong>, with marrow change and <strong>talus subchondral cysts</strong>. In India, <strong>osteoarticular TB</strong> is an important differential on this MRI pattern — but it is <strong>unproven</strong> until GeneXpert / culture / histopathology (and clinical correlation) say so. Pyogenic infection must be excluded on the same sample.</p>
+  </div>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent);">Decision tree (family checklist)</h3>
+  <div class="tree">
+    <div class="tree-svg-wrap" aria-hidden="true">
+      <svg viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Simple six-step decision path">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4db6ff"/></marker>
+        </defs>
+        <rect x="8" y="20" width="110" height="54" rx="10" fill="#1a2744" stroke="#4db6ff"/>
+        <text x="63" y="42" text-anchor="middle" fill="#e8eef9" font-size="11" font-family="system-ui,sans-serif">1 Sample plan</text>
+        <text x="63" y="58" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">with ortho</text>
+        <line x1="118" y1="47" x2="148" y2="47" stroke="#4db6ff" marker-end="url(#arrow)"/>
+        <rect x="150" y="20" width="110" height="54" rx="10" fill="#1a2744" stroke="#f5c542"/>
+        <text x="205" y="42" text-anchor="middle" fill="#e8eef9" font-size="11" font-family="system-ui,sans-serif">2 Full panel</text>
+        <text x="205" y="58" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">GX+histo+AFB+bact</text>
+        <line x1="260" y1="47" x2="290" y2="47" stroke="#4db6ff" marker-end="url(#arrow)"/>
+        <rect x="292" y="8" width="100" height="40" rx="8" fill="#2a2210" stroke="#f5c542"/>
+        <text x="342" y="32" text-anchor="middle" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">3 If TB+</text>
+        <rect x="292" y="56" width="100" height="40" rx="8" fill="#2a1518" stroke="#ff6b7a"/>
+        <text x="342" y="80" text-anchor="middle" fill="#ff6b7a" font-size="11" font-family="system-ui,sans-serif">4 If pyogenic+</text>
+        <rect x="410" y="8" width="130" height="40" rx="8" fill="#1a2744" stroke="#f5c542"/>
+        <text x="475" y="32" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">ATT + ortho / load</text>
+        <rect x="410" y="56" width="130" height="40" rx="8" fill="#1a2744" stroke="#ff6b7a"/>
+        <text x="475" y="80" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Abx ± drainage</text>
+        <rect x="292" y="120" width="100" height="40" rx="8" fill="#152030" stroke="#6eb6ff"/>
+        <text x="342" y="144" text-anchor="middle" fill="#6eb6ff" font-size="11" font-family="system-ui,sans-serif">5 Inflammatory</text>
+        <rect x="410" y="120" width="130" height="40" rx="8" fill="#1a2744" stroke="#6eb6ff"/>
+        <text x="475" y="144" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Rheumatology path</text>
+        <rect x="560" y="70" width="150" height="54" rx="10" fill="#142218" stroke="#3dd68c"/>
+        <text x="635" y="92" text-anchor="middle" fill="#3dd68c" font-size="11" font-family="system-ui,sans-serif">6 Cartilage later</text>
+        <text x="635" y="108" text-anchor="middle" fill="#9bb0d0" font-size="9" font-family="system-ui,sans-serif">after infection controlled</text>
+        <line x1="392" y1="28" x2="408" y2="28" stroke="#f5c542"/>
+        <line x1="392" y1="76" x2="408" y2="76" stroke="#ff6b7a"/>
+        <line x1="392" y1="140" x2="408" y2="140" stroke="#6eb6ff"/>
+      </svg>
+    </div>
+    <ol>
+      <li><strong>Confirm sample plan with ortho</strong> — prefer adequate tissue if aspiration volume/quality looks inadequate.</li>
+      <li><strong>Send the full panel:</strong> GeneXpert/CBNAAT + histopathology + AFB/mycobacterial culture + routine bacterial culture/Gram stain.</li>
+      <li><strong>If TB positive / team starts ATT:</strong> medical therapy + orthopaedic follow-up; agree weight-bearing / load plan.</li>
+      <li><strong>If pyogenic positive:</strong> antibiotics and drainage strategy per surgical/ID team.</li>
+      <li><strong>If inflammatory pathway:</strong> rheumatology work-up when infection is reasonably excluded.</li>
+      <li><strong>Cartilage / reconstructive talk</strong> only after the infection question is controlled — not before tissue answers.</li>
+    </ol>
+  </div>
+
+  <h3 style="margin:16px 0 8px;font-size:1.05rem;color:var(--accent);">Possible solution paths · rough rest burden</h3>
+  <p class="gallery-note">Educational ranges for family orientation — actual downtime is set by the treating team and the final diagnosis.</p>
+  <div class="expert-grid paths">
+    <div class="path-card short">
+      <h3>Path 1 — Needle / day-care</h3>
+      <p>Image-guided or clinic aspiration / needle biopsy when fluid/tissue can be obtained safely. Useful first step; may be inconclusive.</p>
+      <span class="burden">Usually shortest downtime</span>
+    </div>
+    <div class="path-card mid">
+      <h3>Path 2 — Keyhole (arthroscopy)</h3>
+      <p>Better tissue + washout options when needle is inadequate or surgeons need joint visualisation.</p>
+      <span class="burden">Often weeks of relative rest</span>
+    </div>
+    <div class="path-card long">
+      <h3>Path 3 — Open ± long ATT</h3>
+      <p>Open debridement if required; if TB confirmed, anti-tubercular therapy often runs months with ortho follow-up and load planning.</p>
+      <span class="burden">Longest pathway (months if TB)</span>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Remember:</strong> Needle &lt; Keyhole weeks &lt; Open + long ATT months — as a teaching sketch only. Yashoda team chooses the real sequence.
   </div>
 </section>
 
