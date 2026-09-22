@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Right Ankle Briefing — Mr Sanjeev Chaudhary</title>
+<style>
+:root {
+  --bg: #0b1220;
+  --bg2: #111a2e;
+  --card: #162038;
+  --card2: #1a2744;
+  --border: #2a3a5c;
+  --text: #e8eef9;
+  --muted: #9bb0d0;
+  --accent: #4db6ff;
+  --accent2: #7c9cff;
+  --green: #3dd68c;
+  --green-bg: rgba(61,214,140,.12);
+  --amber: #f5c542;
+  --amber-bg: rgba(245,197,66,.12);
+  --red: #ff6b7a;
+  --red-bg: rgba(255,107,122,.12);
+  --disclaimer: #3a2a12;
+  --disclaimer-border: #c9892e;
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0,0,0,.35);
+  --nav-h: 56px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: linear-gradient(180deg, #070d18 0%, var(--bg) 120px);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+img, svg { max-width: 100%; height: auto; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px 64px; }
+
+/* Sticky nav */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(11,18,32,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 10px;
+}
+.topnav .brand {
+  font-weight: 700; font-size: .92rem; white-space: nowrap;
+  color: var(--accent); padding: 0 6px; flex-shrink: 0;
+}
+.nav-scroll {
+  display: flex; gap: 4px; overflow-x: auto; flex: 1;
+  scrollbar-width: none; -ms-overflow-style: none;
+  padding: 6px 0;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-scroll a {
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.nav-scroll a:hover, .nav-scroll a:focus {
+  color: var(--text);
+  background: var(--card);
+  border-color: var(--border);
+}
+.btn-print {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: #061018;
+  border: none;
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-print:hover { filter: brightness(1.08); }
+
+/* Hero */
+.hero {
+  margin-top: 20px;
+  background: radial-gradient(ellipse at top right, rgba(77,182,255,.18), transparent 55%),
+              linear-gradient(145deg, var(--card) 0%, #0e1830 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow);
+}
+.hero .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--muted);
+}
+.badge.amber { color: var(--amber); border-color: rgba(245,197,66,.35); background: var(--amber-bg); }
+.badge.green { color: var(--green); border-color: rgba(61,214,140,.35); background: var(--green-bg); }
+.badge.red { color: var(--red); border-color: rgba(255,107,122,.35); background: var(--red-bg); }
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.45rem, 4.5vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+.hero .sub { color: var(--muted); margin: 0 0 18px; font-size: .98rem; }
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.meta {
+  background: rgba(0,0,0,.25);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.meta .k { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+.meta .v { font-size: .95rem; font-weight: 700; margin-top: 2px; }
+
+/* Disclaimer banner */
+.disclaimer {
+  margin: 18px 0;
+  padding: 14px 16px;
+  background: linear-gradient(90deg, #3a2a12, #2a2210);
+  border: 1px solid var(--disclaimer-border);
+  border-left: 5px solid var(--amber);
+  border-radius: 12px;
+  color: #ffe8b8;
+  font-size: .92rem;
+}
+.disclaimer strong { color: #ffd27a; }
+.disclaimer.compact { margin: 12px 0 0; font-size: .85rem; padding: 10px 12px; }
+
+section {
+  margin-top: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.2);
+}
+section h2 {
+  margin: 0 0 6px;
+  font-size: 1.28rem;
+  letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+section h2 .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(77,182,255,.15); color: var(--accent);
+  font-size: .85rem; font-weight: 800;
+}
+.lead { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px; padding-left: 1.2em; }
+li { margin-bottom: 6px; }
+li::marker { color: var(--accent2); }
+
+/* Traffic lights */
+.tl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.tl {
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.tl .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  display: inline-block; margin-right: 8px;
+  vertical-align: middle;
+}
+.tl.green { border-color: rgba(61,214,140,.4); background: var(--green-bg); }
+.tl.green .dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.tl.amber { border-color: rgba(245,197,66,.4); background: var(--amber-bg); }
+.tl.amber .dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.tl.red { border-color: rgba(255,107,122,.4); background: var(--red-bg); }
+.tl.red .dot { background: var(--red); box-shadow: 0 0 8px var(--red); }
+.tl h3 { margin: 0 0 6px; font-size: .98rem; }
+.tl p { margin: 0; font-size: .88rem; color: var(--muted); }
+
+/* Finding cards */
+.findings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .findings { grid-template-columns: 1fr 1fr; }
+}
+.fcard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.fcard .tag {
+  align-self: flex-start;
+  font-size: .68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: 3px 8px; border-radius: 6px;
+  background: rgba(77,182,255,.15); color: var(--accent);
+}
+.fcard .tag.warn { background: var(--amber-bg); color: var(--amber); }
+.fcard .tag.ok { background: var(--green-bg); color: var(--green); }
+.fcard h3 { margin: 0; font-size: 1rem; }
+.fcard .report { font-size: .86rem; color: #c5d4ef; border-left: 3px solid var(--accent2); padding-left: 10px; }
+.fcard .lay { font-size: .88rem; color: var(--muted); }
+.fcard .lay strong { color: var(--text); }
+
+/* SVG diagram */
+.diagram-box {
+  margin: 16px 0 4px;
+  background: #0a1222;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.diagram-box figcaption {
+  margin-top: 10px;
+  font-size: .82rem;
+  color: var(--muted);
+}
+.legend {
+  display: flex; flex-wrap: wrap; gap: 10px 16px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: .8rem;
+  color: var(--muted);
+}
+.legend span::before {
+  content: "";
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -2px;
+}
+.leg-subtalar::before { background: #ff6b7a; }
+.leg-talus::before { background: #f5c542; }
+.leg-effusion::before { background: #4db6ff; }
+.leg-normal::before { background: #3dd68c; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  min-width: 560px;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: #0e1830;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+tr:nth-child(even) td { background: rgba(0,0,0,.18); }
+td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* Checklist */
+.check-list { list-style: none; padding: 0; margin: 0; }
+.check-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.check-list .box {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  margin-top: 2px;
+}
+.check-list .txt { flex: 1; font-size: .92rem; }
+.check-list .txt em { color: var(--muted); font-style: normal; display: block; font-size: .82rem; margin-top: 2px; }
+
+/* Action steps */
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 14px 14px 14px 56px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute; left: 14px; top: 14px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #061018;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+}
+
+.callout {
+  background: rgba(77,182,255,.08);
+  border: 1px solid rgba(77,182,255,.3);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: .92rem;
+}
+.callout.warn {
+  background: var(--amber-bg);
+  border-color: rgba(245,197,66,.4);
+}
+.callout.danger {
+  background: var(--red-bg);
+  border-color: rgba(255,107,122,.4);
+}
+
+.footer-note {
+  margin-top: 28px;
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .82rem;
+  border-top: 1px solid var(--border);
+}
+.impression-box {
+  margin: 14px 0;
+  padding: 14px 16px;
+  background: rgba(255,107,122,.1);
+  border: 1px solid rgba(255,107,122,.35);
+  border-radius: 12px;
+  font-size: .95rem;
+}
+.impression-box code {
+  display: block;
+  margin-top: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .86rem;
+  color: #ffc2c8;
+  white-space: pre-wrap;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; color: #111; font-size: 11pt; }
+  .topnav, .btn-print { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  section, .hero {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #111;
+  }
+  .disclaimer {
+    background: #fff8e6 !important;
+    color: #333 !important;
+    border-color: #c9892e !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tl, .fcard, .meta, .check-list li, .steps li {
+    background: #f7f7f7 !important;
+    color: #111;
+    border-color: #ccc;
+  }
+  .tl p, .lead, .hero .sub, .fcard .lay, .meta .k { color: #444 !important; }
+  a { color: #06c; }
+  h1, h2, h3 { color: #111; }
+  table { min-width: 0; }
+  th { background: #eee !important; color: #111 !important; }
+  .impression-box { background: #fff0f0 !important; color: #111; }
+  .impression-box code { color: #600; }
+  html { scroll-padding-top: 0; }
+}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Section navigation">
+  <div class="brand">Ankle Briefing</div>
+  <div class="nav-scroll" role="navigation">
+    <a href="#hero">Home</a>
+    <a href="#summary">Summary</a>
+    <a href="#mri">MRI</a>
+    <a href="#xray">X-ray</a>
+    <a href="#diff">Differential</a>
+    <a href="#biopsy">Biopsy</a>
+    <a href="#ask">Ask surgeon</a>
+    <a href="#weight">Weight</a>
+    <a href="#flags">Red flags</a>
+    <a href="#actions">This week</a>
+    <a href="#sources">Sources</a>
+  </div>
+  <button type="button" class="btn-print" onclick="window.print()" title="Print or save as PDF">Print / PDF</button>
+</nav>
+
+<div class="wrap">
+
+<!-- 1. HERO -->
+<header class="hero" id="hero">
+  <div class="badge-row">
+    <span class="badge amber">Family education pack</span>
+    <span class="badge">Right ankle</span>
+    <span class="badge red">Not a diagnosis</span>
+    <span class="badge green">Discuss with doctors</span>
+  </div>
+  <h1>Mr Sanjeev Chaudhary — Right Ankle Briefing</h1>
+  <p class="sub">Calm, precise notes so the family can talk clearly with the treating orthopaedic team at Yashoda, Kaushambi.</p>
+  <div class="meta-grid">
+    <div class="meta"><div class="k">Age / Sex</div><div class="v">42 / Male</div></div>
+    <div class="meta"><div class="k">Weight</div><div class="v">115 kg</div></div>
+    <div class="meta"><div class="k">Hospital</div><div class="v">Yashoda, Kaushambi</div></div>
+    <div class="meta"><div class="k">Referred by</div><div class="v">Dr Akhil Kulshreshtha</div></div>
+    <div class="meta"><div class="k">X-ray</div><div class="v">14 Sep 2026</div></div>
+    <div class="meta"><div class="k">MRI</div><div class="v">15 Sep 2026</div></div>
+  </div>
+  <div class="disclaimer compact" role="note">
+    <strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — <strong>NOT a diagnosis</strong>, NOT a substitute for orthopaedic / infectious-disease judgment. Do <strong>not</strong> skip biopsy if doctors advise it.
+  </div>
+</header>
+
+<!-- 2. SUMMARY -->
+<section id="summary" aria-labelledby="h-summary">
+  <h2 id="h-summary"><span class="num">1</span> Plain-English summary</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis, NOT a substitute for orthopaedic / infectious-disease judgment. Do not skip biopsy if doctors advise it.</div>
+  <p>MRI of the right ankle shows an <strong>infection-pattern arthritis</strong>, focused mainly on the <strong>subtalar joint</strong> (between talus and heel bone), with marrow oedema in the talus, oedema reaching the front of the calcaneum, and two subchondral cysts in the talus (about 13×11 mm and 16×10 mm).</p>
+  <p>There is loculated / septated fluid and mild synovial thickening at the subtalar joint, plus a milder “reactionary” effusion at the tibiotalar (main ankle) joint, and mild soft-tissue swelling around the foot and distal leg.</p>
+  <p>The plain X-ray a day earlier looks <strong>almost normal</strong> — bones and joint spaces look fine on film. That often means bone destruction has not yet advanced far enough to show on X-ray, so disease may still be <strong>early-to-moderate</strong> on the destruction scale, even though symptoms have lasted years.</p>
+  <p>The radiologist’s impression is: features <em>suggestive of infective arthritis — ? tubercular</em>, and asks for clinical correlation. In India, osteoarticular TB is an important possibility for a long-standing single joint — but MRI alone does <strong>not confirm TB</strong>.</p>
+  <p>At 115 kg, every step loads the ankle heavily; weight is a load factor and rehab partner, not a “cause” or a cure by itself.</p>
+  <p>Family understanding of the plan: <strong>sample / biopsy with cuts</strong>, then possibly surgery to clear infection and address damaged cartilage — that tissue work is how TB vs pyogenic infection is actually proved.</p>
+  <div class="tl-grid">
+    <div class="tl amber"><h3><span class="dot"></span>MRI: infection pattern</h3><p>Subtalar focus + talus cysts/oedema — needs tissue proof.</p></div>
+    <div class="tl green"><h3><span class="dot"></span>X-ray: still nearly normal</h3><p>Often means destruction is not yet advanced on plain film.</p></div>
+    <div class="tl red"><h3><span class="dot"></span>TB = suspicion only</h3><p>“? Tubercular” is a leading guess, not confirmation.</p></div>
+  </div>
+</section>
+
+<!-- 3. MRI -->
+<section id="mri" aria-labelledby="h-mri">
+  <h2 id="h-mri"><span class="num">2</span> What the MRI found</h2>
+  <p class="lead">Lab 3110748 · Finalised 15/09/2026 5:36 PM · Dr Mamta Motla · Right ankle MRI</p>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis. MRI films (4 pages, 15 Sep 2026) are visual context only; do not invent slice-level diagnoses beyond this report.</div>
+
+  <div class="impression-box">
+    <strong>Official impression (verbatim)</strong>
+    <code>MR FEATURES ARE SUGGESTIVE OF INFECTIVE ARTHRITIS - ? TUBERCULAR. PLEASE CORRELATE CLINICALLY.</code>
+  </div>
+
+  <div class="findings">
+    <article class="fcard">
+      <span class="tag warn">Key focus</span>
+      <h3>Subtalar joint — oedema + irregularity</h3>
+      <p class="report">Marrow edema (T2/STIR hyper, T1 hypo) involving talus with cortical irregularity predominantly at <strong>subtalar joint</strong>; oedema extending to anterior calcaneum.</p>
+      <p class="lay"><strong>Layman:</strong> The “lower” joint under the ankle bone (talus sitting on the heel bone) looks inflamed inside the bone marrow — classic place infection can sit quietly for a long time.</p>
+    </article>
+    <article class="fcard">
+      <span class="tag warn">Fluid + lining</span>
+      <h3>Septated effusion + synovial thickening</h3>
+      <p class="report">Loculated/septated joint effusion + mild synovial thickening at <strong>subtalar joint</strong>.</p>
+      <p class="lay"><strong>Layman:</strong> Sticky, compartmented fluid and a slightly thickened joint lining — more like inflamed / infected synovium than simple clear fluid from a sprain.</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">Cysts in talus</span>
+      <h3>Two subchondral cystic changes</h3>
+      <p class="report">Along dome of talus <strong>13×11 mm</strong> AND along inferior articular aspect of talus <strong>16×10 mm</strong>.</p>
+      <p class="lay"><strong>Layman:</strong> Small fluid-filled pockets next to the joint surface of the talus — can be seen with infection, arthritis, or cartilage stress; here they sit inside an infection-pattern picture.</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">Main ankle joint</span>
+      <h3>Tibiotalar reactionary effusion</h3>
+      <p class="report">Reactionary joint effusion at <strong>tibiotalar joint</strong>.</p>
+      <p class="lay"><strong>Layman:</strong> Extra fluid in the “upper” ankle (shin bone–talus), described as reactive — often secondary to the hotter process below at the subtalar joint.</p>
+    </article>
+    <article class="fcard">
+      <span class="tag">Soft tissue</span>
+      <h3>Mild subcutaneous oedema</h3>
+      <p class="report">Mild generalized subcutaneous edema around foot and distal leg.</p>
+      <p class="lay"><strong>Layman:</strong> Mild waterlogging of soft tissues around the foot and lower leg — matches swelling you can see/feel; not the main driver of the diagnosis.</p>
+    </article>
+    <article class="fcard">
+      <span class="tag ok">Reassuring</span>
+      <h3>Other bones &amp; tendons OK</h3>
+      <p class="report">Rest bones/muscles/musculotendinous junctions normal morphology.</p>
+      <p class="lay"><strong>Layman:</strong> No report of widespread bone collapse or major tendon tears — problem is localised to the described joint/marrow pattern.</p>
+    </article>
+  </div>
+
+  <figure class="diagram-box" aria-label="Simple ankle bone diagram">
+    <svg viewBox="0 0 420 320" width="420" height="320" role="img" aria-labelledby="svgTitle svgDesc">
+      <title id="svgTitle">Simplified right ankle bones — subtalar highlighted</title>
+      <desc id="svgDesc">Tibia above, talus in middle (amber cysts), calcaneus below; red highlight on subtalar joint space; blue effusion cue.</desc>
+      <!-- tibia -->
+      <rect x="155" y="20" width="110" height="95" rx="8" fill="#3dd68c" opacity="0.85"/>
+      <text x="210" y="75" text-anchor="middle" fill="#061018" font-size="16" font-weight="700" font-family="system-ui,sans-serif">Tibia</text>
+      <!-- tibiotalar space -->
+      <rect x="150" y="118" width="120" height="10" rx="3" fill="#4db6ff" opacity="0.7"/>
+      <text x="320" y="126" fill="#4db6ff" font-size="11" font-family="system-ui,sans-serif">Tibiotalar fluid</text>
+      <!-- talus -->
+      <path d="M145 130 L275 130 L290 175 L260 195 L160 195 L130 175 Z" fill="#f5c542" opacity="0.9"/>
+      <text x="210" y="165" text-anchor="middle" fill="#061018" font-size="15" font-weight="700" font-family="system-ui,sans-serif">Talus</text>
+      <!-- cysts -->
+      <circle cx="190" cy="142" r="9" fill="#fff" opacity="0.55" stroke="#c9892e" stroke-width="2"/>
+      <circle cx="230" cy="185" r="10" fill="#fff" opacity="0.55" stroke="#c9892e" stroke-width="2"/>
+      <text x="70" y="148" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">Cyst ~13×11</text>
+      <text x="70" y="190" fill="#f5c542" font-size="11" font-family="system-ui,sans-serif">Cyst ~16×10</text>
+      <!-- subtalar highlight -->
+      <rect x="145" y="198" width="130" height="14" rx="4" fill="#ff6b7a"/>
+      <text x="340" y="210" fill="#ff6b7a" font-size="12" font-weight="700" font-family="system-ui,sans-serif">SUBTALAR ★</text>
+      <!-- calcaneus -->
+      <path d="M100 215 L300 215 L310 280 L90 280 Z" fill="#7c9cff" opacity="0.85"/>
+      <text x="200" y="255" text-anchor="middle" fill="#061018" font-size="15" font-weight="700" font-family="system-ui,sans-serif">Calcaneus (heel)</text>
+      <text x="145" y="272" fill="#ffc2c8" font-size="11" font-family="system-ui,sans-serif">Anterior calcaneum oedema →</text>
+      <!-- fibula hint -->
+      <rect x="120" y="40" width="28" height="75" rx="6" fill="#3dd68c" opacity="0.45"/>
+      <text x="134" y="35" text-anchor="middle" fill="#9bb0d0" font-size="10" font-family="system-ui,sans-serif">Fibula</text>
+    </svg>
+    <div class="legend">
+      <span class="leg-subtalar">Subtalar (main MRI focus)</span>
+      <span class="leg-talus">Talus + cysts</span>
+      <span class="leg-effusion">Joint fluid</span>
+      <span class="leg-normal">Tibia (normal morphology on report)</span>
+    </div>
+    <figcaption>Simple teaching diagram — not a scale drawing of the MRI slices. Star = where the report concentrates: subtalar infection-pattern change.</figcaption>
+  </figure>
+</section>
+
+<!-- 4. X-RAY -->
+<section id="xray" aria-labelledby="h-xray">
+  <h2 id="h-xray"><span class="num">3</span> Why the X-ray can be normal</h2>
+  <p class="lead">Lab 3110696 · Finalised 14/09/2026 7:37 PM · Dr Harsh Goyal · Both ankles AP/LAT</p>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis, NOT a substitute for orthopaedic / infectious-disease judgment.</div>
+
+  <div class="tl-grid">
+    <div class="tl green">
+      <h3><span class="dot"></span>What X-ray said</h3>
+      <p>Alignment proper; normal outline/contour/density; no lytic/sclerotic lesion; joint spaces unremarkable; soft tissue no abnormality. Essentially a <strong>normal plain film</strong>.</p>
+    </div>
+    <div class="tl amber">
+      <h3><span class="dot"></span>Why that still fits</h3>
+      <p>Early osteoarticular TB and early septic arthritis often look quiet on X-ray for weeks–months while MRI already shows marrow oedema, synovitis, and effusion.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Take-home:</strong> Normal X-ray does <em>not</em> cancel an abnormal MRI. X-ray is less sensitive for early marrow and soft-tissue infection. MRI is doing the “early warning” job here; tissue sampling does the confirmation job.
+  </div>
+  <ul>
+    <li><strong>X-ray strengths:</strong> alignment, big bone loss, obvious fractures.</li>
+    <li><strong>MRI strengths:</strong> marrow oedema, synovitis, loculated fluid, early cartilage/subchondral change.</li>
+    <li><strong>Classic pattern:</strong> chronic monoarticular pain + normal X-ray + “infective” MRI → raise TB/septic work-up, don’t stop at “arthritis of age”.</li>
+  </ul>
+</section>
+
+<!-- 5. DIFFERENTIAL -->
+<section id="diff" aria-labelledby="h-diff">
+  <h2 id="h-diff"><span class="num">4</span> Differential diagnosis (India context)</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis — MRI impression is <strong>suspicion</strong>, not confirmation of TB. Final label needs clinical exam + labs + tissue.</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Possibility</th>
+          <th>Typical pattern</th>
+          <th>How it fits Sanjeev’s picture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Osteoarticular TB</td>
+          <td>Commoner in India than West; often one joint; chronic months–years; may have cold abscess; cartilage loss often slower than hot pyogenic infection</td>
+          <td>Radiologist’s leading “?” — years of pain/swelling, monoarticular ankle, MRI infective pattern. <strong>Needs GeneXpert / culture / histo</strong></td>
+        </tr>
+        <tr>
+          <td>Pyogenic septic arthritis</td>
+          <td>Usually more acute (days–weeks), fever more common — but chronic smoldering forms exist</td>
+          <td>Must still be ruled out with routine bacterial culture / Gram stain on the same sample</td>
+        </tr>
+        <tr>
+          <td>Inflammatory arthritis (RA / seronegative)</td>
+          <td>Often multiple joints, morning stiffness, systemic clues</td>
+          <td>Less typical as <em>only</em> one ankle for years — still discuss blood markers with doctors</td>
+        </tr>
+        <tr>
+          <td>Advanced OA + cysts</td>
+          <td>Mechanical wear, osteophytes, joint-space loss on X-ray</td>
+          <td>X-ray nearly normal; MRI shows septated effusion + synovitis + infective-pattern oedema — <strong>not pure mechanical OA</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <strong>Emphasise for family:</strong> “Suggestive of infective arthritis — ? tubercular” means <em>this pattern looks like infection, and TB is a top Indian differential</em>. It does <strong>not</strong> mean “he has proven TB ankle” until tissue/fluid tests say so.
+  </div>
+</section>
+
+<!-- 6. BIOPSY -->
+<section id="biopsy" aria-labelledby="h-biopsy">
+  <h2 id="h-biopsy"><span class="num">5</span> Why sample / cuts / surgery is being discussed</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Do <strong>not</strong> tell anyone to skip biopsy if doctors advise it. This section explains <em>why</em> surgeons ask for tissue — it is not a consent form.</div>
+
+  <p>For suspected osteoarticular TB, the <strong>gold standard</strong> is tissue and/or fluid sent for a full panel — not MRI alone:</p>
+  <ul>
+    <li><strong>GeneXpert / CBNAAT</strong> on tissue or pus (rapid TB DNA + rifampicin resistance clue)</li>
+    <li><strong>AFB smear</strong> and <strong>mycobacterial culture</strong> (culture takes time but remains important)</li>
+    <li><strong>Histopathology</strong> — granulomas, caseation, synovitis pattern</li>
+    <li><strong>PLUS</strong> routine <strong>bacterial culture + Gram stain</strong> — so pyogenic septic arthritis is not missed</li>
+  </ul>
+  <div class="tl-grid">
+    <div class="tl amber">
+      <h3><span class="dot"></span>Aspiration alone</h3>
+      <p>Needle fluid helps, but sometimes volume is low or organisms are scarce — result can be inconclusive.</p>
+    </div>
+    <div class="tl red">
+      <h3><span class="dot"></span>Arthroscopic / open biopsy</h3>
+      <p>Commonly needed for proper tissue. “Cuts” / portals let the surgeon see, sample, and often <strong>debride</strong> infected synovium or pus — diagnostic and sometimes therapeutic.</p>
+    </div>
+    <div class="tl green">
+      <h3><span class="dot"></span>Why this matters</h3>
+      <p>Wrong empiric treatment delays healing. Right sample guides ATT vs antibiotics vs both, and whether more cartilage work is needed.</p>
+    </div>
+  </div>
+  <div class="callout">
+    Family-reported plan: sample/biopsy with cuts → then possibly further surgery for septic arthritis / infection / damaged cartilage. Confirm exact steps, risks, and consent wording with the operating surgeon.
+  </div>
+</section>
+
+<!-- 7. ASK SURGEON -->
+<section id="ask" aria-labelledby="h-ask">
+  <h2 id="h-ask"><span class="num">6</span> What to ask the surgeon before consent</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Checklist for empowered discussion — not medical orders. Tick with the treating team.</div>
+  <ul class="check-list">
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Will tissue go for <strong>GeneXpert / CBNAAT</strong> (not only culture)?<em>Ask them to write it on the request form.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Will <strong>histopathology</strong> (granuloma / caseation) be done on the same sitting?<em>Histo + micro together are stronger than either alone.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Bacterial culture + Gram stain also ordered?<em>Covers pyogenic septic arthritis.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">How many portals / incisions? Open vs arthroscopic?<em>Know the scar and approach.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Weight-bearing plan after surgery?<em>Non-weight / partial / walker timeline — critical at 115 kg.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">If TB+: ATT duration? (osteoarticular often <strong>9–12 months</strong> typical)<em>Confirm with ID / orthopaedic TB protocol they follow.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Chest X-ray / sputum for pulmonary TB screen?<em>Joint TB can travel with or without active lung disease.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Baseline <strong>CRP, ESR, CBC, HIV</strong> (and other labs they recommend)?<em>Track inflammation and rule out important co-factors.</em></span></li>
+    <li><span class="box" aria-hidden="true"></span><span class="txt">Is a second opinion from an <strong>orthopaedic infection specialist</strong> useful before major cartilage work?<em>Reasonable when infection vs inflammatory remains open.</em></span></li>
+  </ul>
+</section>
+
+<!-- 8. WEIGHT -->
+<section id="weight" aria-labelledby="h-weight">
+  <h2 id="h-weight"><span class="num">7</span> Weight 115 kg — load, not blame</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Weight loss is an <strong>adjunct</strong>, not a cure for suspected infective arthritis. Do not delay biopsy/surgery for a diet plan.</div>
+  <p>Every step multiplies force through the ankle. At 115 kg (obesity), that load makes pain feel worse, swelling linger, and post-op rehab harder — especially if weight-bearing is restricted.</p>
+  <div class="tl-grid">
+    <div class="tl amber">
+      <h3><span class="dot"></span>Before / around surgery</h3>
+      <p>Discuss walker/crutches fit, bed-to-chair transfers, and home support. High load + non-weight-bearing needs a real plan.</p>
+    </div>
+    <div class="tl green">
+      <h3><span class="dot"></span>Adjunct goals</h3>
+      <p>Steady, doctor-approved weight reduction helps long-term joint comfort and heart/metabolic health — parallel track, not a substitute for infection work-up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. RED FLAGS -->
+<section id="flags" aria-labelledby="h-flags">
+  <h2 id="h-flags"><span class="num">8</span> Timeline &amp; red flags → urgent care</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational only. When in doubt, go to emergency / call the treating doctor.</div>
+  <div class="callout danger">
+    <strong>Seek urgent care if:</strong> fever with chills, night sweats that are new/worsening, discharging sinus near the ankle, sudden inability to put foot down / walk, new numbness or foot-drop feeling, rapidly spreading redness, or severe uncontrolled pain.
+  </div>
+  <ul>
+    <li><strong>Chronic background:</strong> years of difficulty walking, continuous pain, swelling — matches a smoldering process; still needs planned (not panicked) work-up.</li>
+    <li><strong>After biopsy/surgery:</strong> watch wound discharge, fever, calf swelling (clot risk discussion with surgeons), and medication side-effects if ATT starts.</li>
+  </ul>
+</section>
+
+<!-- 10. ACTION PACK -->
+<section id="actions" aria-labelledby="h-actions">
+  <h2 id="h-actions"><span class="num">9</span> Action pack for family — this week</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Practical family steps — final medical decisions rest with Yashoda treating team.</div>
+  <ol class="steps">
+    <li>Keep <strong>both reports</strong> (X-ray 14 Sep + MRI 15 Sep) and the 4-page MRI films together in one folder / phone album.</li>
+    <li>Book / attend the orthopaedic review with the checklist in section 6 printed or on phone.</li>
+    <li>Ask explicitly that biopsy tissue requests include <strong>GeneXpert + histo + mycobacterial culture + routine bacterial culture</strong>.</li>
+    <li>Get baseline labs the surgeon wants (often CRP/ESR/CBC; HIV as advised) and ask about chest imaging.</li>
+    <li>Plan home support for limited walking after any procedure (chair, walker path, bathroom safety) given 115 kg load.</li>
+    <li>Do <strong>not</strong> start random antibiotics or steroids before sampling unless the doctor orders them — they can blur cultures.</li>
+    <li>If TB is confirmed later, prepare for a long ATT course (often 9–12 months for bone/joint) with adherence support.</li>
+  </ol>
+</section>
+
+<!-- 11. SOURCES -->
+<section id="sources" aria-labelledby="h-sources">
+  <h2 id="h-sources"><span class="num">10</span> Sources note</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> This pack is <strong>not</strong> a hospital second opinion.</div>
+  <p>Based on attached Yashoda Super Speciality Hospitals (Kaushambi) reports:</p>
+  <ul>
+    <li>MRI Right Ankle — Lab <strong>3110748</strong>, finalised <strong>15/09/2026 5:36 PM</strong>, Dr Mamta Motla</li>
+    <li>X-ray Both Ankle AP/LAT — Lab <strong>3110696</strong>, finalised <strong>14/09/2026 7:37 PM</strong>, Dr Harsh Goyal</li>
+    <li>Patient context from family: symptoms years; referred by Dr Akhil Kulshreshtha; plan discussion of sample/biopsy ± surgery</li>
+  </ul>
+  <p>Framing of differentials and “why biopsy” draws on <strong>standard Indian musculoskeletal / osteoarticular TB imaging and clinical literature</strong> (general knowledge — not a citation of Sanjeev’s hospital). MRI films used only as visual context; no invented slice-level diagnoses.</p>
+  <p class="lead" style="margin-top:14px">Prepared for the family of Mr Sanjeev Chaudhary (brother-in-law of Gaurav) — calm discussion aid for the treating doctors.</p>
+</section>
+
+<footer class="footer-note">
+  Offline single-file briefing · Print / Save PDF from the top button · en-IN family English<br />
+  Educational synthesis — not a diagnosis · Do not skip biopsy if advised
+</footer>
+
+</div>
+<script>
+/* Tiny enhancement: highlight nav link on scroll; no external deps */
+(function () {
+  var links = document.querySelectorAll('.nav-scroll a');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href');
+    if (id && id.charAt(0) === '#') map[id.slice(1)] = a;
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.style.color = ''; a.style.background = ''; a.style.borderColor = ''; });
+      var a = map[e.target.id];
+      if (a) {
+        a.style.color = '#e8eef9';
+        a.style.background = '#162038';
+        a.style.borderColor = '#2a3a5c';
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  Object.keys(map).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
