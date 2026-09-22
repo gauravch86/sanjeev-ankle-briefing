@@ -411,6 +411,67 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   .impression-box code { color: #600; }
   html { scroll-padding-top: 0; }
 }
+
+/* Media cards — reports & MRI films */
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 14px 0;
+}
+@media (min-width: 700px) {
+  .media-grid.two { grid-template-columns: 1fr 1fr; }
+  .media-grid.films { grid-template-columns: 1fr 1fr; }
+}
+.media-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+.media-card a.img-link {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  line-height: 0;
+}
+.media-card img.scan {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+.media-card figcaption,
+.media-card .cap {
+  margin-top: 10px;
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.media-card .cap strong { color: var(--text); }
+.media-card .hint {
+  font-size: .75rem;
+  color: var(--accent2);
+  margin-top: 6px;
+}
+.explain-bullets {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px 12px 28px;
+  margin: 12px 0 16px;
+}
+.explain-bullets li { margin: 6px 0; color: var(--muted); font-size: .92rem; }
+.explain-bullets li strong { color: var(--text); }
+.gallery-note {
+  font-size: .86rem;
+  color: var(--muted);
+  margin: 8px 0 4px;
+}
+
 </style>
 </head>
 <body>
@@ -419,7 +480,9 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   <div class="nav-scroll" role="navigation">
     <a href="#hero">Home</a>
     <a href="#summary">Summary</a>
+    <a href="#reports">Reports</a>
     <a href="#mri">MRI</a>
+    <a href="#films">Scans</a>
     <a href="#xray">X-ray</a>
     <a href="#diff">Differential</a>
     <a href="#biopsy">Biopsy</a>
@@ -443,11 +506,11 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     <span class="badge green">Discuss with doctors</span>
   </div>
   <h1>Mr Sanjeev Chaudhary — Right Ankle Briefing</h1>
-  <p class="sub">Calm, precise notes so the family can talk clearly with the treating orthopaedic team at Yashoda, Kaushambi.</p>
+  <p class="sub">Calm, precise notes so the family can talk clearly with the treating orthopaedic team at YASHODA Super Speciality Hospitals, Kaushambi.</p>
   <div class="meta-grid">
     <div class="meta"><div class="k">Age / Sex</div><div class="v">42 / Male</div></div>
     <div class="meta"><div class="k">Weight</div><div class="v">115 kg</div></div>
-    <div class="meta"><div class="k">Hospital</div><div class="v">Yashoda, Kaushambi</div></div>
+    <div class="meta"><div class="k">Hospital</div><div class="v">YASHODA, Kaushambi</div></div>
     <div class="meta"><div class="k">Referred by</div><div class="v">Dr Akhil Kulshreshtha</div></div>
     <div class="meta"><div class="k">X-ray</div><div class="v">14 Sep 2026</div></div>
     <div class="meta"><div class="k">MRI</div><div class="v">15 Sep 2026</div></div>
@@ -474,10 +537,41 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
   </div>
 </section>
 
+
+<!-- REPORTS -->
+<section id="reports" aria-labelledby="h-reports">
+  <h2 id="h-reports"><span class="num">★</span> Original hospital reports</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Scans of the written reports from YASHODA Super Speciality Hospitals, Kaushambi. Tap any image to open full size. Educational pack — not a new diagnosis.</div>
+  <p class="lead">Keep these with the MRI films when you meet the orthopaedic team.</p>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/report-mri.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-report-mri.jpg" alt="MRI written report — Right ankle, Lab 3110748" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>MRI report</strong> — Lab <strong>3110748</strong>, finalised <strong>15/09/2026</strong>,
+        Dr <strong>Mamta Motla</strong> (Head &amp; Consultant Radiologist).
+        Impression: infective arthritis — ? tubercular (clinical correlation).
+      </figcaption>
+      <div class="hint">Tap to open full-size original</div>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/report-xray.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-report-xray.jpg" alt="X-ray written report — Both ankles, Lab 3110696" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>X-ray report</strong> — Lab <strong>3110696</strong>, <strong>14/09/2026</strong>,
+        Dr <strong>Harsh Goyal</strong>. Both ankles AP/LAT — essentially normal plain film.
+      </figcaption>
+      <div class="hint">Tap to open full-size original</div>
+    </figure>
+  </div>
+</section>
+
 <!-- 3. MRI -->
 <section id="mri" aria-labelledby="h-mri">
   <h2 id="h-mri"><span class="num">2</span> What the MRI found</h2>
-  <p class="lead">Lab 3110748 · Finalised 15/09/2026 5:36 PM · Dr Mamta Motla · Right ankle MRI</p>
+  <p class="lead">Lab 3110748 · Finalised 15/09/2026 5:36 PM · Dr Mamta Motla (Head &amp; Consultant Radiologist) · Right ankle MRI</p>
   <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Educational synthesis for family discussion with treating doctors — NOT a diagnosis. MRI films (4 pages, 15 Sep 2026) are visual context only; do not invent slice-level diagnoses beyond this report.</div>
 
   <div class="impression-box">
@@ -561,6 +655,88 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
     </div>
     <figcaption>Simple teaching diagram — not a scale drawing of the MRI slices. Star = where the report concentrates: subtalar infection-pattern change.</figcaption>
   </figure>
+</section>
+
+
+<!-- MRI FILMS WITH TEACHING LABELS -->
+<section id="films" aria-labelledby="h-films">
+  <h2 id="h-films"><span class="num">★</span> MRI films with teaching labels</h2>
+  <div class="disclaimer" role="note"><strong>Disclaimer:</strong> Coloured overlays are <em>educational only</em> for family understanding. They are not a new radiology report. Treating doctors decide meaning. MRI impression remains: <strong>infective arthritis — ? tubercular</strong> (suspicion only).</div>
+
+  <ul class="explain-bullets">
+    <li><strong>Cyst</strong> = fluid-filled pocket inside the talus bone (report sizes about <strong>13×11 mm</strong> and <strong>16×10 mm</strong>).</li>
+    <li><strong>Subtalar</strong> = the joint under the ankle bone (talus on calcaneus) where MRI shows inflammation/fluid — the <strong>main focus</strong>.</li>
+    <li><strong>Labels</strong> are educational overlays on the hospital films — treating doctors decide clinical meaning.</li>
+  </ul>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">Annotated teaching views (most important)</h3>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/web-mri-film-1-annotated.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-1-annotated.jpg" alt="Annotated sagittal MRI film page 1 — talus cyst and subtalar labels" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>Film 1/4 (sagittal) — labelled.</strong> Yellow = talus cyst; red = subtalar joint irritation/fluid.
+        MRI impression: <em>infective arthritis — ? tubercular</em> (suspicion only).
+      </figcaption>
+      <div class="hint">Tap for full size</div>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/web-mri-film-3-annotated.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-3-annotated.jpg" alt="Annotated axial MRI film page 3 — talus cyst and subtalar labels" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap">
+        <strong>Film 3/4 (axial) — labelled.</strong> Yellow circle/box on bright cyst focus; red on subtalar interface.
+        MRI impression: <em>infective arthritis — ? tubercular</em> (suspicion only).
+      </figcaption>
+      <div class="hint">Tap for full size</div>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">Close-ups (optional)</h3>
+  <div class="media-grid two">
+    <figure class="media-card">
+      <a class="img-link" href="media/web-cyst-closeup.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-cyst-closeup.jpg" alt="Close-up crop highlighting talus cyst on sagittal film" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Cyst close-up</strong> — crop from sagittal teaching film (educational overlay).</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/web-subtalar-closeup.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-subtalar-closeup.jpg" alt="Close-up crop highlighting subtalar joint on sagittal film" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Subtalar close-up</strong> — crop from sagittal teaching film (educational overlay).</figcaption>
+    </figure>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:1.05rem;color:var(--accent);">All 4 original MRI film pages (unlabelled)</h3>
+  <p class="gallery-note">Complete hospital sheet set for the folder — no teaching overlays.</p>
+  <div class="media-grid films">
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-1.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-1.jpg" alt="MRI film page 1 of 4 sagittal" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Page 1/4</strong> — sagittal (cysts/subtalar visible)</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-2.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-2.jpg" alt="MRI film page 2 of 4" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Page 2/4</strong></figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-3.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-3.jpg" alt="MRI film page 3 of 4 axial" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Page 3/4</strong> — axial (cyst often bright/clear)</figcaption>
+    </figure>
+    <figure class="media-card">
+      <a class="img-link" href="media/mri-film-4.jpg" target="_blank" rel="noopener">
+        <img class="scan" src="media/web-mri-film-4.jpg" alt="MRI film page 4 of 4" loading="lazy" decoding="async" />
+      </a>
+      <figcaption class="cap"><strong>Page 4/4</strong></figcaption>
+    </figure>
+  </div>
 </section>
 
 <!-- 4. X-RAY -->
@@ -729,9 +905,9 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
 <section id="sources" aria-labelledby="h-sources">
   <h2 id="h-sources"><span class="num">10</span> Sources note</h2>
   <div class="disclaimer" role="note"><strong>Disclaimer:</strong> This pack is <strong>not</strong> a hospital second opinion.</div>
-  <p>Based on attached Yashoda Super Speciality Hospitals (Kaushambi) reports:</p>
+  <p>Based on attached YASHODA Super Speciality Hospitals, Kaushambi reports:</p>
   <ul>
-    <li>MRI Right Ankle — Lab <strong>3110748</strong>, finalised <strong>15/09/2026 5:36 PM</strong>, Dr Mamta Motla</li>
+    <li>MRI Right Ankle — Lab <strong>3110748</strong>, finalised <strong>15/09/2026 5:36 PM</strong>, Dr Mamta Motla (Head &amp; Consultant Radiologist)</li>
     <li>X-ray Both Ankle AP/LAT — Lab <strong>3110696</strong>, finalised <strong>14/09/2026 7:37 PM</strong>, Dr Harsh Goyal</li>
     <li>Patient context from family: symptoms years; referred by Dr Akhil Kulshreshtha; plan discussion of sample/biopsy ± surgery</li>
   </ul>
@@ -740,7 +916,7 @@ td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
 </section>
 
 <footer class="footer-note">
-  Offline single-file briefing · Print / Save PDF from the top button · en-IN family English<br />
+  Family briefing with reports + annotated MRI films · Print / Save PDF · en-IN<br />
   Educational synthesis — not a diagnosis · Do not skip biopsy if advised
 </footer>
 
