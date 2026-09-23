@@ -170,6 +170,18 @@ button.stat {
 }
 .sanjeev-photo-caption { font-size:.78rem; color:var(--muted); margin-top:6px; }
 
+
+.social-strip { margin-top:18px; }
+.social-strip h3 { margin:0 0 8px; color:var(--navy2); font-size:1.05rem; }
+.social-note { color:var(--muted); font-size:.9rem; margin:0 0 12px; }
+.postcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
+.postcard-card {
+  background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px;
+  box-shadow:0 6px 18px rgba(11,31,58,.06);
+}
+.postcard-card img { width:100%; height:auto; border-radius:10px; display:block; }
+.postcard-card .pc-cap { font-size:.82rem; color:var(--muted); margin-top:8px; }
+
 </style>
 </head>
 <body>
@@ -276,6 +288,17 @@ button.stat {
     </div>
   </div>
   <img class="sanjeev-poster" src="./sanjeev-poster.jpg" alt="Sanjeev Kumar campaign poster — Candidate for Vice President, NDBA"/>
+  <div class="social-strip">
+    <h3>Social postcards (occasion-based)</h3>
+    <p class="social-note">Common campaign base stays fixed. Postcards change by occasion for WhatsApp / Instagram / Facebook — same face and VP ask, fresh seasonal frame.</p>
+    <div class="postcard-grid">
+      <div class="postcard-card">
+        <img src="./postcard-independence-day.jpg" alt="Sanjeev Kumar Independence Day campaign postcard — Contesting Vice President, NDBA 2027"/>
+        <div class="pc-cap"><strong>Independence Day</strong> · Together for a Stronger NDBA · Integrity · Justice · Unity</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 <section id="universe">
   <h2>3. Voter universe — Excel merge report</h2>

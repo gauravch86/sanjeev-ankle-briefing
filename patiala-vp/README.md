@@ -15,6 +15,12 @@ Open `index.html` in a browser (needs network only for Chart.js CDN). Keep `cate
 ## Share-safe
 Phone numbers are removed from this public page and from `categories.json`. Full contact CSV stays private campaign material only.
 
+## Creatives
+The common campaign poster (`sanjeev-poster.jpg`) stays fixed. Occasion postcards (for example `postcard-independence-day.jpg`) are for WhatsApp, Instagram, and Facebook — same face and VP ask, fresh seasonal frame.
+
 ## Files
 - `index.html` — strategy pack UI
 - `categories.json` — category → name rows (no mobiles), built from `../voters-tagged.csv`
+- `sanjeev-poster.jpg` — fixed campaign poster
+- `sanjeev.jpg` — headshot crop
+- `postcard-independence-day.jpg` — Independence Day social postcard
