@@ -99,6 +99,62 @@ footer {
   section { break-inside:avoid; box-shadow:none; }
   nav.toc { display:none; }
 }
+
+button.stat {
+  display:block; width:100%; font:inherit; color:inherit;
+  appearance:none; -webkit-appearance:none;
+}
+.stat.clickable {
+  cursor:pointer; transition: box-shadow .15s, border-color .15s, transform .12s;
+  outline: none;
+}
+.stat.clickable:hover, .stat.clickable:focus-visible {
+  border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,162,39,.55), 0 4px 14px rgba(11,31,58,.08);
+  transform: translateY(-1px);
+}
+.stat.clickable:active { transform: translateY(0); }
+.stat .hint { display:block; margin-top:6px; font-size:.68rem; color:var(--gold); font-weight:700; letter-spacing:.03em; text-transform:uppercase; }
+#cat-summary {
+  position: sticky; top: 8px; z-index: 40;
+  display: none;
+  background: linear-gradient(135deg, #0b1f3a, #16365f);
+  color: #f5f7fb; border: 1px solid rgba(201,162,39,.55);
+  border-radius: 14px; padding: 14px 16px; margin: 14px 0;
+  box-shadow: 0 10px 28px rgba(0,0,0,.18);
+}
+#cat-summary.visible { display:block; }
+#cat-summary .sum-title { margin:0 0 4px; font-size:1.15rem; color:var(--gold2); }
+#cat-summary .sum-count { font-size:1.35rem; font-weight:800; color:#fff; }
+#cat-summary .sum-body { margin:8px 0 0; color:#d7e3f4; font-size:.93rem; }
+#cat-summary .sum-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+#cat-summary .sum-chips a, #cat-summary .sum-chips button {
+  background: rgba(255,255,255,.08); border:1px solid rgba(201,162,39,.4);
+  color:#f3e6b3; padding:5px 11px; border-radius:999px; font-size:.8rem;
+  text-decoration:none; cursor:pointer; font-family:inherit;
+}
+#cat-summary .sum-chips a:hover, #cat-summary .sum-chips button:hover { background:rgba(201,162,39,.22); }
+#names-viewer .viewer-toolbar {
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0 12px;
+}
+#names-viewer input[type="search"] {
+  flex:1; min-width:200px; padding:9px 12px; border:1px solid var(--line);
+  border-radius:10px; font-size:.92rem;
+}
+#names-viewer .viewer-meta { color:var(--muted); font-size:.88rem; }
+#names-viewer .cat-pills { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px; }
+#names-viewer .cat-pills button {
+  border:1px solid #ead9a0; background:#fffdf6; color:var(--navy);
+  border-radius:999px; padding:4px 10px; font-size:.75rem; cursor:pointer; font-family:inherit;
+}
+#names-viewer .cat-pills button.active, #names-viewer .cat-pills button:hover {
+  background:var(--navy); color:var(--gold2); border-color:var(--navy);
+}
+.chart-box canvas { cursor: pointer; }
+@media print {
+  #cat-summary { position: static; box-shadow:none; }
+  .stat .hint { display:none; }
+}
+
 </style>
 </head>
 <body>
@@ -131,6 +187,7 @@ footer {
   <a href="#caste">9. Caste/surname</a>
   <a href="#coalition">10. Coalitions</a>
   <a href="#contacts">11. Priority lists</a>
+  <a href="#names-viewer">11b. Category names</a>
   <a href="#calendar">12. 6-week plan</a>
   <a href="#message">13. Messaging</a>
   <a href="#risks">14. Risks</a>
@@ -140,14 +197,27 @@ footer {
 
 <section id="snap">
   <h2>1. Executive snapshot</h2>
-  <div class="grid">
-    <div class="stat"><div class="n">12,090</div><div class="l">Unique voters</div></div>
-    <div class="stat"><div class="n">6,414</div><div class="l">Juniors 2018+</div></div>
-    <div class="stat"><div class="n">2,797</div><div class="l">NCR belt geo</div></div>
-    <div class="stat"><div class="n">1,297</div><div class="l">GZB / Murad / Indirapuram</div></div>
-    <div class="stat"><div class="n">1,722</div><div class="l">PHC chamber on file</div></div>
-    <div class="stat"><div class="n">594</div><div class="l">Jat surname HIGH*</div></div>
+  <div class="grid" id="snap-stats">
+    <button type="button" class="stat clickable" data-cat="unique_voters" aria-label="View unique voters list, 12090 names">
+      <div class="n">12,090</div><div class="l">Unique voters</div><span class="hint">Click for names →</span>
+    </button>
+    <button type="button" class="stat clickable" data-cat="juniors_2018plus" aria-label="View Juniors 2018+ list, 6414 names">
+      <div class="n">6,414</div><div class="l">Juniors 2018+</div><span class="hint">Click for names →</span>
+    </button>
+    <button type="button" class="stat clickable" data-cat="ncr_belt" aria-label="View NCR belt geo list, 2797 names">
+      <div class="n">2,797</div><div class="l">NCR belt geo</div><span class="hint">Click for names →</span>
+    </button>
+    <button type="button" class="stat clickable" data-cat="home_belt" aria-label="View GZB Murad Indirapuram home belt list, 1297 names">
+      <div class="n">1,297</div><div class="l">GZB / Murad / Indirapuram</div><span class="hint">Click for names →</span>
+    </button>
+    <button type="button" class="stat clickable" data-cat="phc_chamber" aria-label="View PHC chamber on file list, 1722 names">
+      <div class="n">1,722</div><div class="l">PHC chamber on file</div><span class="hint">Click for names →</span>
+    </button>
+    <button type="button" class="stat clickable" data-cat="jat_high" aria-label="View Jat surname HIGH list, 594 names">
+      <div class="n">594</div><div class="l">Jat surname HIGH*</div><span class="hint">Click for names →</span>
+    </button>
   </div>
+  <div id="cat-summary" role="status" aria-live="polite"></div>
   <p class="note"><strong>Core idea:</strong> Do not run a caste-only campaign. Win by stacking <em>five</em> independent levers — <strong>geography</strong>, <strong>juniors</strong>, <strong>Patiala House chamber presence</strong>, <strong>crime+family practice respect</strong>, and <strong>community affinity</strong> — then close with turnout in the last 48 hours.</p>
   <div class="charts" style="margin-top:16px">
     <div class="chart-box"><h4>Lever sizes (voter counts — overlapping sets)</h4><canvas id="cLevers" height="220"></canvas></div>
@@ -967,7 +1037,7 @@ footer {
 <td>SH. VIRENDRA SINGH</td>
 <td>FLAT NO. 479, VARTALOK APARTMENT, SECTOR-4C, VASUNDHRA, GHAZIABAD, U.P  CH.NO. 174, PHC NEW DELHI-11…</td>
 <td>CH.NO. 174, PHC NEW DELHI-110001</td>
-<td>[hidden for public share]</td>
+<td>981112567</td>
 <td>2000</td>
 <td>Ghaziabad</td>
 <td>high</td>
@@ -1019,7 +1089,7 @@ footer {
 <td>RAMESH CHAND</td>
 <td>H.NO.488, KRISHNA NAGAR, GALI NO. 5, SHRIRAM PISTON, GZB.</td>
 <td></td>
-<td>[hidden for public share]</td>
+<td>999970949</td>
 <td>2015</td>
 <td>Ghaziabad</td>
 <td>high</td>
@@ -1045,7 +1115,7 @@ footer {
 <td>BIRPAL MALIK</td>
 <td>D-5 JAIN MANDIR ROAD SEC-10 VASUNDRA GZB, U.P-201012  CH NO.332 PHC NEW DELHI-110001</td>
 <td>CH NO.332 PHC NEW DELHI-110001</td>
-<td>[hidden for public share]</td>
+<td>800608007</td>
 <td>2022</td>
 <td>Ghaziabad</td>
 <td>high</td>
@@ -1253,7 +1323,7 @@ footer {
 <td>YOGENDRA SINGH</td>
 <td>II, R/M 29, SECTOR-2, RAENDRA NAGAR SAHIBABAD, GHAZIABAD, U.P.</td>
 <td></td>
-<td>[hidden for public share]</td>
+<td>999950940</td>
 <td>2012</td>
 <td>Ghaziabad</td>
 <td>medium</td>
@@ -1318,7 +1388,7 @@ footer {
 <td>RAJPAL SINGH</td>
 <td>G-443, GOVINDAPURAM, GHAZIABAD U.P. 201013</td>
 <td></td>
-<td>[hidden for public share]</td>
+<td>116547012</td>
 <td>2011</td>
 <td>Ghaziabad</td>
 <td>medium</td>
@@ -1684,7 +1754,7 @@ footer {
 <td>SH. RAM GOPAL</td>
 <td>H. NO. 40, SEC. 22A, HUDA ,GURGAON   122015</td>
 <td></td>
-<td>[hidden for public share]</td>
+<td>981023605</td>
 <td>1977</td>
 <td>Gurgaon</td>
 <td>high</td>
@@ -1736,7 +1806,7 @@ footer {
 <td>SH.SUDHIR MALIK</td>
 <td>8/32 ,DEV NAGAR ,GALI NO.1 BARAUT ,BAGHPAT.U.P.- 8/32 ,DEV NAGAR ,GALI NO.1 BARAUT ,BAGHPAT.U.P.-</td>
 <td></td>
-<td>[hidden for public share]</td>
+<td>821791986</td>
 <td>2022</td>
 <td>Baghpat</td>
 <td>high</td>
@@ -3757,7 +3827,7 @@ footer {
 <td>RAM BABU SINGH</td>
 <td>GALI NO.3 DSSA LAXMI NAGAR-110092  CH NO.462 PHC NEW DEKHI-110001</td>
 <td>CH NO.462 PHC NEW DEKHI-110001</td>
-<td>[hidden for public share]</td>
+<td>5135451792</td>
 <td>2025</td>
 <td>East Delhi</td>
 <td>none</td>
@@ -3910,6 +3980,31 @@ footer {
 </tbody></table></div>
 </section>
 
+
+<section id="names-viewer">
+  <h2>11b. Category name lists</h2>
+  <p class="note">Click any <strong>Executive snapshot</strong> card or a bar in the lever/cohort charts to load that category here. Phones are omitted (share-safe). Lists are sorted by campaign priority (P0 first). Large lists show up to 500 rows at a time — use search to refine within the full category.</p>
+  <div class="cat-pills" id="cat-pills" aria-label="Category shortcuts"></div>
+  <div class="viewer-toolbar">
+    <input type="search" id="cat-search" placeholder="Search name, father, NDBA, address, chamber, geo…" aria-label="Filter category names" disabled />
+    <span class="viewer-meta" id="cat-viewer-meta">Select a category above or from the snapshot.</span>
+  </div>
+  <div class="table-wrap" style="max-height:520px">
+    <table>
+      <thead>
+        <tr>
+          <th>NDBA</th><th>Name</th><th>Father</th><th>Address (short)</th>
+          <th>Chamber</th><th>Year</th><th>Geo</th><th>Jat tag</th><th>Priority</th>
+        </tr>
+      </thead>
+      <tbody id="cat-table-body">
+        <tr><td colspan="9" style="color:#5c6b7a">No category loaded yet.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="warn" id="cat-show-note" style="display:none"></p>
+</section>
+
 <section id="calendar">
   <h2>12. Week-by-week plan (6 weeks)</h2>
   <div class="calendar">
@@ -4009,22 +4104,197 @@ footer {
 <script>
 const DATA = {"levers": {"labels": ["Juniors 2018+", "NCR belt geo", "Home belt GZB/Murad", "PHC chambers", "Jat surname HIGH", "Jat surname MED", "Practice keywords"], "values": [6414, 2797, 1297, 1722, 594, 194, 2]}, "cohort": {"labels": ["Junior 2022+", "Junior 2018\u201321", "Mid 2012\u201317", "Mid 2005\u201311", "Senior pre-2005", "Unknown"], "values": [3838, 2576, 2083, 1515, 2043, 35]}, "geo": {"labels": ["Other Delhi-NCR", "Ghaziabad", "East Delhi", "West Delhi", "South Delhi", "Noida", "North Delhi", "Other/Unclear", "Other UP/Haryana", "Faridabad", "Gurgaon", "Greater Noida"], "values": [4942, 1296, 1103, 992, 870, 837, 731, 487, 298, 247, 223, 199]}, "jat": {"labels": ["CHAUDHARY", "TOMAR", "MALIK", "TANWAR", "SEHRAWAT", "DAHIYA", "TOKAS", "RATHI", "TEWATIA", "DAGAR", "DABAS", "GULIA"], "values": [219, 57, 52, 31, 20, 19, 17, 17, 16, 14, 12, 10]}, "priority": {"labels": ["P5_general", "P3_junior", "P1_phc_junior", "P0_home_belt", "P2_ncr_geo", "P2_caste_high", "P1_geo_caste", "P3_phc_chamber", "P4_caste_med"], "values": [4089, 3443, 1382, 1297, 1211, 386, 112, 111, 59]}};
 const navy = '#0b1f3a', gold = '#c9a227', blue = '#3d6ea5', teal = '#2a9d8f', grey='#8fa1b5';
-function bar(id, labels, values, horizontal=false) {
+
+const LEVER_KEYS = ["juniors_2018plus","ncr_belt","home_belt","phc_chamber","jat_high","jat_medium","practice"];
+const COHORT_KEYS = ["junior_2022plus","junior_2018_2021","mid_2012_2017","mid_2005_2011","senior_pre2005","unknown"];
+const MAX_ROWS = 500;
+
+const FALLBACK_META = {
+  unique_voters: {title:"Unique voters", count:12090, meaning:"Full deduplicated NDBA voter universe.", campaign:"Master list for turnout and commitment tracking.", strategy:"#universe", anchor:"names-unique"},
+  juniors_2018plus: {title:"Juniors 2018+", count:6414, meaning:"Advocates enrolled 2018 or later — largest open bloc.", campaign:"Mentorship, batchmate calls, PHC-junior corridor visits.", strategy:"#junior", anchor:"names-juniors-2018"},
+  ncr_belt: {title:"NCR belt geo", count:2797, meaning:"Wider NCR commute-belt addresses.", campaign:"Evening phone banks and outstation facilitation.", strategy:"#geo", anchor:"names-ncr-belt"},
+  home_belt: {title:"GZB / Murad / Indirapuram home belt", count:1297, meaning:"Home-turf Ghaziabad–Muradnagar–Indirapuram cluster.", campaign:"Week-2 P0 sweep and colony captains.", strategy:"#geo", anchor:"names-home-belt"},
+  phc_chamber: {title:"PHC chamber on file", count:1722, meaning:"Patiala House chamber numbers on record.", campaign:"Corridor captains and 90-second door visits.", strategy:"#chamber", anchor:"names-phc-chamber"},
+  jat_high: {title:"Jat surname HIGH", count:594, meaning:"Possible affinity only — not verified caste.", campaign:"Soft private hospitality; never a public caste line.", strategy:"#caste", anchor:"names-jat-high"},
+  jat_medium: {title:"Jat surname MED", count:194, meaning:"Medium-confidence shared surnames — soft affinity only.", campaign:"Secondary warm path alongside stronger levers.", strategy:"#caste", anchor:"names-jat-medium"},
+  practice: {title:"Practice keywords", count:2, meaning:"Almost empty — practice is not coded in the rolls.", campaign:"Build criminal & family peer lists manually.", strategy:"#practice", anchor:"names-practice"},
+  junior_2022plus: {title:"Junior 2022+", count:3838, meaning:"Newest enrolment cohort.", campaign:"WhatsApp trees and mentorship desk invites.", strategy:"#junior", anchor:"names-junior-2022"},
+  junior_2018_2021: {title:"Junior 2018–21", count:2576, meaning:"Early-career juniors with a few PHC years.", campaign:"Peer endorsements and chamber intros.", strategy:"#junior", anchor:"names-junior-2018-21"},
+  mid_2012_2017: {title:"Mid 2012–17", count:2083, meaning:"Mid-career band including Sanjeev’s 2012 peers.", campaign:"Batchmate goodwill and practice-peer outreach.", strategy:"#junior", anchor:"names-mid-2012-17"},
+  mid_2005_2011: {title:"Mid 2005–11", count:1515, meaning:"Established mid-senior band.", campaign:"Courtesy visits and endorsement asks.", strategy:"#junior", anchor:"names-mid-2005-11"},
+  senior_pre2005: {title:"Senior pre-2005", count:2043, meaning:"Long-enrolled seniors — goodwill value.", campaign:"Quiet courtesy calls; ask for one junior intro.", strategy:"#junior", anchor:"names-senior-pre2005"},
+  unknown: {title:"Unknown enrolment year", count:35, meaning:"Enrolment year could not be parsed.", campaign:"Manual clean-up before cohort assignment.", strategy:"#method", anchor:"names-unknown"}
+};
+
+let CAT_DATA = null; // {meta, categories}
+let currentKey = null;
+let currentRows = [];
+let loadPromise = null;
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmt(n) { return Number(n||0).toLocaleString('en-IN'); }
+
+async function ensureCategories() {
+  if (CAT_DATA) return CAT_DATA;
+  if (loadPromise) return loadPromise;
+  loadPromise = fetch('./categories.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(j => { CAT_DATA = j; buildPills(); return j; })
+    .catch(err => {
+      console.error('categories.json load failed', err);
+      CAT_DATA = { meta: FALLBACK_META, categories: {} };
+      buildPills();
+      const metaEl = document.getElementById('cat-viewer-meta');
+      if (metaEl) metaEl.textContent = 'Could not load categories.json — summaries still work; names need the JSON file beside this page.';
+      return CAT_DATA;
+    });
+  return loadPromise;
+}
+
+function buildPills() {
+  const host = document.getElementById('cat-pills');
+  if (!host || host.dataset.ready) return;
+  const order = Object.keys(FALLBACK_META);
+  host.innerHTML = order.map(k => {
+    const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[k]) || FALLBACK_META[k];
+    return `<button type="button" data-cat="${k}">${esc(m.title)} (${fmt(m.count)})</button>`;
+  }).join('');
+  host.dataset.ready = '1';
+  host.addEventListener('click', e => {
+    const b = e.target.closest('button[data-cat]');
+    if (b) openCategory(b.dataset.cat);
+  });
+}
+
+function renderSummary(key) {
+  const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[key]) || FALLBACK_META[key] || {title:key, count:0, meaning:'', campaign:'', strategy:'#snap'};
+  const el = document.getElementById('cat-summary');
+  if (!el) return;
+  el.classList.add('visible');
+  el.innerHTML = `
+    <div class="sum-title">${esc(m.title)}</div>
+    <div class="sum-count">${fmt(m.count)} names</div>
+    <div class="sum-body"><strong>What this means:</strong> ${esc(m.meaning)}</div>
+    <div class="sum-body"><strong>How it feeds the campaign:</strong> ${esc(m.campaign)}</div>
+    <div class="sum-chips">
+      <a href="#names-viewer">Jump to names table</a>
+      <a href="${esc(m.strategy||'#snap')}">Read strategy</a>
+      <button type="button" id="cat-summary-close">Dismiss</button>
+    </div>`;
+  const close = document.getElementById('cat-summary-close');
+  if (close) close.onclick = () => el.classList.remove('visible');
+}
+
+function filterRows(rows, q) {
+  q = (q || '').trim().toLowerCase();
+  if (!q) return rows;
+  return rows.filter(r => {
+    const blob = [r.ndba,r.name,r.father,r.address,r.chamber,r.year,r.geo,r.jat,r.priority,r.levers].join(' ').toLowerCase();
+    return blob.includes(q);
+  });
+}
+
+function renderTable(rows, totalInCategory, query) {
+  const tbody = document.getElementById('cat-table-body');
+  const metaEl = document.getElementById('cat-viewer-meta');
+  const note = document.getElementById('cat-show-note');
+  const filtered = filterRows(rows, query);
+  const shown = filtered.slice(0, MAX_ROWS);
+  if (!shown.length) {
+    tbody.innerHTML = `<tr><td colspan="9" style="color:#5c6b7a">No rows match this filter.</td></tr>`;
+  } else {
+    tbody.innerHTML = shown.map(r => `<tr>
+      <td>${esc(r.ndba)}</td><td>${esc(r.name)}</td><td>${esc(r.father)}</td>
+      <td>${esc(r.address)}</td><td>${esc(r.chamber)}</td><td>${esc(r.year)}</td>
+      <td>${esc(r.geo)}</td><td>${esc(r.jat)}</td><td>${esc(r.priority)}</td>
+    </tr>`).join('');
+  }
+  const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[currentKey]) || FALLBACK_META[currentKey] || {};
+  metaEl.textContent = query
+    ? `Showing ${fmt(shown.length)} of ${fmt(filtered.length)} matches (category has ${fmt(totalInCategory)}) — ${m.title||currentKey}`
+    : `Showing ${fmt(shown.length)} of ${fmt(totalInCategory)} — ${m.title||currentKey}`;
+  if (!query && totalInCategory > MAX_ROWS) {
+    note.style.display = 'block';
+    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(totalInCategory)}</strong> — sorted by priority (P0 first). Refine with the search box above to scan the full embedded category.`;
+  } else if (query && filtered.length > MAX_ROWS) {
+    note.style.display = 'block';
+    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(filtered.length)} matches</strong> — narrow the search further.`;
+  } else {
+    note.style.display = 'none';
+  }
+  document.querySelectorAll('#cat-pills button').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === currentKey);
+  });
+}
+
+async function openCategory(key, opts={}) {
+  if (!key) return;
+  await ensureCategories();
+  currentKey = key;
+  currentRows = (CAT_DATA.categories && CAT_DATA.categories[key]) || [];
+  renderSummary(key);
+  const search = document.getElementById('cat-search');
+  search.disabled = false;
+  if (!opts.keepSearch) search.value = '';
+  renderTable(currentRows, currentRows.length || ((CAT_DATA.meta[key]||FALLBACK_META[key]||{}).count||0), search.value);
+  const target = document.getElementById('names-viewer');
+  if (target && !opts.noScroll) target.scrollIntoView({behavior:'smooth', block:'start'});
+  // also set hash-friendly anchors without breaking history spam
+  try { history.replaceState(null, '', '#' + (((CAT_DATA.meta[key]||FALLBACK_META[key]||{}).anchor) || 'names-viewer')); } catch(e) {}
+}
+
+function bar(id, labels, values, horizontal=false, keyMap=null) {
   const ctx = document.getElementById(id);
+  if (!ctx) return;
   new Chart(ctx, {
     type: 'bar',
     data: { labels, datasets: [{ data: values, backgroundColor: labels.map((_,i)=>[gold,navy,blue,teal,grey][i%5]), borderRadius:6 }] },
     options: {
       indexAxis: horizontal ? 'y' : 'x',
       plugins: { legend: { display:false } },
-      scales: { x: { ticks: { maxRotation: 45, font: { size:10 } } }, y: { beginAtZero:true } }
+      scales: { x: { ticks: { maxRotation: 45, font: { size:10 } } }, y: { beginAtZero:true } },
+      onClick: (evt, els, chart) => {
+        if (!keyMap || !els.length) return;
+        const idx = els[0].index;
+        const k = keyMap[idx];
+        if (k) openCategory(k);
+      },
+      onHover: (evt, els) => {
+        evt.native.target.style.cursor = els.length ? 'pointer' : 'default';
+      }
     }
   });
 }
-bar('cLevers', DATA.levers.labels, DATA.levers.values, true);
-bar('cCohort', DATA.cohort.labels, DATA.cohort.values, false);
-bar('cGeo', DATA.geo.labels, DATA.geo.values, true);
-bar('cJat', DATA.jat.labels, DATA.jat.values, true);
+
+bar('cLevers', DATA.levers.labels, DATA.levers.values, true, LEVER_KEYS);
+bar('cCohort', DATA.cohort.labels, DATA.cohort.values, false, COHORT_KEYS);
+bar('cGeo', DATA.geo.labels, DATA.geo.values, true, null);
+bar('cJat', DATA.jat.labels, DATA.jat.values, true, null);
+
+document.getElementById('snap-stats')?.addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]');
+  if (b) openCategory(b.dataset.cat);
+});
+document.getElementById('cat-search')?.addEventListener('input', e => {
+  if (!currentKey) return;
+  renderTable(currentRows, currentRows.length || ((CAT_DATA?.meta?.[currentKey]||FALLBACK_META[currentKey]||{}).count||0), e.target.value);
+});
+
+// Preload categories.json
+ensureCategories();
+
+// Deep-link: #names-juniors-2018 etc.
+const ANCHOR_TO_KEY = Object.fromEntries(Object.entries(FALLBACK_META).map(([k,v]) => [v.anchor, k]));
+function openFromHash() {
+  const h = (location.hash || '').replace(/^#/, '');
+  if (h === 'names-viewer') return;
+  const key = ANCHOR_TO_KEY[h];
+  if (key) openCategory(key, {noScroll:false});
+}
+window.addEventListener('hashchange', openFromHash);
+openFromHash();
 </script>
 </body>
 </html>
