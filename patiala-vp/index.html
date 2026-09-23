@@ -182,6 +182,25 @@ button.stat {
 .postcard-card img { width:100%; height:auto; border-radius:10px; display:block; }
 .postcard-card .pc-cap { font-size:.82rem; color:var(--muted); margin-top:8px; }
 
+
+.who-grid { display:grid; grid-template-columns: 220px 1fr; gap:20px; align-items:start; }
+@media (max-width:800px){ .who-grid { grid-template-columns:1fr; } }
+.sanjeev-hero {
+  width:220px; height:220px; object-fit:cover; border-radius:16px;
+  border:2px solid var(--gold); box-shadow:0 10px 28px rgba(0,0,0,.2);
+  display:block; background:#122b4d;
+}
+.sanjeev-photo-caption { font-size:.8rem; color:var(--muted); margin-top:8px; text-align:center; max-width:220px; }
+.brand-card {
+  background: linear-gradient(135deg, var(--navy), var(--navy2));
+  color:#fff; border:1px solid rgba(201,162,39,.4); border-radius:14px;
+  padding:16px 18px; margin-top:10px;
+}
+.brand-card .tagline { color:var(--gold2); font-weight:800; letter-spacing:.02em; font-size:1.05rem; }
+.brand-card .sub { color:#d7e3f4; margin-top:6px; font-size:.92rem; }
+.brand-card ul { margin:10px 0 0; padding-left:18px; color:#e8eef7; }
+.brand-card li { margin:4px 0; }
+
 </style>
 </head>
 <body>
@@ -254,52 +273,35 @@ button.stat {
 </section>
 
 
+
 <section id="who">
   <h2>2. Who Sanjeev is (campaign persona)</h2>
   <div class="who-grid">
     <div>
-      <img class="sanjeev-photo" src="./sanjeev.jpg" alt="Sanjeev Kumar, advocate — confirmed candidate NDBA 4557"/>
-      <div class="sanjeev-photo-caption">Sanjeev Kumar · Advocate · NDBA 4557 · Candidate for VP, NDBA</div>
+      <img class="sanjeev-hero" src="./sanjeev-hero.jpg" alt="Sanjeev Kumar (Chaudhary), Advocate — NDBA 4557"/>
+      <div class="sanjeev-photo-caption">Sanjeev Kumar · Advocate<br/>NDBA 4557 · Muradnagar</div>
     </div>
     <div>
-<div class="two-col">
-    <div>
-      <ul class="clean">
-        <li><strong>Name for ballot / outreach:</strong> Sanjeev (also Sajeev/Sanjeev) — Jat (Chaudhary), Muradnagar, Ghaziabad</li>
+      <ul>
+        <li><strong>Ballot / roll name:</strong> SANJEEV KUMAR (NDBA 4557 · D/1627/2012) · Father Ashok Kumar · H-12 Sanjay Vihar, Muradnagar, Ghaziabad</li>
+        <li><strong>Public branding:</strong> Sanjeev Chaudhary — <a href="https://www.facebook.com/sanjeevchaudhary11" target="_blank" rel="noopener">facebook.com/sanjeevchaudhary11</a> (friends-locked)</li>
         <li><strong>Practice:</strong> Crime lawyer + family lawyer at Patiala House Courts, New Delhi</li>
-        <li><strong>Position sought:</strong> Vice President, New Delhi Bar Association (NDBA / Patiala House)</li>
-        <li><strong>Strength story:</strong> Outstation NCR counsel who understands junior struggle, criminal &amp; family board pressure, and chamber realities</li>
+        <li><strong>Position sought:</strong> Vice President, NDBA (Patiala House) — upcoming elections</li>
       </ul>
-    </div>
-    <div>
-      <div class="ok">
-        <strong>Confirmed candidate (locked by Gaurav):</strong><br/>
-        NDBA <strong>4557</strong> · SANJEEV KUMAR · Father: ASHOK KUMAR<br/>
-        H-12, SANJAY VIHAR, OPP. POLICE STATION MURAD NAGAR, GHAZIABAD (U.P)<br/>
-        Enrolment D/1627/2012 (2012) · Mobile [hidden for public share]<br/>
-        <em>Confirmed. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Use this row for ballot/outreach branding.</em>
-      </div>
-      <p class="note">Also on list (different people — do not confuse): SANJEEV CHOUDHARY (East of Kailash, father Gulia) and SANJIV KUMAR CHAUDHARY (Dwarka).</p>
-    </div>
-  </div>
-  <h3>Public context (NDBA)</h3>
-  <p>Recent public reports (2025 cycle) named office-bearers including President Nagender/Nagendra Kumar, Sr VP Vimal Ray Verma, VP Navneet Panwar, Secretary Tarun Rana. A writ challenge to the 2025 NDBA result was also reported in Delhi High Court records. Treat past results as context only — build Sanjeev’s own coalition for the next VP race.</p>
-
-    </div>
-  </div>
-  <img class="sanjeev-poster" src="./sanjeev-poster.jpg" alt="Sanjeev Kumar campaign poster — Candidate for Vice President, NDBA"/>
-  <div class="social-strip">
-    <h3>Social postcards (occasion-based)</h3>
-    <p class="social-note">Common campaign base stays fixed. Postcards change by occasion for WhatsApp / Instagram / Facebook — same face and VP ask, fresh seasonal frame.</p>
-    <div class="postcard-grid">
-      <div class="postcard-card">
-        <img src="./postcard-independence-day.jpg" alt="Sanjeev Kumar Independence Day campaign postcard — Contesting Vice President, NDBA 2027"/>
-        <div class="pc-cap"><strong>Independence Day</strong> · Together for a Stronger NDBA · Integrity · Justice · Unity</div>
+      <div class="brand-card">
+        <div class="tagline">YOUR TRUST, MY COMMITMENT</div>
+        <div class="sub">Experienced. Committed. Dedicated to You. · Together for a Stronger Bar</div>
+        <ul>
+          <li>Unity in Diversity</li>
+          <li>Fairness in Every Decision</li>
+          <li>Respect for Every Member</li>
+          <li>Service, Integrity &amp; Progress</li>
+        </ul>
       </div>
     </div>
   </div>
-
 </section>
+
 <section id="universe">
   <h2>3. Voter universe — Excel merge report</h2>
   <div class="grid">
