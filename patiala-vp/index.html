@@ -155,6 +155,21 @@ button.stat {
   .stat .hint { display:none; }
 }
 
+
+
+.who-grid { display:grid; grid-template-columns: minmax(200px,320px) 1fr; gap:18px; align-items:start; }
+@media (max-width:800px){ .who-grid { grid-template-columns:1fr; } }
+.sanjeev-photo {
+  width:100%; max-width:320px; height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:14px;
+  border:2px solid var(--gold); box-shadow:0 8px 24px rgba(0,0,0,.18);
+  background:#122b4d; display:block;
+}
+.sanjeev-poster {
+  width:100%; border-radius:14px; border:1px solid rgba(201,162,39,.45);
+  box-shadow:0 10px 28px rgba(0,0,0,.2); display:block; margin-top:14px;
+}
+.sanjeev-photo-caption { font-size:.78rem; color:var(--muted); margin-top:6px; }
+
 </style>
 </head>
 <body>
@@ -226,9 +241,16 @@ button.stat {
   <p class="warn">*Surname tagging is <strong>possible affinity only</strong>, never verified caste. Singh alone is not tagged as Jat.</p>
 </section>
 
+
 <section id="who">
   <h2>2. Who Sanjeev is (campaign persona)</h2>
-  <div class="two-col">
+  <div class="who-grid">
+    <div>
+      <img class="sanjeev-photo" src="./sanjeev.jpg" alt="Sanjeev Kumar, advocate — confirmed candidate NDBA 4557"/>
+      <div class="sanjeev-photo-caption">Sanjeev Kumar · Advocate · NDBA 4557 · Candidate for VP, NDBA</div>
+    </div>
+    <div>
+<div class="two-col">
     <div>
       <ul class="clean">
         <li><strong>Name for ballot / outreach:</strong> Sanjeev (also Sajeev/Sanjeev) — Jat (Chaudhary), Muradnagar, Ghaziabad</li>
@@ -239,19 +261,22 @@ button.stat {
     </div>
     <div>
       <div class="ok">
-        <strong>Best match in the Excel (confirm with candidate):</strong><br/>
+        <strong>Confirmed candidate (locked by Gaurav):</strong><br/>
         NDBA <strong>4557</strong> · SANJEEV KUMAR · Father: ASHOK KUMAR<br/>
         H-12, SANJAY VIHAR, OPP. POLICE STATION MURAD NAGAR, GHAZIABAD (U.P)<br/>
         Enrolment D/1627/2012 (2012) · Mobile [hidden for public share]<br/>
-        <em>Best sheet match for Muradnagar residence. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Confirm identity with candidate before outreach branding.</em>
+        <em>Confirmed. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Use this row for ballot/outreach branding.</em>
       </div>
       <p class="note">Also on list (different people — do not confuse): SANJEEV CHOUDHARY (East of Kailash, father Gulia) and SANJIV KUMAR CHAUDHARY (Dwarka).</p>
     </div>
   </div>
   <h3>Public context (NDBA)</h3>
   <p>Recent public reports (2025 cycle) named office-bearers including President Nagender/Nagendra Kumar, Sr VP Vimal Ray Verma, VP Navneet Panwar, Secretary Tarun Rana. A writ challenge to the 2025 NDBA result was also reported in Delhi High Court records. Treat past results as context only — build Sanjeev’s own coalition for the next VP race.</p>
-</section>
 
+    </div>
+  </div>
+  <img class="sanjeev-poster" src="./sanjeev-poster.jpg" alt="Sanjeev Kumar campaign poster — Candidate for Vice President, NDBA"/>
+</section>
 <section id="universe">
   <h2>3. Voter universe — Excel merge report</h2>
   <div class="grid">
