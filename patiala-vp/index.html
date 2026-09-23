@@ -1,0 +1,4030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NDBA VP Strategy Pack — Sanjeev (Patiala House)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy:#0b1f3a; --navy2:#122b4d; --gold:#c9a227; --gold2:#e8c547;
+  --cream:#f7f3e8; --ink:#1a2332; --muted:#5c6b7a; --card:#ffffff;
+  --line:#d9e0ea; --ok:#1f7a4c; --warn:#9a6b00; --danger:#8b2e2e;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #071526 0%, #0b1f3a 180px, #eef2f7 180px);
+  color:var(--ink); line-height:1.55;
+}
+.wrap { max-width:1120px; margin:0 auto; padding:24px 18px 60px; }
+header.hero {
+  background: radial-gradient(1200px 400px at 10% -20%, rgba(201,162,39,.25), transparent),
+              linear-gradient(135deg, var(--navy), var(--navy2));
+  color:#fff; border:1px solid rgba(201,162,39,.45); border-radius:18px;
+  padding:28px 28px 22px; box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+.badge {
+  display:inline-block; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--navy); background:var(--gold2); padding:4px 10px; border-radius:999px; font-weight:700;
+}
+h1 { margin:12px 0 6px; font-size:1.85rem; font-weight:750; letter-spacing:.01em; }
+.subtitle { color:#d7e3f4; font-size:1.02rem; max-width:820px; }
+.meta { margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; }
+.pill {
+  background:rgba(255,255,255,.08); border:1px solid rgba(201,162,39,.35);
+  color:#f3e6b3; padding:6px 12px; border-radius:999px; font-size:.85rem;
+}
+nav.toc {
+  margin:18px 0; background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:14px 18px; display:flex; flex-wrap:wrap; gap:8px 14px;
+}
+nav.toc a { color:var(--navy); text-decoration:none; font-size:.9rem; font-weight:600; }
+nav.toc a:hover { color:var(--gold); }
+section {
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:22px 24px; margin:16px 0; box-shadow:0 2px 10px rgba(11,31,58,.04);
+}
+section h2 {
+  margin:0 0 12px; font-size:1.35rem; color:var(--navy);
+  border-left:4px solid var(--gold); padding-left:12px;
+}
+section h3 { margin:18px 0 8px; color:var(--navy2); font-size:1.05rem; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
+.stat {
+  background:linear-gradient(180deg,#fff, #fbf8ef); border:1px solid #ead9a0;
+  border-radius:12px; padding:14px 12px; text-align:center;
+}
+.stat .n { font-size:1.6rem; font-weight:800; color:var(--navy); }
+.stat .l { font-size:.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.04em; }
+.note, .warn, .ok, .danger {
+  border-radius:10px; padding:12px 14px; margin:12px 0; font-size:.95rem;
+}
+.note { background:#eef4fb; border:1px solid #c5d6ea; }
+.warn { background:#fff7e6; border:1px solid #f0d48a; }
+.ok { background:#eaf7f0; border:1px solid #b7e0c7; }
+.danger { background:#fceeee; border:1px solid #e5b6b6; }
+.charts { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.chart-box { background:#fafbfd; border:1px solid var(--line); border-radius:12px; padding:12px; }
+.chart-box h4 { margin:0 0 8px; font-size:.9rem; color:var(--muted); }
+@media (max-width:860px) { .charts { grid-template-columns:1fr; } }
+ul.clean { padding-left:1.15rem; }
+ul.clean li { margin:6px 0; }
+.table-wrap { overflow:auto; border:1px solid var(--line); border-radius:10px; }
+table { border-collapse:collapse; width:100%; font-size:.82rem; }
+th, td { padding:8px 9px; border-bottom:1px solid #e8edf3; text-align:left; vertical-align:top; }
+th { background:var(--navy); color:#fff; position:sticky; top:0; font-weight:600; white-space:nowrap; }
+tr:nth-child(even) td { background:#f8fafc; }
+.tag {
+  display:inline-block; font-size:.72rem; padding:2px 7px; border-radius:6px;
+  background:#e8eef7; color:var(--navy); font-weight:700; margin-right:4px;
+}
+.tag.gold { background:#f5e7b5; color:#6a5200; }
+.tag.green { background:#d8f3e4; color:#145c38; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:800px) { .two-col { grid-template-columns:1fr; } }
+.calendar { display:grid; gap:10px; }
+.week {
+  display:grid; grid-template-columns:110px 1fr; gap:10px; border:1px solid var(--line);
+  border-radius:10px; overflow:hidden;
+}
+.week .wlabel { background:var(--navy); color:var(--gold2); padding:12px; font-weight:700; }
+.week .wbody { padding:12px; }
+footer {
+  margin-top:24px; color:#9fb0c3; font-size:.85rem; text-align:center;
+}
+@media print {
+  body { background:#fff; }
+  header.hero { box-shadow:none; }
+  section { break-inside:avoid; box-shadow:none; }
+  nav.toc { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <span class="badge">New Delhi Bar Association · Patiala House Courts</span>
+  <h1>Vice-President Election Strategy Pack</h1>
+  <p class="subtitle">Candidate: <strong>Sanjeev (Jat / Chaudhary)</strong> — crime &amp; family practice, Muradnagar (Ghaziabad) · Multi-lever plan for an unbeatable but ethical VP campaign</p>
+  <div class="meta">
+    <span class="pill">Voters (unique): 12,090</span>
+    <span class="pill">Juniors 2018+: 6,414</span>
+    <span class="pill">Home belt GZB/Murad: 1,297</span>
+    <span class="pill">PHC chambers tagged: 1,722</span>
+    <span class="pill">Jat surname HIGH (possible): 594</span>
+  </div>
+<div style="margin:14px 0 0;padding:10px 14px;border-radius:10px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.45);color:#f3e6b3;font-size:.92rem;">
+<strong>Share link for Sanjeev:</strong> Phone numbers removed from this public page. Full contact CSV is private campaign material only.
+</div>
+</header>
+
+<nav class="toc">
+  <a href="#snap">1. Snapshot</a>
+  <a href="#who">2. Who Sanjeev is</a>
+  <a href="#universe">3. Voter universe</a>
+  <a href="#math">4. Vote math</a>
+  <a href="#geo">5. Geography</a>
+  <a href="#junior">6. Juniors &amp; cohorts</a>
+  <a href="#chamber">7. Chambers</a>
+  <a href="#practice">8. Practice</a>
+  <a href="#caste">9. Caste/surname</a>
+  <a href="#coalition">10. Coalitions</a>
+  <a href="#contacts">11. Priority lists</a>
+  <a href="#calendar">12. 6-week plan</a>
+  <a href="#message">13. Messaging</a>
+  <a href="#risks">14. Risks</a>
+  <a href="#ethics">15. Ethics</a>
+  <a href="#method">16. Methodology</a>
+</nav>
+
+<section id="snap">
+  <h2>1. Executive snapshot</h2>
+  <div class="grid">
+    <div class="stat"><div class="n">12,090</div><div class="l">Unique voters</div></div>
+    <div class="stat"><div class="n">6,414</div><div class="l">Juniors 2018+</div></div>
+    <div class="stat"><div class="n">2,797</div><div class="l">NCR belt geo</div></div>
+    <div class="stat"><div class="n">1,297</div><div class="l">GZB / Murad / Indirapuram</div></div>
+    <div class="stat"><div class="n">1,722</div><div class="l">PHC chamber on file</div></div>
+    <div class="stat"><div class="n">594</div><div class="l">Jat surname HIGH*</div></div>
+  </div>
+  <p class="note"><strong>Core idea:</strong> Do not run a caste-only campaign. Win by stacking <em>five</em> independent levers — <strong>geography</strong>, <strong>juniors</strong>, <strong>Patiala House chamber presence</strong>, <strong>crime+family practice respect</strong>, and <strong>community affinity</strong> — then close with turnout in the last 48 hours.</p>
+  <div class="charts" style="margin-top:16px">
+    <div class="chart-box"><h4>Lever sizes (voter counts — overlapping sets)</h4><canvas id="cLevers" height="220"></canvas></div>
+    <div class="chart-box"><h4>Enrolment cohorts</h4><canvas id="cCohort" height="220"></canvas></div>
+  </div>
+  <p class="warn">*Surname tagging is <strong>possible affinity only</strong>, never verified caste. Singh alone is not tagged as Jat.</p>
+</section>
+
+<section id="who">
+  <h2>2. Who Sanjeev is (campaign persona)</h2>
+  <div class="two-col">
+    <div>
+      <ul class="clean">
+        <li><strong>Name for ballot / outreach:</strong> Sanjeev (also Sajeev/Sanjeev) — Jat (Chaudhary), Muradnagar, Ghaziabad</li>
+        <li><strong>Practice:</strong> Crime lawyer + family lawyer at Patiala House Courts, New Delhi</li>
+        <li><strong>Position sought:</strong> Vice President, New Delhi Bar Association (NDBA / Patiala House)</li>
+        <li><strong>Strength story:</strong> Outstation NCR counsel who understands junior struggle, criminal &amp; family board pressure, and chamber realities</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ok">
+        <strong>Best match in the Excel (confirm with candidate):</strong><br/>
+        NDBA <strong>4557</strong> · SANJEEV KUMAR · Father: ASHOK KUMAR<br/>
+        H-12, SANJAY VIHAR, OPP. POLICE STATION MURAD NAGAR, GHAZIABAD (U.P)<br/>
+        Enrolment D/1627/2012 (2012) · Mobile [hidden for public share]<br/>
+        <em>Best sheet match for Muradnagar residence. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Confirm identity with candidate before outreach branding.</em>
+      </div>
+      <p class="note">Also on list (different people — do not confuse): SANJEEV CHOUDHARY (East of Kailash, father Gulia) and SANJIV KUMAR CHAUDHARY (Dwarka).</p>
+    </div>
+  </div>
+  <h3>Public context (NDBA)</h3>
+  <p>Recent public reports (2025 cycle) named office-bearers including President Nagender/Nagendra Kumar, Sr VP Vimal Ray Verma, VP Navneet Panwar, Secretary Tarun Rana. A writ challenge to the 2025 NDBA result was also reported in Delhi High Court records. Treat past results as context only — build Sanjeev’s own coalition for the next VP race.</p>
+</section>
+
+<section id="universe">
+  <h2>3. Voter universe — Excel merge report</h2>
+  <div class="grid">
+    <div class="stat"><div class="n">12,099</div><div class="l">Memberlist (45)</div></div>
+    <div class="stat"><div class="n">2,618</div><div class="l">Sheet1 valid rows</div></div>
+    <div class="stat"><div class="n">2,618</div><div class="l">Overlap (by enrolment)</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Sheet1-only new</div></div>
+    <div class="stat"><div class="n">12,090</div><div class="l">Combined unique</div></div>
+    <div class="stat"><div class="n">1,877</div><div class="l">Chamber enriched</div></div>
+  </div>
+  <p class="note"><strong>Finding:</strong> Sheet1 is <em>not</em> a separate voter roll — all 2,618 Sheet1 rows match Memberlist by enrolment number. Its value is <strong>ADDRESS 3 chamber data</strong> (mostly Patiala House) for recent enrolments (median year ~2024). Combined unique after light internal dedup: <strong>12,090</strong>.</p>
+  <p><strong>Data quality issues:</strong> Email missing for most (~10,605 without email). Resid_2/3/pin often blank or “0”. No practice-area column. DOB often missing/zero. Mobiles present for ~11,575 members — good for WhatsApp trees.</p>
+</section>
+
+<section id="math">
+  <h2>4. Vote math — how to become “unbeatable”</h2>
+  <p>Bar elections are low-turnout relative to roll size. A practical working model (adjust after you measure booth history):</p>
+  <ul class="clean">
+    <li><strong>Roll:</strong> ~12,090 unique names</li>
+    <li><strong>Assume 35–50% turnout</strong> → ~4,200–6,050 votes cast (hypothesis — verify with past RO data)</li>
+    <li><strong>Win number (plurality):</strong> often 1,800–2,800+ depending on candidates — treat <strong>2,200 solid commitments</strong> as a planning target</li>
+  </ul>
+  <h3>Stacked path to 2,200+ (overlapping, so convert carefully)</h3>
+  <ul class="clean">
+    <li><span class="tag gold">GEO</span> Home belt Ghaziabad/Muradnagar/Indirapuram: <strong>1,297</strong> — aim 55–65% personal contact conversion</li>
+    <li><span class="tag gold">GEO</span> Wider NCR belt (Noida, GN, Faridabad, Gurgaon, Meerut…): <strong>2,797</strong> total belt incl. home</li>
+    <li><span class="tag green">JUNIOR</span> Enrolment 2018+: <strong>6,414</strong> — often the decisive mobile vote</li>
+    <li><span class="tag">CHAMBER</span> PHC chamber listed: <strong>1,722</strong> — door-to-door corridor campaign</li>
+    <li><span class="tag">COMMUNITY</span> High-confidence Jat/Chaudhary surnames: <strong>594</strong> (+ 194 medium) — soft lever only</li>
+    <li><span class="tag">PRACTICE</span> Crime + family reputation: not in Excel — build via peer endorsements &amp; chamber mates</li>
+  </ul>
+  <p class="ok"><strong>Unbeatable formula:</strong> 800 home-belt + 500 PHC juniors + 400 other NCR + 300 practice/peer + 200 community soft pull + 200 senior goodwill = <strong>~2,400</strong> before last-day turnout ops. Numbers are planning targets, not predictions.</p>
+</section>
+
+<section id="geo">
+  <h2>5. Geography strategy (major lever)</h2>
+  <div class="charts">
+    <div class="chart-box" style="grid-column:1/-1"><h4>Address clusters (a member can appear in more than one tag)</h4><canvas id="cGeo" height="120"></canvas></div>
+  </div>
+  <h3>Neighbourhood / NCR belt outreach</h3>
+  <ul class="clean">
+    <li><strong>P0 Home:</strong> Muradnagar (11), Ghaziabad (1296), Indirapuram (137) → combined tagged home belt <strong>1,297</strong></li>
+    <li><strong>P1 East-NCR:</strong> Noida (837), Greater Noida (199), East Delhi (1103)</li>
+    <li><strong>P1 South-West NCR:</strong> Faridabad (247), Gurgaon (223), West Delhi (992)</li>
+    <li><strong>Western UP depth:</strong> Meerut (75), Hapur (61), Baghpat (24)</li>
+  </ul>
+  <p class="note">Action: Build WhatsApp groups by colony (Indirapuram, Vaishali, Vasundhara, Mayur Vihar, Dwarka…). Appoint one colony captain each. Offer shared cab/parking tips for polling day — logistics win votes.</p>
+</section>
+
+<section id="junior">
+  <h2>6. Enrolment cohort / juniors strategy (major lever)</h2>
+  <p>Sheet1 chamber rows skew very new (many 2023–2025). Juniors decide modern bar polls because they are numerous, networked, and turnout if asked personally.</p>
+  <ul class="clean">
+    <li>Junior 2022+: <strong>3,838</strong></li>
+    <li>Junior 2018–2021: <strong>2,576</strong></li>
+    <li>Mid 2012–2017: <strong>2,083</strong> ← Sanjeev’s own band (~2012)</li>
+    <li>Mid 2005–2011: <strong>1,515</strong></li>
+    <li>Senior pre-2005: <strong>2,043</strong></li>
+  </ul>
+  <h3>Junior offer (issues, not freebies)</h3>
+  <ul class="clean">
+    <li>Transparent chamber allotment wait-list &amp; library hours</li>
+    <li>Mentorship desk: senior crime/family counsel open hours for juniors</li>
+    <li>Faster grievance channel for listing / pass-over complaints</li>
+    <li>Women junior safety &amp; respect protocol inside court complex</li>
+    <li>Outstation counsel lockers / clerk facilitation</li>
+  </ul>
+</section>
+
+<section id="chamber">
+  <h2>7. Chamber / court presence strategy (major lever)</h2>
+  <ul class="clean">
+    <li>Patiala House chambers on file: <strong>1,722</strong></li>
+    <li>Other / Tis Hazari / Saket / etc.: small counts in this sheet — still visit known corridors</li>
+    <li>No chamber listed: <strong>10,213</strong> — reach via phone &amp; board/court days</li>
+  </ul>
+  <p><strong>Ground game:</strong> Map PHC floors/blocks. Assign chamber captains for number ranges (e.g., 1–100, 101–200…). 90-second door visits: name, crime+family identity, junior welfare pledge, ask for one more introduction. Never block corridors; never argue with rivals at the door.</p>
+</section>
+
+<section id="practice">
+  <h2>8. Practice affinity — crime + family (major lever)</h2>
+  <div class="warn"><strong>Data gap (honest):</strong> The Excel has <em>no practice-area field</em>. Keyword scan on name/address/email found only <strong>2</strong> weak hits. Do not invent a “criminal bar voter list” from this file.</div>
+  <h3>Method to build the practice list (next 7 days)</h3>
+  <ol>
+    <li>Sanjeev writes 30 names of crime/bail peers he already knows at PHC.</li>
+    <li>Each of those 30 names 5 more → ~150 warm criminal-board contacts.</li>
+    <li>Same for family/matrimonial/498A/custody — another 100–150.</li>
+    <li>Cross-check against <code>private campaign CSV (not published)</code> for mobile/NDBA; tag column <code>practice_signal</code> manually as <code>crime_peer</code> / <code>family_peer</code>.</li>
+    <li>Ask 5 respected seniors (not necessarily same community) for quiet public goodwill — practice legitimacy beats caste math.</li>
+  </ol>
+  <p class="ok">Message angle: “VP who actually appears in criminal &amp; family boards — will fight for listing discipline, peer respect, and junior briefing space.”</p>
+</section>
+
+<section id="caste">
+  <h2>9. Caste / surname affinity (one lever among many)</h2>
+  <p>Useful soft network in West UP–Haryana–Delhi NCR — <strong>never the sole pitch</strong>. All tags are probabilistic.</p>
+  <div class="grid">
+    <div class="stat"><div class="n">594</div><div class="l">HIGH possible</div></div>
+    <div class="stat"><div class="n">194</div><div class="l">MEDIUM possible</div></div>
+    <div class="stat"><div class="n">284</div><div class="l">LOW (Singh+belt)</div></div>
+  </div>
+  <div class="charts">
+    <div class="chart-box" style="grid-column:1/-1"><h4>Top HIGH-tag surname/gotra matches (possible affinity)</h4><canvas id="cJat" height="120"></canvas></div>
+  </div>
+  <p>Sources used for gotra lists: SarkariList Jaat surname compilation; Jatland Wiki (Sangwan, Sheoran, Shokeen/Sheokhand, Haryana settlements); Wikipedia (Tewatia/Teotia, Dahiya Khap); published “Jat Clans of Haryana” references. Chaudhary is often a title as well as surname.</p>
+  <p class="danger">Do not say “all Chaudharys/Maliks/Tomars will vote Jat.” Do not use caste abuse or exclusion. Invite community pride as hospitality + introductions, then switch to bar-welfare issues.</p>
+</section>
+
+<section id="coalition">
+  <h2>10. Coalition map (beyond any one community)</h2>
+  <div class="two-col">
+    <div>
+      <h3>Micro-coalitions to assemble</h3>
+      <ul class="clean">
+        <li>GZB–Noida outstation counsel caucus</li>
+        <li>PHC chamber-corridor captains</li>
+        <li>2018–2025 enrolment batchmates</li>
+        <li>Criminal board peers + family court peers</li>
+        <li>Women advocates (safety, respect, library)</li>
+        <li>Clerks &amp; staff goodwill (lawful facilitation only)</li>
+        <li>Senior mentors across communities for legitimacy</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Priority tiers in the CSV</h3>
+      <ul class="clean">
+        <li>P0 home belt: 1,297</li>
+        <li>P1 PHC juniors: 1,382</li>
+        <li>P1 geo+caste: 112</li>
+        <li>P2 NCR geo: 1,211</li>
+        <li>P2 caste high: 386</li>
+        <li>P3 juniors / PHC: 3,443 / 111</li>
+        <li>P5 general (still needed for turnout): 4,089</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <h2>11. Priority contact lists (from your sheet)</h2>
+  <p class="note">Phones are included because they come from your member file for campaign ops. Use only for lawful association election contact. Full file: <code>private campaign CSV (not published)</code> (12,090 rows).</p>
+  <h3>P0 — Home belt (Ghaziabad / Muradnagar / Indirapuram) sample</h3>
+  <div class="table-wrap"><table><thead><tr>
+<th>NDBA</th>
+<th>Name</th>
+<th>Father</th>
+<th>Address</th>
+<th>Chamber</th>
+<th>Mobile</th>
+<th>Year</th>
+<th>Geo</th>
+<th>Jat tag</th>
+<th>Levers</th>
+<th>Priority</th>
+</tr></thead><tbody>
+<tr>
+<td>1547</td>
+<td>ABHA TOMAR</td>
+<td>SH. N.S. TOMAR</td>
+<td>H.NO-41,PANCHWATI EXTN. JAIN COLONY,RAKESH MARG,GHAZIABAD,U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2001</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10831</td>
+<td>ABHISHEK CHAUDHARY</td>
+<td>ANIL KUMAR</td>
+<td>FLAT NO. 1201 A.R. REFLECTIONS RAJ NAGAR EXTN.GHAZIABAD UP  201017</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12278</td>
+<td>ACHAL RATHI</td>
+<td>YOGENDRA PAL RATI</td>
+<td>FH-8 2ND FLOOR GHAZIABAD 201002 B-431 SANJAY VIHAR MEERUT ROAD HAPUR 245101 CH. NO. 511 PHC NEW DELH…</td>
+<td>CH. NO. 511 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2009</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>9014</td>
+<td>ADITI CHAUDHARY</td>
+<td>YASHBIR SINGH TEOTIA</td>
+<td>313, SATYAM ENCLAVE, NEAR IME COLLEGE, SAHIBABAD, GZB</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11474</td>
+<td>ADITYA CHAUDHARY</td>
+<td>YASHBIR SINGH</td>
+<td>H NO. 313, SATYAM ENCLAVE, NEAR-I.M.E COLLAGE SAHIBABAD G.Z.B</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10659</td>
+<td>AMIT CHAUDHARY</td>
+<td>RAJ KUMAR SINGH</td>
+<td>S-1 703 CLOUD-9 SOCIETY VAISHALI SECTOR-1 GHAZIABAD UTTAR PRADESH 201010</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6772</td>
+<td>ANANYA CHOUDHURY</td>
+<td></td>
+<td>17074 ATS ADVANTAGE, AHINSA KHAND-I, INDIRAPURAM GHAZIABAD 201014</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7576</td>
+<td>APAR CHAUDHARY</td>
+<td>RAKESH CHAUDHARY</td>
+<td>C-57, SURYA NAGAR, GHAZIABAD UP, 201011</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10871</td>
+<td>ASHISH LAMBA</td>
+<td>SURESH KUMAR</td>
+<td>D/8 VIJAY NAGAR NORTH CAMPUS DU NEW DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7590</td>
+<td>AYUSHI SHARMA GOYAT</td>
+<td>VINAY GOYAT</td>
+<td>B-52, B SINGLE STOREY, 2ND FLOOR, NEAR JOLLY PROPERTIES, VIJAY NAGAR, NEW DELHI  110009</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7399</td>
+<td>CHAUDHARY NOUNIHAL SINGH</td>
+<td>VIJENDRA SINGH</td>
+<td>H.NO. 524, WARD NO. 12, GALI NO. 03, DAYANAND COLONY, BEHIND RAILWAY COLONY, MURADNAGAR, GHAZIABAD, …</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Muradnagar</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12736</td>
+<td>DAKSH TOMAR</td>
+<td>SATYENDRA KUMAR TOMAR</td>
+<td>H.NO. A-3 BALAJI APARTMENT 5/12 NEAR DAV PUBLIC SCHOOL SECTOR-5 RAJENDRA NAGAR SAHIBABAD  CH. NO. 55…</td>
+<td>CH. NO. 558 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>14517</td>
+<td>DHRUV CHAUDHARY</td>
+<td>SH. SANJAY KUMAR</td>
+<td>FLAT NO. -9, LOHIA NAGAR, GHAZIABAD, UP</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>3901</td>
+<td>DIPESH KUMAR CHOUDHARY</td>
+<td>SH. B.N. CHOUDHARY</td>
+<td>F/8 -247, LAJPAT NAGAR, SAHIBABAD, GHAZIABAD, U.P.  201005</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2001</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12276</td>
+<td>EKTA TOMAR</td>
+<td>SANJEEV KUMAR</td>
+<td>H. NO. 12 SHANKAR VIHAR OPPOSITE POLICE STATION MURAD NAGAR GHAZIABAD U.P.  10 GROUND FLOOR SATPURA …</td>
+<td>10 GROUND FLOOR SATPURA TOWER KAUSHAMBI GHAZIABAD U.P 201010</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Muradnagar</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>8008</td>
+<td>GARIMA TEOTIA</td>
+<td>ROHTASH</td>
+<td>ED-1, PHASE-2, AVANTIKA EXTENSION GHAZIABAD</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>5546</td>
+<td>GAURAV SAHRAWAT</td>
+<td>V.S. SAHRAWAT</td>
+<td>M-4, 2/83,SECTOR-2, RAJENDER NAGAR, SAHIBABAD, GHAZIABAD, U.P 201005</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2015</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13928</td>
+<td>HARSHIT CHAUDHARY</td>
+<td>NAVEEN KUMAR CHAUDHARY</td>
+<td>D-87 FLAT NO. 305 KAUSHAMBI GHAZIABAD U.P  CH. NO. 9 PHC</td>
+<td>CH. NO. 9 PHC</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12200</td>
+<td>HIMANSHU KUNDU</td>
+<td>SH.DR.S.S. KUNDU</td>
+<td>I-94 ,WINDSOR PARK VAIBHAV KHAND INDRAPURAM-201014 ,GHAZIABAD U.P I-94 ,WINDSOR PARK VAIBHAV KHAND I…</td>
+<td>CH. 217 ,PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6828</td>
+<td>JIGYASA RATHI</td>
+<td>SH. VIJAY RATHI</td>
+<td>FLAT NO. TF-01,8/26,SECTOR-3,RAJINDER NAGAR,SAHIBABAD,GHAZIABAD,U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7474</td>
+<td>JYOTI CHAUDHARI</td>
+<td>SHIV KUMAR SINGH</td>
+<td>H. NO. 1192, RADHA KUNJ COLONY, LAL KUAN, GHAZIABAD</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6825</td>
+<td>KANISHK CHAUDHARY</td>
+<td>SH. PRADEEP CHAUDHARY</td>
+<td>9/46,JUDGES COLONY,VAISHALI GHAZIABAD,U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11947</td>
+<td>KANISHK CHAUDHARY</td>
+<td>LOKESH CHAUDHARY</td>
+<td>H. NO. 15 ICOTGAON NEAR ARYA NAGAR GHAZIABAD, U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11522</td>
+<td>KARAN TEOTIA</td>
+<td>JATAN SAWROOP</td>
+<td>93G, SHAKTI KHAND -1 , INDRAPURAM , GZB U.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10859</td>
+<td>KESHAV KUMAR</td>
+<td>UMESH CHANDRA CHOUDHARY</td>
+<td>RZG-10 F/S FLAT NO. UG-01 KH NO. 55/13 RAJ NAGAR PART-II, PALAM DELHI  110077</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>786</td>
+<td>KRISHAN KUMAR NEHRA</td>
+<td>SH. K.S. NEHRA</td>
+<td>FLAT NO-704, CORAL HEIGHTS RAM PRASTHA,GREENS, SEC-7, VAISHALI,GHAZIAB</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1990</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>9297</td>
+<td>LAKSHAY RATHI</td>
+<td>VIJAY RATHI</td>
+<td>2/41, SEC-2, RAJENDRA NAGAR, SAHIBABAD, GZB, UP-201005  201005</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13116</td>
+<td>LAKSHYA MALIK</td>
+<td>PRADEEP MALIK</td>
+<td>TOWER-4C/418 LANDCRAFT DEVELOPERS GOLFLINKS SOCIETY NEAR MANIPAL HOSPITAL NH-09 GHAZIABAD  CH. NO. 4…</td>
+<td>CH. NO. 435 PHC</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>3199</td>
+<td>LALIT KUMAR CHAUDHARY</td>
+<td>DIGAMBER CHAUDHARI</td>
+<td>F-15/16C,MADHUBAN BAPUDHAMGHAZIABAD, UP</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2009</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13341</td>
+<td>MAHIMA CHOUDHARY</td>
+<td>PANKAJ SINGH</td>
+<td>H NO.23 NEHRU NAGAR, GHAZIABAD U.P  CH -558 PHC NEW DELHI</td>
+<td>CH -558 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11863</td>
+<td>MAYANK CHAUDHARY</td>
+<td>MANOJ KUMAR SINGH</td>
+<td>FLAT NO. A-803 IVORY TOWER SECTOR-5, VASUNDHARA, GHAZIABAD U.P. 201012 HOUSE NO. I-161 YAMUNAPURAM C…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13941</td>
+<td>MAYANK CHAUDHARY</td>
+<td>ARUN KUMAR</td>
+<td>58/2 VAISHALI COLONY MEERUT  CH. NO. 460 PHC NEW DELHI</td>
+<td>CH. NO. 460 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>9729</td>
+<td>MEESU SUDHIR</td>
+<td>SUDHIR TOMER</td>
+<td>H-222, GOVIND PURAM, GHAZIABAD, UP 201001  201001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>9800</td>
+<td>MOHIT TOMAR</td>
+<td>VIRENDER SINGH</td>
+<td>PLOT NO. 39, FLAT-1, AVT APPT, SHALIMAR GARDEN EXTN-1, GZB, UP-201005</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>14229</td>
+<td>MUKUL CHOUDHARY</td>
+<td>SANJEEV</td>
+<td>9/622 THIRD FLOOR SECTOR-9 VASUNDHARA DIST-GHAZIABAD U.P VILLAGE-RASULPUR, POST-KARETHI DIST-RAMPUR …</td>
+<td>CH. NO. 575 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7293</td>
+<td>NAMRATA MALIK</td>
+<td>C.S. MALIK</td>
+<td>9/89-B, SECTOR-3, RAJENDRA NAGAR, SAHIBABAD, GHAZIABAD, U.P.  201005</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>3104</td>
+<td>NAVEEN KUMAR CHAUDHARY</td>
+<td>MAHENDRA SINGH</td>
+<td>FLAT NO 305, D-87, KAUSHAMBI GHAZIABADU.P 201010</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1994</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>2734</td>
+<td>NISHI CHAUDHARY</td>
+<td>; YOGESH CHAUDHARY</td>
+<td>RZF - 460 / 4,RAJ NAGAR - II, PALAM COLONY,NEW DELHI - 110 075</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2007</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7552</td>
+<td>PRASHANT CHAUDHARY</td>
+<td>ANGAD CHAUDHARY</td>
+<td>C/21-B, 1ST FLOOR, VIJAY NAGAR, SINGLE STOREY, DELHI-110009  110009</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>4573</td>
+<td>PRASHANT CHOUDHARY</td>
+<td>SH. MEER SINGH</td>
+<td>SB-137, SHASTRI NAGAR,GHAZIABAD, U.P.   201002</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2013</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13628</td>
+<td>PRITANSHU TEOTIA</td>
+<td>LALIT KUMAR</td>
+<td>H NO.146 BANK COLONY GALI NO-4 MODI NAGAR GZB U.P  CH NO.462 PHC NEW DELHI-110001</td>
+<td>CH NO.462 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12457</td>
+<td>PRITI CHOUDHARY</td>
+<td>OMPAL SINGH</td>
+<td>VILLAGE+POST-JALALABAD, MURADNAGAR DIST-GHAZIABAD U.P 201206  CH. NO. 244 PHC NEW DELHI</td>
+<td>CH. NO. 244 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Muradnagar</td>
+<td>high</td>
+<td>home_geo|jat_high|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11582</td>
+<td>PRIYA 0 CHAUDHARY</td>
+<td></td>
+<td>DD-103, DVANTIKA, GHAZIABAD, U.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>775</td>
+<td>RANBIR SINGH KUNDU</td>
+<td>SH. DHARAM PAL SINGH</td>
+<td>J-22 WINDSOR PARK VAIBHAV KHAND INDIRAPURAMGHAZIABAD U.P- 201014</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1995</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10750</td>
+<td>RAVINDER CHAUDHARY</td>
+<td>AMAR SINGH</td>
+<td>B-45 KRISHNA ENCLAVE WEST MODEL TOWN GHAZIABAD  201001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12952</td>
+<td>REENU CHAUDHARY</td>
+<td>LATE JAGJIT SINGH</td>
+<td>H-2/18 VINAYAK APPARTMENT VASUNDHARA, SECTOR-9 GHAZIABAD U.P  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>1999</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12409</td>
+<td>RING BALIYAN</td>
+<td>LOKESH BALIYAN</td>
+<td>B-40 RK PURAM GHAZIABAD  CH. NO. 863 PHC NEW DELHI</td>
+<td>CH. NO. 863 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7252</td>
+<td>ROHAN AHLAWAT</td>
+<td>SH. RAVINDRA AHLAWAT</td>
+<td>C5-401,IVORY TOWER,SECTOR-5, VASUNDHARA,GHAZIABAD,U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>14456</td>
+<td>SANDEEP CHAUDHARY</td>
+<td>SH. VIRENDRA SINGH</td>
+<td>FLAT NO. 479, VARTALOK APARTMENT, SECTOR-4C, VASUNDHRA, GHAZIABAD, U.P  CH.NO. 174, PHC NEW DELHI-11…</td>
+<td>CH.NO. 174, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2000</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11818</td>
+<td>SATISH CHOUDHARY</td>
+<td>LATE SH.D.N VERMA</td>
+<td>A-84, CHANDER NAGAR ,GHAZIABAD,U.P-110014 A-84, CHANDER NAGAR ,GHAZIABAD,U.P-110014 H-5,LGF,JUNGPURA…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2013</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>833</td>
+<td>SHIMLA TOMAR</td>
+<td>LATE SH. CHAMAN SINGH</td>
+<td>C-75, F-204 RAMPRASTHA GHAZIABADU.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1994</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6553</td>
+<td>SHWETA CHOWDHARY</td>
+<td>SH. N.C. CHOWDHARY</td>
+<td>C-601,NEELPADAM-I,SECTOR-5,VAISHALI GHAZIABAD,U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2000</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>5612</td>
+<td>SUNIL KUMAR TOMER</td>
+<td>RAMESH CHAND</td>
+<td>H.NO.488, KRISHNA NAGAR, GALI NO. 5, SHRIRAM PISTON, GZB.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2015</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11748</td>
+<td>SWABHI DABAS</td>
+<td>VIKRAM SINGH</td>
+<td>317 ARTHALA, MOHAN NAGAR GZB U.P. 201007 SAME AS RESIDENTIAL ADDRESS CH. NO. 861 PHC</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13644</td>
+<td>TARUN MALIK</td>
+<td>BIRPAL MALIK</td>
+<td>D-5 JAIN MANDIR ROAD SEC-10 VASUNDRA GZB, U.P-201012  CH NO.332 PHC NEW DELHI-110001</td>
+<td>CH NO.332 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10667</td>
+<td>UNNATI BALYAN</td>
+<td>PAWAN KUMAR BALYAN</td>
+<td>PLOT NO. 45 FLAT NO. 301 MANGAL APTS SECTOR-6 GHAZIABAD UP 201010</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>14049</td>
+<td>VIKAS DAHIYA</td>
+<td>NARENDER SINGH</td>
+<td>RZH 54 RAJ NAGAR PART-02 GALI NO.1 SOLANKI CHOCK PALAM COLONY RAJ NAGAR 2 SOUTH WEST DELHI-110077  C…</td>
+<td>CH NO.426 PHC NEW ELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6610</td>
+<td>VINAY SHEORAN</td>
+<td>SH. RAKESH SHEORAN</td>
+<td>DD-103,AVANTIKA,GHAZIABAD,U.P.   201002</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10589</td>
+<td>VINOD KUMAR VERMA</td>
+<td>NAIN PRASAD</td>
+<td>H NO. 295A GALI NO. 8 NEW KARHERA COLONY MOHAN NAGAR GHAZIABAD ; 201007</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>8073</td>
+<td>VISHAL CHOUDHARY</td>
+<td>D. KUMAR</td>
+<td>I-180, GOVINDPURAM, GHAZIABAD UTTAR PRADESH, 201013  201013</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>3039</td>
+<td>VISHAL TOMAR</td>
+<td>R.P. TOMAR</td>
+<td>B-147, SHALIMAR GARDEN MAIN, VIKRAM ENCLAVE EXTN,SHAHIBABAD, GHAZIABAD</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2007</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13451</td>
+<td>VISHESH TOMAR</td>
+<td>VIJENDER TOMAR</td>
+<td>FLAT NO.C-1202,MAHEK JEEVAN SOCIETY GHAZIABAD,U.P-201003</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6051</td>
+<td>VIVEK RATHI</td>
+<td>S.S. RATHI</td>
+<td>102/1, RAKESH MARG, 3RD NEHRU NAGAR, GHAZIABAD, U.P. 201001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2005</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13494</td>
+<td>YASHVENDRA TOMAR</td>
+<td>SHIVENDRA TOMAR</td>
+<td>9/67, SEC-3 RAJENDRA NAGAR SAHIBABAD ,G.Z.B, U.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12936</td>
+<td>YUKTI RATHI</td>
+<td>SH.VIJAY RATHI</td>
+<td>2/41, SEC-2, RAJENDERA NAGAR, GHAZIABAD, U.P.-201005  CHNO.511, PHC NEW DELHI-110001</td>
+<td>CHNO.511, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11251</td>
+<td>ABHINAV RANA</td>
+<td>MANOJ RANA</td>
+<td>B-69,1ST FLOOR KAUSHAMBI, GHAZIBAD U.P  201010</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11315</td>
+<td>ADITYA RANA</td>
+<td>S.K. RANA</td>
+<td>A-501 ANSAL ELIGANCE , AVANTIKA EXTENSION GHAZIABAD  201002</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>11484</td>
+<td>AMANDEEP SINGH</td>
+<td>ADESH KUMAR GILL</td>
+<td>A-11, SAHYOG APPTS, SEC-9, VASUNDRA , GHAZIABAD U. P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>6842</td>
+<td>ANMOL PANWAR</td>
+<td>SH. PRAMOD SINGH PANWAR</td>
+<td>402-A,TOWER-2,GULMOHUR GREENS, MOHAN NAGAR,GHAZIABAD,U.P.  201007</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12228</td>
+<td>ARYA BAI BHAB MOHAPATRA</td>
+<td>BINAY MOHAPATRA</td>
+<td>RZ-902/5 F-104 LAL BAHADUR SHASTRI MARG, BEHIND CHURCH, RAJ NAGAR PART-2 SOUTH WEST DELHI 110077  CH…</td>
+<td>CH. NO. 202 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>4483</td>
+<td>DEEPAK PANWAR</td>
+<td>YOGENDRA SINGH</td>
+<td>II, R/M 29, SECTOR-2, RAENDRA NAGAR SAHIBABAD, GHAZIABAD, U.P.</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2012</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10917</td>
+<td>DIVYA RANA</td>
+<td>HARI SINGH RANA</td>
+<td>1135 PRAGYA KUNJ SECTOR-4C VASUNDHRA GHAZIABAD UTTAR PRADESH</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>12712</td>
+<td>JITENDER SINGH RANA</td>
+<td>LATE VIJENDER SINGH RANA</td>
+<td>H. NO. 313 KARKAR MANDAL RANA GALI NEAR OLD SHIV MANDIR I.E. SAHIBABAD GHAZIABAD U.P 201010  CH. NO.…</td>
+<td>CH. NO. 558 PHC</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>7365</td>
+<td>JYOTI RANA</td>
+<td></td>
+<td>HOUSE NO.3/163 SECTOR-2 RAJENDER NAGAR ,SAHIBABAD GHAZIABAD, U.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2010</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10157</td>
+<td>KAJAL</td>
+<td>NARESH PANWAR</td>
+<td>662, SECTOR 3F, VAISHALI, GZB. U.P.  201010</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>4500</td>
+<td>KAVINDRA KUMAR GILL</td>
+<td>RAJPAL SINGH</td>
+<td>G-443, GOVINDAPURAM, GHAZIABAD U.P. 201013</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2011</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>1828</td>
+<td>OM PRAKASH ARYA</td>
+<td>SH. BISHAMBER LAL</td>
+<td>14 NAVYUG MARKET, 1ST FLOOR, GHAZIABAD</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2002</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>10318</td>
+<td>PALASH SINGH</td>
+<td>SANJAY RANA</td>
+<td>HIG 119 ABHAY KHAND-I INDRAPURAM, GHAZIABAD  201014</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>8676</td>
+<td>PERMINDER SINGH</td>
+<td>AJAIB SINGH SIDHU</td>
+<td>B-11, S-3, RAM PRASTHA COLONY GHAZIABAD, UP-201011  201011</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>8421</td>
+<td>PRASHANT SOLANKI</td>
+<td>VIKRAM SOLANKI</td>
+<td>E-406, ALAKNANDA APTS. RAMPURI, SURYA NAGAR,GHAZIABAD, 201011</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Ghaziabad</td>
+<td>medium</td>
+<td>home_geo|jat_medium|junior</td>
+<td>P0_home_belt</td>
+</tr>
+</tbody></table></div>
+  <h3>P1 — NCR geo + possible community affinity sample</h3>
+  <div class="table-wrap"><table><thead><tr>
+<th>NDBA</th>
+<th>Name</th>
+<th>Father</th>
+<th>Address</th>
+<th>Chamber</th>
+<th>Mobile</th>
+<th>Year</th>
+<th>Geo</th>
+<th>Jat tag</th>
+<th>Levers</th>
+<th>Priority</th>
+</tr></thead><tbody>
+<tr>
+<td>12157</td>
+<td>AHSAAS SINGH CHOUDHARY</td>
+<td>SH.LAKHAN SINGH CHOUDHARY</td>
+<td>111 ,ASHOKA ENCLAVE MAIN ,SECTOR-35, FARIDABAD ,HARYANA-121003 111 ,ASHOKA ENCLAVE MAIN ,SECTOR-35, …</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>9118</td>
+<td>AJAY SAHARAN</td>
+<td>SURESH KUMAR</td>
+<td>V18/13, 1ST FLOOR, DLF PHASE-3, GURUGRAM HARYANA-122008  122008</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>10051</td>
+<td>AKASH DAHIYA</td>
+<td>DILBAGH SINGH DAHIYA</td>
+<td>90-B/22, SONEPAT RAOD, ROHTAK-124001 HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Sonipat</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12283</td>
+<td>AKHIL TOMAR</td>
+<td>NARESH PAL</td>
+<td>TIGRI KAUL MEERUT UTTAR PRADESH 250401 SAME AS RESIDENTIAL ADDRESS CH. NO. 511 PHC NEW DELHI</td>
+<td>CH. NO. 511 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>7816</td>
+<td>AKSHAT CHOWDHARY</td>
+<td>OM PRAKASH</td>
+<td>203, ADARSH SOCIETY, SECTOR-55, GURUGRAM, HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>10962</td>
+<td>AMAN CHAUDHARY</td>
+<td>MR. JUGENDRA SINGH</td>
+<td>H. NO. JR/V2/SF VIP FLOOR SECTOR-81 FARIDABAD HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12940</td>
+<td>AMIT CHOUDHARY</td>
+<td>RAJ SINGH</td>
+<td>FLAT NO. 104 IND PARASAVNATH EDENS ALPHA-2 GREATER NOIDA  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2006</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>11928</td>
+<td>AMITENDRA SINGH ANTAL</td>
+<td>COL. HARDAYAL SINGH</td>
+<td>G-92 KENSINGTON PART-1, SECTOR-133 NOIDA GAUTAM BUDDHA NAGAR UTTAR PRADESH 201304  CH. NO. 185 B PAT…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1999</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12647</td>
+<td>ANJALI CHOUDHARY</td>
+<td>MAHAVIR SINGH</td>
+<td>HOUSE NO. 48 SECTOR 62 SECTOR 62 NOIDA VPO MANONAKA TEHSIL HATHIN DIST- PALWAL, HARYANA 121103 CH. N…</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>2926</td>
+<td>ANJALI NEHRA</td>
+<td>DHARMVEER SINGH NEHRA</td>
+<td>H.NO - 650, SECTOR - 21D,NEAR JEEVA CHOWK FARIDABAD (HARAYANA)</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2008</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>8141</td>
+<td>ANKIT DAHIYA</td>
+<td>SURESH PAL DAHIYA</td>
+<td>HOUSE NO. A-120, POLICE HOUSING SOCIETY, SECTOR-32, PI-1, GREATER NOIDA,UP-201310  201310</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>8755</td>
+<td>ANURADHA CHAUDHARY</td>
+<td>OMPAL SINGH</td>
+<td>B-330/1, SANJAY VIHAR, AWAS VIHAR HAPUR (U.P)</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Hapur</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>11329</td>
+<td>APOORV MALIK</td>
+<td>ARUN KUMAR MALIK</td>
+<td>B-1105, GARDENIA GRACE SEC-61, NOIDA U.P  201301</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2012</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13035</td>
+<td>APOORVA SINGH</td>
+<td>NITIN CHAUDHARY</td>
+<td>SECTOR-47 H NO.65 BLOCK -A NOIDA U.P  CH NO. 47 PHC NEW DELHI</td>
+<td>CH NO. 47 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12349</td>
+<td>ARADHANA CHAUDHARY</td>
+<td>OMESH KUMAR</td>
+<td>D/O OMESH KUMAR, SHERHPURI, MEERUT, UTTAR PRADESH 250501  CH. NO. 202 PHC NEW DELHI</td>
+<td>CH. NO. 202 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13078</td>
+<td>ASHISH NAIN</td>
+<td>SUDHIR KUMAR</td>
+<td>V=P SARURPUR KALAN BAGHPAT  CH NO.202 PHC NEW DELHI -110001</td>
+<td>CH NO.202 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Baghpat</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12484</td>
+<td>AYUSH CHAUDHARY</td>
+<td>ANAND CHAUDHARY</td>
+<td>N-1008 TODAY&#x27;S HOME SECTOR-135 NOIDA U.P.  CH. NO. 453 PHC</td>
+<td>CH. NO. 453 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12452</td>
+<td>AYUSHI CHAUDHARY</td>
+<td>RAJESH KUMAR</td>
+<td>TOWN KARNAWAL MEERUT UTTAR PRADESH</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12136</td>
+<td>BADAL DAGAR</td>
+<td>SH.NARENDRA SINGH</td>
+<td>H-62 ,PHASE-1,NEW PALAM VIHAR,GURUGRAM ,HARYANA-122017 H-62 ,PHASE-1,NEW PALAM VIHAR,GURUGRAM ,HARYA…</td>
+<td>CH.NO.496 ,PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>1366</td>
+<td>BALBIR SINGH JAKHAR</td>
+<td>SH. R.S. JAKHAR</td>
+<td>D/2050-A, PALAM VIHARGURGAONHARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2000</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>9094</td>
+<td>BHARAT DAGAR</td>
+<td>JAGDISH CHANDRA DAGAR</td>
+<td>184, VILLAGE ALIPUR 180, GURUGRAM HARYANA, 122103  122103</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12005</td>
+<td>BHARAT RATHI</td>
+<td>SH.RAKESH KUMAR RATHI</td>
+<td>134,SHEETLA,COLONY ,GURUGRAM 134,SHEETLA,COLONY ,GURUGRAM</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>4300</td>
+<td>CHHATTER SINGH JOON</td>
+<td>SH. RAM GOPAL</td>
+<td>H. NO. 40, SEC. 22A, HUDA ,GURGAON   122015</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1977</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12220</td>
+<td>DEEPAK BAISOYA</td>
+<td>SH.B.C.CHAUDHARY</td>
+<td>AG-7A, SECTOR-42 ,NOIDA, AG-7A, SECTOR-42 ,NOIDA,</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>6358</td>
+<td>DHIRAJ MALIK</td>
+<td>SH. S.D. MALIK</td>
+<td>C-26, KENDRIYA VIHAR,SECTOR-56, GURGAON, HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2012</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>5518</td>
+<td>DHRUV CHAUDHARY</td>
+<td>LT COL. K.G. CHAUDHARY</td>
+<td>FLAT NO. 54, IIND FLOOR, SEC-28, NOIDA, U.P</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2014</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12119</td>
+<td>DHRUV MALIK</td>
+<td>SH.SUDHIR MALIK</td>
+<td>8/32 ,DEV NAGAR ,GALI NO.1 BARAUT ,BAGHPAT.U.P.- 8/32 ,DEV NAGAR ,GALI NO.1 BARAUT ,BAGHPAT.U.P.-</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Baghpat</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>14407</td>
+<td>GAURAV CHAUDHARY</td>
+<td>SH. CHANDRA SINGH</td>
+<td>H.NO. 361, POCKET-C, LOHIA NAGAR, MEERUT, U.P.-250002</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12286</td>
+<td>GOURAV DAHIYA</td>
+<td>ANAND DAHIYA</td>
+<td>NAHRA (227) P.O- NAHRA, DIST-SONIPAT HARYANA 131103  CH. NO. 511 PHC NEW DELHI</td>
+<td>CH. NO. 511 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Sonipat</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12805</td>
+<td>GUNJAN TOMAR</td>
+<td>SH.KULDEEP SINGH</td>
+<td>WA.100, GALI NO.-15, SHAKARPUR, LAXMI NAGAR, DELHI-110092 VILL- NANGLAMAL , POST- MAUKHAS , DISTT-ME…</td>
+<td>CH.NO. 252, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>106</td>
+<td>HARENDRA SINGH CHOUDHARY</td>
+<td>SH. SYAM SINGH</td>
+<td>FLAT NO.702,TOWER 9 SUPREME TOWER,NOIDA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1980</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>7497</td>
+<td>HARSHIT</td>
+<td>RAVINDRA KUMAR SANGWAN</td>
+<td>C-15/1, JWALA NAGAR, GALI NO.4, TP NAGAR MEERUT CITY, MEERUT, UP-250002</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>11390</td>
+<td>JAGBEER DAHIYA</td>
+<td>RAJPAL DAHIYA</td>
+<td>H NO. 176 A, SECTOR -52, FARIDABAD , HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>798</td>
+<td>JAGDISH CHANDER MALIK</td>
+<td>SH. K.D. RAJ MALIK</td>
+<td>H.NO. 1651, SEC-28,FARIDABAD - 121008</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1995</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13835</td>
+<td>KAJAL TOMAR</td>
+<td>SH. CHAHAK SINGH</td>
+<td>CHAMBER . NO. 183, SAINIK VIHAR, KANKER KHERA , MEERUT , U.P.  CH.NO.429 , PHC NEW DELHI-110001</td>
+<td>CH.NO.429 , PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>11428</td>
+<td>KUNAL CHAUDHARY</td>
+<td>HARISH CHAUDHARY</td>
+<td>B-3 SEC- 55 NOIDA,</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>7920</td>
+<td>LALIT KUMAR</td>
+<td>O.P. AHLAWAT</td>
+<td>A-451, SECTOR-19, NOIDA, UP-20130</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>1661</td>
+<td>MAHAVIR SINGH</td>
+<td>MAJ. R.R. CHAHAR</td>
+<td>1355 SEC 28 FARIDABAD HARYANA</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2002</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>10536</td>
+<td>MAHIMA TOMAR</td>
+<td>NARENDRA K TOMAR</td>
+<td>C-563 SECTOR P3 GREATER NOIDA G B NAGAR UP  201310</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12241</td>
+<td>MANAV CHAUDHARY</td>
+<td>NAVEEN KUMAR TOMAR</td>
+<td>H. NO. 302 VILLAGE AND POST JOHRI BARAUT BAGPAT, UTTAR PRADESH 250611  CH. NO. 202 PHC NEW DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Baghpat</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12953</td>
+<td>MANISH KUMAR PUNIA</td>
+<td>SURENDRA KUMAR</td>
+<td>VILLAGE-SARURPUR KHURD MEERUT U.P.  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2006</td>
+<td>Meerut</td>
+<td>high</td>
+<td>ncr_geo|jat_high|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>2513</td>
+<td>MANISHA CHOUDHARY</td>
+<td>HOSHIYAR SINGH CHOUDHRY</td>
+<td>HOUSE NO 26, SECTOR - 21/D,NEAR HUDA MARKET, FARIDABADHARYANA</td>
+<td></td>
+<td></td>
+<td>2007</td>
+<td>Faridabad</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>9615</td>
+<td>MITUL SEHRAWAT</td>
+<td>HARINDER SINGH SEHRAWT</td>
+<td>H. NO. 141/28, JYOTI PARK, GURGAON, HARYANA, 122001  122001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>9337</td>
+<td>NAVNEET JOON</td>
+<td>DINESH JOON</td>
+<td>H. NO. 459, SEC-10, GURUGRAM, HARYANA, 122001  122001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13947</td>
+<td>NEHA AHLAWAT</td>
+<td>AMIR SINGH</td>
+<td>604 SECTOR-23 SONIPAT HARYANA 131001  CH. NO. 460 PHC NEW DELHI</td>
+<td>CH. NO. 460 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Sonipat</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13322</td>
+<td>OM CHOUDHARY</td>
+<td>RAKESH KUMAR</td>
+<td>B-85 SEC-108 NOIDA U,P  CH NO.462 PHC NEW DEKHI-110001</td>
+<td>CH NO.462 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>10922</td>
+<td>ONISH KUMAR</td>
+<td>KULBHUSHAN CHAUDHARY</td>
+<td>H NO. 418 STREET NO.2 BHIMGARH KHERI PART2 GURUGRAM HARYANA  122001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12006</td>
+<td>PAYAL THAKRAN</td>
+<td>SH.MAHENDER THAKRAN</td>
+<td>H.NO.1502 ,THAKRAR NIWAS OPP CHEF MANTRA SEC-46 ,GURGAON HARYANA -122002 H.NO.1502 ,THAKRAR NIWAS OP…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>11925</td>
+<td>PINAK KUMAR CHOUDHARY</td>
+<td>KRISHNA MURARI CHOUDHARY</td>
+<td>34, PAVILLION ARISTO HEIGHT, FLAT NO. 1202, 11TH FLOOR, PLOT NO. C-78 NOIDA SECTOR-34  CH. NO. 558 P…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13555</td>
+<td>PRAYAG DEV SEHRAWAT</td>
+<td>PRADEEP SEHRAWAT</td>
+<td>E-2135 PALM VIHAR GURUGRAM HARYANA  CH. NO. 202 PHC</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Gurgaon</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+</tbody></table></div>
+  <h3>P1 — Patiala House chamber juniors sample</h3>
+  <div class="table-wrap"><table><thead><tr>
+<th>NDBA</th>
+<th>Name</th>
+<th>Father</th>
+<th>Address</th>
+<th>Chamber</th>
+<th>Mobile</th>
+<th>Year</th>
+<th>Geo</th>
+<th>Jat tag</th>
+<th>Levers</th>
+<th>Priority</th>
+</tr></thead><tbody>
+<tr>
+<td>13251</td>
+<td>AADISH JAIN</td>
+<td>PANKAJ JAIN</td>
+<td>B-3/12 RANA PRATAP BAGH DELHI 110007  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13025</td>
+<td>AADISHREE SHARMA</td>
+<td>MANOJ SHARMA</td>
+<td>A-16 MANSAROVER PARK SHAHDARA DELHI-110032  CH NO. 460 PHC NEW DELHI-110001</td>
+<td>CH NO. 460 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13117</td>
+<td>AAKANKSHA SINGH</td>
+<td>ROHIT PAL SINGH</td>
+<td>B-260 TRANS YAMUNA COLONY AGRA U.P  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other UP/Haryana</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14093</td>
+<td>AAKANSHA BHARDWAJ</td>
+<td>RAJESH SHARMA</td>
+<td>D-501 CRESCENT APARTMENT SECTOR-50 NOIDA UP PIN 201301  CH. NO. 23 PHC NEW DELHI</td>
+<td>CH. NO. 23 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14099</td>
+<td>AAKASH BHARDWAJ</td>
+<td>JAI KUMAR SHARMA</td>
+<td>H. NO. 278 STREET NO. 5 NEAR KALANIKETAN SCHOOL DURGA PURI EXTN. SHAHADRA MANDOLI NEW DELHI 110093  …</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13538</td>
+<td>AAKASH JANGHU</td>
+<td>JAI PRAKASH</td>
+<td>RZ-31C BLOCK-D NEAR CHURCH SHIV ENCLAVE DICHAWN ROAD NAJAFGARH 110043  CH. NO. 202 PHC</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>West Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12492</td>
+<td>AAKASH PASSI</td>
+<td>BAIJNATH</td>
+<td>H. NO. 128 A FF KILOKRI NEW DELHI C-55 SECTOR-14 201301 CH. NO. 453 PHC NEW DELHI</td>
+<td>CH. NO. 453 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13012</td>
+<td>AAKASH SINGH</td>
+<td>SHIV KUMAR SINGH</td>
+<td>520 VILLAGE PURE BHADAIYA UJJANI KALAM GONDA U.P-271603  CH NO. 460 PHC NEW DELHI-110001</td>
+<td>CH NO. 460 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13311</td>
+<td>AAKRITI SAXENA</td>
+<td>ALOK SAXENA</td>
+<td>D1-35 GROUND FLOOR , SOUTH CITY -2 D1 BLOCK , SECTOR -49 GURUGRAM HARYANA -122018 215 CIVIL LINES BA…</td>
+<td>CH NO.460 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Gurgaon</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13177</td>
+<td>AAMIR SUBHANI</td>
+<td>IDRIS</td>
+<td>C/O CHAKAND BAZAR GAYA BIHAR 804404  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Other/Unclear</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12549</td>
+<td>AANCHAL PRAJARIYA</td>
+<td>SH.UMA SHANKAR PRJARIYA</td>
+<td>20, 3RD FLOOR DHAKA VILLAGE MUKHERJEE NAGAR NEW DELHI- 198, PATHAKPURA MAURANIPUR DISTT-JHANSI CH.NO…</td>
+<td>CH.NO.853, PHC, NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13694</td>
+<td>AARAV TYAGI</td>
+<td>PREM ROJ</td>
+<td>93,GODIYA MOHALLA SHIKARPAR, MOJOFGARH SOUTH WEST DELHI-110043  CH NO.460 PHC NEW DELHI -110001</td>
+<td>CH NO.460 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12109</td>
+<td>AARTI</td>
+<td>SH.MITECH BABBAL</td>
+<td>SHRI BALA JEE BHAWAN ,PLOT NO.846 ,FLAT NO .104-105 ,JOSHI LANE ,KAROL BAH NEW DELHI-110005  CH.NO.7…</td>
+<td>CH.NO.705 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12745</td>
+<td>AARYAN SHARMA</td>
+<td>PRABHAKAR SHARMA</td>
+<td>111 FIRST FLOOR BLOCK-B1 TYPE -4 OPPOSITE HAIDERPUR AYURVEDIC HOSPITAL, SHALIMAR BAGH NEW DELHI  CH.…</td>
+<td>CH. NO. 558 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13709</td>
+<td>AASHISH KUMAR</td>
+<td>KAMLESH KUMAR</td>
+<td>D-96, GALI NO.1 CHHATAR PUR , NEW DELHI  CH NO.460 PHC NEW DELHI -110001</td>
+<td>CH NO.460 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12177</td>
+<td>AATISH GOEL</td>
+<td>RAKESH GOEL</td>
+<td>R-135 , MODEL TOWN-3, DELHI-110009 R-135 , MODEL TOWN-3, DELHI-110009 CH NO-95 PHC NEW DELHI-110001</td>
+<td>CH NO-95 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12489</td>
+<td>AAYUSH RAI</td>
+<td>SANJAY RAI</td>
+<td>C-35/Y-4 DILSHAD GARDEN DELHI 110095  CH. NO. 453 PHC</td>
+<td>CH. NO. 453 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>11954</td>
+<td>AAYUSHI LALIT</td>
+<td>LALIT SRIVASTAVA</td>
+<td>C-119, PANDAV NAGAR, DELHI C-7/2 B SECTOR-7 RAJAJIPURAM LUCKNOW UTTAR PRADESH CH. NO. 418 PATIALA HO…</td>
+<td>CH. NO. 418 PATIALA HOUSE COURTS NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13739</td>
+<td>AAYUSHI SHARMA</td>
+<td>HEMANT KUMAR</td>
+<td>KHASRA NO.1338, NEAR AANGANWADI PUNJAB KHOR DELHI-110081  CH NO.460 PHC NEW DELHI -110001</td>
+<td>CH NO.460 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13949</td>
+<td>AAYUSHI SINGH</td>
+<td>RAJESH KUMAR SINGH</td>
+<td>A-504 VVIP HOMES GAUR CITY -II GREATER NOIDA UP  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Noida</td>
+<td>low</td>
+<td>ncr_geo|jat_low|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13447</td>
+<td>AAYUSHI THAKUR</td>
+<td>MUKESH THAKUR</td>
+<td>193, STREET NO.4, DURGAPURI EXTN, SHAHDARA DELHI-110093  CH NO. 460 PHC NEW DELHI -110001</td>
+<td>CH NO. 460 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14171</td>
+<td>ABDUL AHAD</td>
+<td>MUJIBUR RAHMAN</td>
+<td>R-292 5TH FLOOR GALI NO. 2 OKHLA JOGA BAI EXTN. JAMIA NAGAR NEW DELHI MUSLIM RAGHOPUR TARA NAGAR PAT…</td>
+<td>CH. NO. 205 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13371</td>
+<td>ABDUL KALAM ANSARI</td>
+<td>SAHABUDDIN URF JOKHU</td>
+<td>H. NO. 8 SECOND FLOOR BACKSIDE GALI NO. 45 ZAKIR NAGAR OKHLA NEW DELHI 110025  CH. NO. 462 PHC</td>
+<td>CH. NO. 462 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13196</td>
+<td>ABDUL KARIM ANSARI</td>
+<td>IRSHAD ALI ANSARI</td>
+<td>A-17 THIRD FLOOR SHAHEEN BAGH ABDUL FAZAL ENCLAVE-11 OKHLA JAMIA NAGAR NEW DELHI  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12380</td>
+<td>ABDUL MAZHAR</td>
+<td>ABDUL MAZHAR</td>
+<td>A/21 MATHURA ROAD, NIZAMUDDIN WEST, SOUTH DELHI 110013  CH. NO. 558 PHC NEW DELHI</td>
+<td>CH. NO. 558 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13318</td>
+<td>ABHAY PRATAP SINGH</td>
+<td>ANIL KUMAR</td>
+<td>B-76, POCKET-1 JASOLA VIHAR , NEW DELHI-110025 B-46 INDRAPURI NEW AGRA, AGRA-282005 CH NO.462 PHC NE…</td>
+<td>CH NO.462 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14290</td>
+<td>ABHI JAIN</td>
+<td>SH.SUDHEER KUMAR JAIN</td>
+<td>17(A) 3RD FLOOR ,BEHIND PAL BROTHERS, NEAR PREETY BAKERYIN FRONT OF P.K.STORE MUKHERJEE NAGAR NEW DE…</td>
+<td>CH.NO.856, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12625</td>
+<td>ABHIJEET SINGH</td>
+<td>PANKAJ SINGH</td>
+<td>2323/2A GROUND FLOOR PATEL NAGAR NEW DELHI  CH. NO. 202 PHC</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>West Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12719</td>
+<td>ABHIJEET SINGH</td>
+<td>ARVIND MALIK</td>
+<td>B-3/45 SECTOR-16 ROHINI NORTH WEST DELHI 110089  CH. NO. 558 PHC</td>
+<td>CH. NO. 558 PHC</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14262</td>
+<td>ABHIMANYU ARYA</td>
+<td>SH. PARAMJIT ARYA</td>
+<td>J-102, SOM VIHAR APT, R.K. PURAM, NEW DELHI-110022  CH.NO. 531, PHC NEW DELHI-110001</td>
+<td>CH.NO. 531, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>medium</td>
+<td>jat_medium|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13049</td>
+<td>ABHIMANYU ROY</td>
+<td>ANIL KUMAR</td>
+<td>A-13/4 HIMALAYA PRIDA NEAR AMARPALI DREAM VALLY TECHZONE 4 GR NOIDA C-201 SHRI HARI RADHA APPT. SARD…</td>
+<td>CH NO -9 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12072</td>
+<td>ABHIN BEHL</td>
+<td>SH.B.L BEHEL</td>
+<td>K-25 ,TOP FLOOR ,GOYALAPT ,GREEN PARK EXTEN -110016 K-25 ,TOP FLOOR ,GOYALAPT ,GREEN PARK EXTEN -110…</td>
+<td>CH.558 ,PHC NEW DELHI -11001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>South Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12300</td>
+<td>ABHINAV KAUSHIK</td>
+<td>G.K. KAUSHIK</td>
+<td>3547 A/A NARANG COLONY, TRI NAGAR DELHI  CH. NO. 102 PHC NEW DELHI</td>
+<td>CH. NO. 102 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13627</td>
+<td>ABHINAV MAMGAIN</td>
+<td>MUKESH MAMGAIN</td>
+<td>APART NO.2108, TOWER N-15 JAY PEE GREENS SEC-151 NOIDA U.P  CH NO.332 PHC NEW DELHI-110001</td>
+<td>CH NO.332 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12599</td>
+<td>ABHIRAJ JAYANT</td>
+<td>SH.ARVIND KUMAR</td>
+<td>H.NO.-K.C. -52-A, ASHOK VIHAR PHASE-I, NORTH WEST DELHI-110052  CH.NO.429, PHC NEW DELHI-</td>
+<td>CH.NO.429, PHC NEW DELHI-</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13838</td>
+<td>ABHISHAR SHARMA</td>
+<td>ONKAR KUMAR PANDEY</td>
+<td>KACHAHARIA NALANDA BIHAR 801307  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Other/Unclear</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13597</td>
+<td>ABHISHEK</td>
+<td>YASH PAL</td>
+<td>C-307, GALI -05 NEW USMANPUR DELHI-110053  CH NO.462 PHC NEW DELHI-110001</td>
+<td>CH NO.462 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13821</td>
+<td>ABHISHEK AGGARWAL</td>
+<td>VINEET AGGARWAL</td>
+<td>C-1/A 92A JANAKPURI DELHI  CH. NO. 460 PHC</td>
+<td>CH. NO. 460 PHC</td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>West Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12873</td>
+<td>ABHISHEK DUDPURI</td>
+<td>MANMOHAN DUDPURI</td>
+<td>C-6/3 STREET NO. 9 HINDON VIHAR SECTOR-49 BAROLA NOIDA U.P.  CH. NO. 577 PHC NEW DELHI</td>
+<td>CH. NO. 577 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12351</td>
+<td>ABHISHEK KAUSHIK</td>
+<td>SANJAY KAUSHIK</td>
+<td>H. NO. 67 SANI BAZAR WALI GALI, VILLAGE-JORIPUR DELHI 110092  CH. NO. 202 PHC NEW DELHI</td>
+<td>CH. NO. 202 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12753</td>
+<td>ABHISHEK KHATAK</td>
+<td>SH.OM KUMAR</td>
+<td>H.NO.1138, TYPE-2, NEAR MOTHER DDAIRY BOOTH, GULABI BAGH, MALKA GANJ, NORTH DELHI-110007  CH.NO.564,…</td>
+<td>CH.NO.564, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13680</td>
+<td>ABHISHEK KUMAR</td>
+<td>ANGAD SINGH</td>
+<td>202, 2ND FLOOR , DHAKA VILLAGE NIRANKARI COLONY DELHI-110009  CH NO .460 PHC NEW DELHI-110001</td>
+<td>CH NO .460 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13565</td>
+<td>ABHISHEK KUMAR</td>
+<td>VIJAY PRAKASH MANDAL</td>
+<td>787, PRAVEEN HOUSE , 3RD FLOOR C-7, MUKIMPURA DELHI-110007  CH NO.462 PHC NEW DELHI-110001</td>
+<td>CH NO.462 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14320</td>
+<td>ABHISHEK KUMAR</td>
+<td>BHAGAT SINGH</td>
+<td>C-6, ROYAL PARK EXTENSION, PHASE-1 PALLAVPURAM MEERUT U.P. 250110  CH. NO. 346 PHC</td>
+<td>CH. NO. 346 PHC</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Meerut</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12517</td>
+<td>ABHISHEK KUMAR YADAV</td>
+<td>SHUBH NARAYAN YADAV</td>
+<td>H. NO. 4901 STREET NO. 113 BLOCK-B SANT NAGAR BURARI 110084 VILL-JIGNI POST-BARAGOAN TEHSIL-BANSDIH,…</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>North Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12853</td>
+<td>ABHISHEK MIR</td>
+<td>KAMAL KISHORE</td>
+<td>H NO.E-2/131-C, STREET NO.3 SHASTRI NAGAR DELHI-110052  CH NO -822 PHC NEW DELHI</td>
+<td>CH NO -822 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13427</td>
+<td>ABHISHEK MISHRA</td>
+<td>MANOJ MISHRA</td>
+<td>JAGDEV NAGAR BATDASS , OM PETROL PUMP AURANGABAD BIHAR  CH NO. 460 PHC NEW DELHI -110001</td>
+<td>CH NO. 460 PHC NEW DELHI -110001</td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12120</td>
+<td>ABHISHEK RAJPUT</td>
+<td>SH.RAJ PAL SINGH</td>
+<td>FLAT-NO.B-1, RAJ APARTMENTS ,KH NO.665/2 ,GHITORNI ,NEW DELHI -110030 S/O RAJPAL ,H.NO.8 ,GRAM -ALAU…</td>
+<td>CH.NO.429 ,PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12573</td>
+<td>ABHISHEK SINGH</td>
+<td>VINAY SINGH</td>
+<td>H. NO. 128 SARAI KALE KHAN NEW DELHI WEST TOLA BHORE GOPAL GANJ 841426 CH. NO. 429 PHC NEW DELHI</td>
+<td>CH. NO. 429 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14271</td>
+<td>ABHISHEK TIWARI</td>
+<td>SH. DEVENDRA KUMAR TIWARI</td>
+<td>GANGOTRI TOWER 2, 105, POCKET-4, PHI-III, ANAND ASHRAY SOCIETY, NOIDA U.P.  CH. NO. 297, PHC NEW DEL…</td>
+<td>CH. NO. 297, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+</tbody></table></div>
+  <h3>P2 — High surname affinity (outside home belt) sample</h3>
+  <div class="table-wrap"><table><thead><tr>
+<th>NDBA</th>
+<th>Name</th>
+<th>Father</th>
+<th>Address</th>
+<th>Chamber</th>
+<th>Mobile</th>
+<th>Year</th>
+<th>Geo</th>
+<th>Jat tag</th>
+<th>Levers</th>
+<th>Priority</th>
+</tr></thead><tbody>
+<tr>
+<td>6893</td>
+<td>AABHAS DAHIYA</td>
+<td>SH. RAMESH KUMAR DAHIYA</td>
+<td>96,NORTHEX, MODEL TOWN, PHASE-2 NEW DELHI  110009</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>8401</td>
+<td>AAKASH DAHIYA</td>
+<td>RAJESH DAHIYA</td>
+<td>E-30, UGF, BHAGWAN DAS NAGAR, PUNJABI BAGH, NEW DELHI-110026  110026</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>8380</td>
+<td>AAMIR CHAUDHARY</td>
+<td>TANVEER AHMAD</td>
+<td>185-A, FLAT NO. 8, HAYAT APARTMENT, JOHRI FARM, JAMIA NAGAR, NEW DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>11721</td>
+<td>AAMIR CHOUDHRY</td>
+<td>MAROOF CHOUDHRY</td>
+<td>I-33/1 REHMAN STREET, BATLA HOUSE JAMIA NAGAR, DELHI 110025 SAME AS RESIDENTIAL ADDRESS</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>5402</td>
+<td>ABDHESH KUMAR CHAUDHARY</td>
+<td>HARI NARAIN CHAUDHARY</td>
+<td>358&quot;A&quot;, 4TH FLOORCHIRAG DELHI NEW DELHI  110017</td>
+<td></td>
+<td></td>
+<td>1999</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>5634</td>
+<td>ABHAY CHOUDHARY</td>
+<td>SH. RAMESH CHAUHAN</td>
+<td>1440/A, LGF, ISHWAR SADAN,WAZIR NAGAR,KO TLA MUBARIK PUR,NEW DELHI  110003</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2011</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>14004</td>
+<td>ABHINAV TOMAR</td>
+<td>DUSHYANT TOMAR</td>
+<td>1/2332 GALI NO. 9 RAM NAGAR SHAHDARA DELHI 110032  P2A BASEMENT JANGPURA EXTN. NEW DELHI</td>
+<td>P2A BASEMENT JANGPURA EXTN. NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>East Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>14677</td>
+<td>ABHISHEK CHAUDHARY</td>
+<td>RAJ SINGH CHAUDHARY</td>
+<td>INDRA VIHAR, MUKHERJEE NAGAR , NEW DELHI  CH NO.589 PHC NEW DELHI-</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10972</td>
+<td>ABHISHEK DAHIYA</td>
+<td>SH. PRADEEP KUMAR</td>
+<td>128-B SUNDER APARTMENTS, PASCHIM VIHAR, SUNDER VIHAR DELHI  110087</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9262</td>
+<td>ABHISHEK MALIK</td>
+<td>DEVEDNRA KUMAR</td>
+<td>B-42, SURAJ PARK, GALI NO. 05, DELHI-42   110042</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>8170</td>
+<td>ABHIVANDANA CHOWDHURY</td>
+<td>SHIV SHANKAR CHOWDHURY</td>
+<td>66, SOUTH PARK APARTMENTS KALKAJI, NEW DELHI-110019  110019</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>South Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>2568</td>
+<td>ADESH CHOUDHARY</td>
+<td>VEER SINGH</td>
+<td>C-43 NAMBERDAR NIWAS VILLAGE-GHAZIPUR DELHI  110096</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2005</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>2886</td>
+<td>ADITYA CHAUDHARY</td>
+<td>INDERJEET SINGH CHAUDHARY</td>
+<td>D-72, EAST OF KAILASH,NEW DELHI   110065</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2006</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10593</td>
+<td>ADITYA CHOUDHARY</td>
+<td>DAYA CHAND</td>
+<td>HOUSE NO. L-2 SOUTH CIVIL LINE MOHAN PUR MOHANMMADPUR HARIDWAR UK 247666</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other/Unclear</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>12184</td>
+<td>ADITYA MALIK</td>
+<td>YASHPAL MALIK</td>
+<td>B-2, CIVIL LINES BEHIND D.C. RESIDENCE PALWAL , HARYANA B-2, CIVIL LINES BEHIND D.C. RESIDENCE PALWA…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>13265</td>
+<td>ADITYA SINGH DESHWAL</td>
+<td>YASHPAL SINGH</td>
+<td>A-304 3RD FLOOR DOUBLE STOREY BACK SIDE KALKAJI DIST SOUTH DELHI 110019  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>South Delhi</td>
+<td>high</td>
+<td>jat_high|phc</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>5938</td>
+<td>ADITYA TANWAR</td>
+<td>SH. SATISH RAJ TANWAR</td>
+<td>WZ-458/B, BASAI DARAPUR, NEW DELHI   110015</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2010</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>11643</td>
+<td>AJAY 0 JOON</td>
+<td>BIJENDER SINGH JOON</td>
+<td>H NO.D-1836, GALI NO.10 SANJAY COLONY NARELA ,NORTH WEST DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2024</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>13504</td>
+<td>AJAY CHAUDHARY</td>
+<td>RAJVIR CHAUDHARY</td>
+<td>3013/3A ROOM NO.205 GALI NO-18 RANJEET NAGAR NEW DELHI-110008</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9450</td>
+<td>AJAY NAIN</td>
+<td>MAHINDER SINGH NAIN</td>
+<td>1056, SEC 16-17, HISAR HARYANA-125001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2016</td>
+<td>Other UP/Haryana</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10564</td>
+<td>AJAY SINGH</td>
+<td>SURESH SINGH TOMER</td>
+<td>H. NO. 74 STREET NO. 2 NEW CHAUHAN PUR DELHI  110094</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>1783</td>
+<td>AJAYINDER SANGWAN</td>
+<td>LATE SH. Y.P.S. SANGWAN</td>
+<td>M-55, GREATER KAILASH EAST OF KAILASH,-1NEW DELHI- 110048</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2001</td>
+<td>South Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10768</td>
+<td>AKANKSHA CHAUDHARY</td>
+<td>NARESH KUMAR CHOUDHARY</td>
+<td>C-1/210, YAMUNA VIHAR , NORTH EAST DELH   110053</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2023</td>
+<td>Other/Unclear</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>7522</td>
+<td>AKANSHA CHOUDHARY</td>
+<td>AYENDRA SINGH</td>
+<td>S-1, TEACHER&#x27;S FLAT, MAHARAJA SURAJMAL INSTITUTE, C-4, JANAKPURI, WEST DELHI-58  110058</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2019</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>12428</td>
+<td>AKASH RATHEE</td>
+<td>RAJENDER SINGH</td>
+<td>4877-83 CHURCH MISSION ROAD, FATEH PURI, CHANDNI CHOWK, DELHI 110006  CH. NO. 202</td>
+<td>CH. NO. 202</td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>7694</td>
+<td>AKASH SINGH TEOTIA</td>
+<td>SAJAN PAL SINGH</td>
+<td>C-46/1, JVTS GARDEN, CHHATARPUR EXT. NEW DELHI-110074  110074</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9495</td>
+<td>AKASH TANWAR</td>
+<td>MUKESH KUMAR</td>
+<td>WZ- 80 A ,NARAINA VILLAGE, NEW DELHI-28</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>13642</td>
+<td>AKHIL TEWATIA</td>
+<td>ANAND SINGH</td>
+<td>C-271/1 STREET NO-10 ,BHAJAN PURA GARH MENDU NORTH EAST DELHI-110003</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9261</td>
+<td>AKRITI CHAUDHARY</td>
+<td>DEVEDNRA SINGH</td>
+<td>242, SIKARAM APPTS, PATPARGANJ IP EXTN, DELHI-110092  110092</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2017</td>
+<td>East Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>7637</td>
+<td>AKSHAT CHOUDHARY</td>
+<td>DINESH KUMAR</td>
+<td>F-281, JANTA GARDEN PANDAV NAGAR MAYUR VIHAR PH-1, DELHI-110091  110091</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>East Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9959</td>
+<td>AMAN CHOUDHARY</td>
+<td>JAI KISHAN</td>
+<td>H. NO. 74, SHANTI MARG, MANDAWALI, DELHI-110092</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>East Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10449</td>
+<td>AMARJEET SINGH PANGHAL</td>
+<td>RANDHIR SINGH PANGHAL</td>
+<td>E-34 (BASEMENT), EAST OF KAILASH NEW DELHI 110065</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1999</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>8249</td>
+<td>AMIT DAHIYA</td>
+<td>MEHAR SINGH DAHIYA</td>
+<td>A-4/7, SUBH NIKETAN, PASCHIM VIHAR, NEW DELHI-110063</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2020</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>7138</td>
+<td>AMIT KUMAR DABAS</td>
+<td>SH. RAJENDRA SINGH</td>
+<td>A-503/4 SHASTRI NAGAR,DELHI   110052</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>1945</td>
+<td>AMIT TOMAR</td>
+<td>SH. BRIJ PAL SINGH</td>
+<td>1616, ULDHAN PURNAVEEN SHAHDARADELHI 32</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2004</td>
+<td>East Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>2046</td>
+<td>AMRENDRA KUMAR</td>
+<td>LATE SH. L.N. CHAUDHARY</td>
+<td>B-90 CHETAK APARTMENTS SECTOR-IX ROHINIDELHI 110085</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1995</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>11669</td>
+<td>AMRITA 0 KUMARI</td>
+<td>RAJA RAM CHAUDHARY</td>
+<td>WZ-84,S-2/201-A EF, OLD MAHAVIR NAGAR NEW DELHI PO:TILAK NAGAR,DIST WEST DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>934</td>
+<td>ANANGPAL MALIK</td>
+<td>BALJEET SINGH</td>
+<td></td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1989</td>
+<td>Other/Unclear</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>14276</td>
+<td>ANIKET</td>
+<td>TANWAR</td>
+<td></td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other/Unclear</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>13996</td>
+<td>ANIL KUMAR DALAL</td>
+<td>SH.ISHWAR SINGH DALAL</td>
+<td>352,/2-A, MUNIRKA VILLAGE, SOUTH WEST DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2018</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>875</td>
+<td>ANIL KUMAR SHEORAN</td>
+<td>SH. R.K. SHEORAN</td>
+<td>C-53, THIRD FLOOR , RAM DUTT ENCALVE UTTAM NAGARNEW DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1995</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>5194</td>
+<td>ANIL NARWAL</td>
+<td>SH. LAHNA NARWAL</td>
+<td>FLAT NO. 513/529,PKT. 8, GOLDEN HEIGHTS, SECTOR-12,DWARKA,NEW DELHI  110078</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2012</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>9037</td>
+<td>ANIRUDH TANWAR</td>
+<td>ASHWANI TANWAR</td>
+<td>B-133, NARAINA VIHAR, NEW DELHI-110028   110028</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2012</td>
+<td>West Delhi</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>11913</td>
+<td>ANITA MALIK</td>
+<td>SURESH PAL SINGH MALIK</td>
+<td>RZ-163, 164 SECOND FLOOR, NORTHEN FRONT SIDE, K.H. NO. 24/12 SHIV BLOCK RAGHU NAGAR, SOUTH WEST DELH…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>2186</td>
+<td>ANITA TOKAS</td>
+<td>SH.ATAR SINGH TOKAS</td>
+<td>H.NO. 59,MUNIRKA VILLAGE, P.O. J.N.U.,NEW DELHI</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>1991</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10947</td>
+<td>ANKIT CHAUDHARY</td>
+<td>BACHCHU SINGH TANGAR</td>
+<td>A-27 2ND FLOOR BADARPUR EXTENSION NEW DELHI  110044</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>4574</td>
+<td>ANKIT KUMAR GULIA</td>
+<td>SH. RAM KUMAR GULIA</td>
+<td>H. NO 43, POLICE LINE ,SEC. 30, FARIDABA D, HARYANA-  121008</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2011</td>
+<td>Other UP/Haryana</td>
+<td>high</td>
+<td>jat_high</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>10377</td>
+<td>ANMOL CHAUDHARY</td>
+<td>SUSHIL KUMAR</td>
+<td>HOUSE NO. 983, 3RD FLOOR, DR MUKHERJEE NAGAR, DELHI  110009</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2022</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>8255</td>
+<td>ANSHIKA MALIK</td>
+<td>BIJENDER MALIK</td>
+<td>FC-3, PS TILAK MARG, NEW DELHI-110001   110001</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2021</td>
+<td>Central/NDMC</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+<tr>
+<td>12397</td>
+<td>ANU SEHRAWAT</td>
+<td>SH.PREM SINGH SEHRAWAT</td>
+<td>H.NO.355 ,GROUND FLOOR , DOBBLE STORY , BHARAT NAGAR , DEEP CHAND BANDHU , ASHOK VIHAR - DELHI-11005…</td>
+<td></td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>North Delhi</td>
+<td>high</td>
+<td>jat_high|junior</td>
+<td>P2_caste_high</td>
+</tr>
+</tbody></table></div>
+  <h3>Recent PHC chamber rows sample</h3>
+  <div class="table-wrap"><table><thead><tr>
+<th>NDBA</th>
+<th>Name</th>
+<th>Father</th>
+<th>Address</th>
+<th>Chamber</th>
+<th>Mobile</th>
+<th>Year</th>
+<th>Geo</th>
+<th>Jat tag</th>
+<th>Levers</th>
+<th>Priority</th>
+</tr></thead><tbody>
+<tr>
+<td>14507</td>
+<td>HARSH SOOD</td>
+<td>SH. CHANDER KISHORE SOOD</td>
+<td>C-9/9802, VASANT KUNJ, NEW DELHI-110070  CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>South Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14462</td>
+<td>RENU PRAKASH</td>
+<td>SH. AWADHESH KUMAR MISHRA</td>
+<td>F-31, ARYA NAGAR APARTMENT PLOT NO. 91, I.P. EXTENSION DELHI-110092  CH.NO. 7, PHC NEW DELHI-110001</td>
+<td>CH.NO. 7, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14501</td>
+<td>PRAVEEN MAHAJAN</td>
+<td>SH. KAILASH CHAND MAHAJAN</td>
+<td>D-38, THIRD FLOOR, SOUTH EXTENSION, PART-2, NEW DELHI-110049  CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>South Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14549</td>
+<td>VIKAS SHARMA</td>
+<td>SH. SUNIL SHARMA</td>
+<td>H.NO-3, PREET VIHAR GAUTAM BUDHA, CHHAPROLA , TAH-DDADRI, P.S-BADALPUR, -201009  CH.NO.-460, PHC NEW…</td>
+<td>CH.NO.-460, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14449</td>
+<td>MOHSIN KHAN</td>
+<td>SH. MUZAFFAR ALI KHAN</td>
+<td>B-20/C, JOSHI COLONY I.P. EXTENSION, PATPAR GANJ, DELHI-110092  CH.NO. 281, PHC NEW DELHI-110001</td>
+<td>CH.NO. 281, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14352</td>
+<td>VIKRAM JIT SINGH VIRK</td>
+<td>SH. S.S.VIRK</td>
+<td>16-B, JHANG APARTMENT, SECTOR-13, ROHINI, DELHI  CH.NO-253 PHC NEW DELHI-110001</td>
+<td>CH.NO-253 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>North Delhi</td>
+<td>medium</td>
+<td>jat_medium|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14373</td>
+<td>ANNU TOMAR</td>
+<td>MAHESH SINGH</td>
+<td>H NO.2243 EE BLOCK JAHNGIR PURI DELHI-110033 H NO.D-728, JHANGIR PURI DELHI-110033 CH NO.27 PHC NEW …</td>
+<td>CH NO.27 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Other Delhi-NCR</td>
+<td>high</td>
+<td>jat_high|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14533</td>
+<td>SANJEEV KUMAR SINGH</td>
+<td>SH. MURTI SINGH</td>
+<td>D II/173, KAKA NAGAR, NEW DELHI –  CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>CH.NO. 202, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14028</td>
+<td>HARENDRA KUMAR</td>
+<td>SATYA PRAKASH</td>
+<td>D/163/164, F/F FRONT LHS FLAT NO.1 KH NO.33 FREEDOM FIGHTER ENCALVE , VILLAGE NEB SARAI SOUTH DELHI-…</td>
+<td>CH NO.375 PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14527</td>
+<td>KAJAL RATHORE</td>
+<td>SH. DALIP SINGH</td>
+<td>B-151, SECTOR-11, NEAR KARAMVEER GARDEN, FARIDABAD, HARYANA-12006  CH.NO. 535, PHC NEW DELHI-110001</td>
+<td>CH.NO. 535, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Faridabad</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14529</td>
+<td>ZUNZID USMANI</td>
+<td>MR. JAOOL HASAN</td>
+<td>B-11, THIRD FLOOR, BHASKAR COMPOUND ABU FAZAL ENCLAVE-1, JAMIA NAGAR NEW DELHI-110025  CH.NO. PHC NE…</td>
+<td>CH.NO. PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>14515</td>
+<td>JYOTI</td>
+<td>SH. RAJENDAR PRASAD</td>
+<td>H.NO.-160, 2ND FLOOR, LFS JEEVAN NAGAR ASHRAM , NEW DELHI-110014  CH. NO. 934, PHC NEW DELHI-110001</td>
+<td>CH. NO. 934, PHC NEW DELHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2026</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13232</td>
+<td>VINEET SINGH</td>
+<td>BIJENDER SINGH</td>
+<td>H. NO. 301 PATTI GALI WALE RAMALA BAGHPAT U.P  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Baghpat</td>
+<td>low</td>
+<td>ncr_geo|jat_low|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13221</td>
+<td>VAJAHAT KHAN</td>
+<td>HAYAT KHAN</td>
+<td>RZD-121A SECOND FLOOR NIHAL VIHAR NANGLOI WEST DELHI  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>West Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13239</td>
+<td>MADAN SETH</td>
+<td>DINESH KUMAR SETH</td>
+<td>GANDHI NAGAR COLONY HEERAPATI LACHHIRAMPUR AZAMGARH UTTAR PRADESH 276001  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other UP/Haryana</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13241</td>
+<td>AMAAN SIDDIQUE</td>
+<td>MOBINUL HUQUE</td>
+<td>35/101 SUPERTECH ENCLAVE SHALIMAR GARDEN EXTN. -1 SAHIBABAD GHAZIABAD 201005  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>none</td>
+<td>home_geo|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13242</td>
+<td>JASBIR SINGH</td>
+<td>BALBIR SINGH</td>
+<td>G-179 FF NARAINA VIHAR NEW DELHI 110028  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>West Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13244</td>
+<td>RANJAN SINGH</td>
+<td>SAHAB LAL</td>
+<td>127/189 PURAN CHANDRA KAHATA HAHIRPUR ROAD TUHI COLONY KANPUR NAGAR U.P  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other UP/Haryana</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12647</td>
+<td>ANJALI CHOUDHARY</td>
+<td>MAHAVIR SINGH</td>
+<td>HOUSE NO. 48 SECTOR 62 SECTOR 62 NOIDA VPO MANONAKA TEHSIL HATHIN DIST- PALWAL, HARYANA 121103 CH. N…</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>high</td>
+<td>ncr_geo|jat_high|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>12648</td>
+<td>KASHISH AGGARWAL</td>
+<td>RAJESH AGARWAL</td>
+<td>1247, SECTOR-21 GURUGRAM HARYANA 3F-16 JAWAHAR NAGAR SVI GANGA NAGAR CH. NO. 202 PHC</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Gurgaon</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12629</td>
+<td>ANUKRITI</td>
+<td>ANGAD PRASAD GUPTA</td>
+<td>KH. NO. 123/5 2ND FLOOR BLOCK-9 SANT NAGAR NEW DELHI  CH. NO. 202 PHC</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13351</td>
+<td>MOHD NAYEEM</td>
+<td>SHAUKAT ALI</td>
+<td>G-602, ALPHA -2 GREATER NOIDA U.P  CH -564 PHC NEW DELHI</td>
+<td>CH -564 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>12628</td>
+<td>UTKARSH SHUKLA</td>
+<td>UPENDRA SHUKLA</td>
+<td>B/11 GANESH NAGAR SHAKARPUR DELHI 110092 MG FLATS NIRMAL COLONY KAUSHALPURI AYODHAYA 224001 CH. NO. …</td>
+<td>CH. NO. 202 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13273</td>
+<td>DIPALI SINGHAL</td>
+<td>MANOJ SINGHAL</td>
+<td>H. NO. 64 GALI NO. 10 SOUTH GANESH NAGAR SHAKARPUR EAST DELHI 110092  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13341</td>
+<td>MAHIMA CHOUDHARY</td>
+<td>PANKAJ SINGH</td>
+<td>H NO.23 NEHRU NAGAR, GHAZIABAD U.P  CH -558 PHC NEW DELHI</td>
+<td>CH -558 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>high</td>
+<td>home_geo|jat_high|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13277</td>
+<td>SHALU SHARMA</td>
+<td>ASHOK KUMAR VERMA</td>
+<td>H NO-28, ASHOKA SOCIETY SEC-14A VASUNDRA GHAZIABAD  CH NO.460 PHC NEW DEKHI-110001</td>
+<td>CH NO.460 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>none</td>
+<td>home_geo|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13278</td>
+<td>KAVYANJALI SINGH</td>
+<td>VINAY KUMAR SINGH</td>
+<td>24/9 VIJAY NAGAR KANPUR NAGAR HANS NAGAR, KANPUR U.P-208005  CH NO.460 PHC NEW DEKHI-110001</td>
+<td>CH NO.460 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>none</td>
+<td>home_geo|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13345</td>
+<td>ANISHA</td>
+<td>ANIRRUDH KUMAR</td>
+<td>C-1106, AMAR PALI SAPPHIRE SEC-45 NOIDA U.P  CH -564 PHC NEW DELHI</td>
+<td>CH -564 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13328</td>
+<td>AMIT KUMAR</td>
+<td>RAM BABU SINGH</td>
+<td>GALI NO.3 DSSA LAXMI NAGAR-110092  CH NO.462 PHC NEW DEKHI-110001</td>
+<td>CH NO.462 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>East Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13332</td>
+<td>HARAIK SHARMA</td>
+<td>UTTAM SHARMA</td>
+<td>9/18 SF FLAT -B-4 , SEC-3 RAJENDER NAGAR SHAIBABAD GZB U.P-201005  CH -564 PHC NEW DELHI</td>
+<td>CH -564 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Ghaziabad</td>
+<td>none</td>
+<td>home_geo|junior|phc</td>
+<td>P0_home_belt</td>
+</tr>
+<tr>
+<td>13333</td>
+<td>RAHUL SONI</td>
+<td>VINOD SONI</td>
+<td>GRAM MIRJAPUR CHAUHARI , MIRJAPUR PRATAPGARH, U.P-230304  CH -564 PHC NEW DELHI</td>
+<td>CH -564 PHC NEW DELHI</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13312</td>
+<td>SAHEJ SURI</td>
+<td>SANDEEP SURI</td>
+<td>43, PUNJALI COLONY CHANDAUSI SAMBHAL U.P CH NO.460 PHC NEW DEKHI-110001</td>
+<td>CH NO.460 PHC NEW DEKHI-110001</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other UP/Haryana</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13222</td>
+<td>MOHD NAJISH</td>
+<td>MOHD. HARUN</td>
+<td>H. NO. D-84/2 ST. NO. 9 MOHANPURI MOUJPUR DELHI  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13214</td>
+<td>ADARSH KUMAR GUPTA</td>
+<td>RAM KISHOR GUPTA</td>
+<td>H. NO. 28 GALI NO. 8 BLOCK-G SANGAM VIHAR SOUTH DELHI  CH. NO. 429 PHC`</td>
+<td>CH. NO. 429 PHC`</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13215</td>
+<td>MOHAMMAD JUNAID MAHMOOD</td>
+<td>MAHMOOD ALI</td>
+<td>T-92 FLAT NO. 25 WARD NO. 6 MEHRAULI NEW DELHI 110030  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>South Delhi</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13217</td>
+<td>ANAS SAIFI</td>
+<td>SHAJUDDIN SAIFI</td>
+<td>D-4 GALI NO. 6 OLD MUSTAFABAD NEW DELHI  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other Delhi-NCR</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13231</td>
+<td>ASHISH PANWAR</td>
+<td>JEET SINGH PANWAR</td>
+<td>TIROSHIYA THANAK DOGHAT RURAL BAGPAT U.P  CH. NO. 95 PHC</td>
+<td>CH. NO. 95 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Baghpat</td>
+<td>medium</td>
+<td>ncr_geo|jat_medium|junior|phc</td>
+<td>P1_geo_caste</td>
+</tr>
+<tr>
+<td>13219</td>
+<td>MANASWI CHURIWAL</td>
+<td>PRASHANT CHURIWAL</td>
+<td>BHIM RAJ DEVI BUX CITY CHOWK JHAUGANJ NAGLA PATNA BIHAR  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td></td>
+<td>2025</td>
+<td>Other/Unclear</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13220</td>
+<td>SHIVAM PATHAK</td>
+<td>SANJEEV KUMAR PATHAK</td>
+<td>NEAR KARISHNA CINEMA AKHARAGHAT ROAD MUZAFFARPUR U.P.  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Other UP/Haryana</td>
+<td>none</td>
+<td>junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+<tr>
+<td>13207</td>
+<td>FEBIN JOSE</td>
+<td>JOSE MON R</td>
+<td>G-63 SECTOR-20 NOIDA GB NAGAR U.P  CH. NO. 429 PHC</td>
+<td>CH. NO. 429 PHC</td>
+<td>[hidden for public share]</td>
+<td>2025</td>
+<td>Noida</td>
+<td>none</td>
+<td>ncr_geo|junior|phc</td>
+<td>P1_phc_junior</td>
+</tr>
+</tbody></table></div>
+</section>
+
+<section id="calendar">
+  <h2>12. Week-by-week plan (6 weeks)</h2>
+  <div class="calendar">
+    <div class="week"><div class="wlabel">Week 1</div><div class="wbody"><strong>Foundation.</strong> Confirm Sanjeev’s row &amp; photo/bio. Finalise 12 captains (4 geo, 4 chamber, 2 junior, 2 practice). Import CSV to phones. Quiet senior courtesy calls (20). No public attack lines.</div></div>
+    <div class="week"><div class="wlabel">Week 2</div><div class="wbody"><strong>Home belt sweep.</strong> Cover all Muradnagar + Indirapuram + Vaishali/Vasundhara clusters. Host one tea meet in Ghaziabad for PHC outstation counsel. Launch junior WhatsApp brief (issues only).</div></div>
+    <div class="week"><div class="wlabel">Week 3</div><div class="wbody"><strong>Chamber corridors.</strong> Systematic PHC chamber visits with leave-behind card (name, NDBA, 3 pledges). Collect peer endorsements from crime &amp; family seniors. Women advocate listening circle.</div></div>
+    <div class="week"><div class="wlabel">Week 4</div><div class="wbody"><strong>NCR expansion.</strong> Noida / GN / Mayur Vihar / Faridabad / Gurgaon phone bank evenings. Soft community introductions without exclusive rhetoric. Track commitments in a simple sheet (Yes / Lean / Undecided).</div></div>
+    <div class="week"><div class="wlabel">Week 5</div><div class="wbody"><strong>Consolidation.</strong> Second touch to all Lean voters. Batchmate calls by enrolment year. Debate/forum if any — stick to bar welfare. Fix polling-day transport pairs for outstation members.</div></div>
+    <div class="week"><div class="wlabel">Week 6</div><div class="wbody"><strong>Turnout.</strong> Last 48 hours: reminder trees, chamber presence without obstruction, water/shade lawful hospitality if allowed by RO rules, SMS only to consented lists. Victory margin comes from getting committed voters to the booth.</div></div>
+  </div>
+  <h3>Volunteer roles</h3>
+  <ul class="clean">
+    <li><strong>Campaign manager</strong> — daily numbers, ethics check</li>
+    <li><strong>Chamber captains</strong> — corridor coverage</li>
+    <li><strong>Colony captains</strong> — GZB/Noida groups</li>
+    <li><strong>Phone-bank lead</strong> — evening call script</li>
+    <li><strong>Data lead</strong> — CSV tags, commitment tracker</li>
+    <li><strong>Women outreach lead</strong></li>
+    <li><strong>Polling-day logistics</strong></li>
+  </ul>
+</section>
+
+<section id="message">
+  <h2>13. Messaging scripts</h2>
+  <h3>For lay family / community well-wishers</h3>
+  <p class="note">“Sanjeev is a hardworking crime and family lawyer at Patiala House. He lives in our Muradnagar–Ghaziabad belt and understands outstation lawyers. We are requesting a respectful vote for Vice President — for juniors, chambers, and dignity of the bar. No pressure — only a request.”</p>
+  <h3>For fellow advocates (30 seconds)</h3>
+  <p class="note">“Brother/Sister, Sanjeev — crime &amp; family, PHC. Contesting NDBA VP. Three pledges: (1) junior welfare &amp; mentorship desk, (2) chamber/listing grievance channel, (3) equal respect for criminal &amp; family boards and women colleagues. May I have your support — and one introduction to a chamber neighbour?”</p>
+  <h3>Themes to repeat</h3>
+  <ul class="clean">
+    <li>Court infrastructure &amp; usable chambers</li>
+    <li>Listing delays / pass-overs — voice of the working board</li>
+    <li>Junior dignity (fees pressure, clerk issues, learning space)</li>
+    <li>Outstation NCR counsel facilitation</li>
+    <li>Women advocates’ safety and respect</li>
+    <li>Unity of the bar above factional bitterness</li>
+  </ul>
+</section>
+
+<section id="risks">
+  <h2>14. Risks &amp; counters</h2>
+  <ul class="clean">
+    <li><strong>Rival with larger city network:</strong> Counter with denser home-belt + junior phone bank; don’t chase every South Delhi senior tea.</li>
+    <li><strong>“Outsider / Ghaziabad” attack:</strong> Reframe as strength — majority of working counsel commute; you represent them.</li>
+    <li><strong>Caste polarisation backlash:</strong> Keep community as private hospitality only; public face = professional VP.</li>
+    <li><strong>Split in junior vote:</strong> Offer concrete pledges, not slogans; share written 1-pager.</li>
+    <li><strong>Low turnout of your base:</strong> Pairing system + polling-day calls from captains.</li>
+    <li><strong>Litigation / election dispute atmosphere:</strong> Stay scrupulously within RO rules; document your compliance.</li>
+  </ul>
+</section>
+
+<section id="ethics">
+  <h2>15. Do’s and don’ts (bar ethics)</h2>
+  <div class="two-col">
+    <div class="ok">
+      <strong>Do</strong>
+      <ul class="clean">
+        <li>Follow NDBA constitution / Returning Officer directions</li>
+        <li>Use member data only for association election contact</li>
+        <li>Issue-based canvassing, courtesy visits, lawful meetings</li>
+        <li>Equal respect to all communities and genders</li>
+        <li>Keep accounts of campaign spend if required</li>
+      </ul>
+    </div>
+    <div class="danger">
+      <strong>Don’t</strong>
+      <ul class="clean">
+        <li>Cash-for-vote, gifts-for-vote, liquor, or any illegal inducement</li>
+        <li>Threats, caste abuse, defamation, booth obstruction</li>
+        <li>Misuse court staff or official machinery</li>
+        <li>Fake enrolment / impersonation / rumour pamphlets without facts</li>
+        <li>Harassing WhatsApp spam after “stop” requests</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <h2>16. Appendix — methodology &amp; caveats</h2>
+  <ul class="clean">
+    <li><strong>Universe:</strong> Union of Memberlist (45) + Sheet1; deduped by enrolment, then NDBA, then name+mobile. Sheet1 fully overlapped by enrolment; chambers merged in.</li>
+    <li><strong>Geography:</strong> Regex on residential address (+ chamber text). Multi-tag allowed. “Other Delhi-NCR” is a residual bucket — refine manually for priority names.</li>
+    <li><strong>Cohorts:</strong> Year parsed from enrolment like D/1234/2024.</li>
+    <li><strong>Jat/Chaudhary tags:</strong> Surname/gotra dictionaries from public compilations (SarkariList, Jatland, Wikipedia clan pages). HIGH = distinctive gotras/Chaudhary variants; MEDIUM = surnames shared with other groups; LOW = Singh + belt only. <em>Possible affinity, not fact.</em></li>
+    <li><strong>Practice:</strong> Not in source data — manual peer method required.</li>
+    <li><strong>No invented lawyers:</strong> All contact table names come from the Excel.</li>
+  </ul>
+  <p>Deliverables beside this page: <code>/workspace/patiala-house-vp-strategy/private campaign CSV (not published)</code></p>
+</section>
+
+<footer>
+  Prepared for Gaurav Chaudhary · Candidate Sanjeev · NDBA Patiala House VP strategy · Offline-friendly (Chart.js CDN) · Surname tags = possible affinity only
+</footer>
+</div>
+
+<script id="stats-json" type="application/json">{"stats": {"merge": {"memberlist_rows": 12099, "sheet1_valid_rows": 2618, "overlap": 2618, "sheet1_only": 0, "combined_unique": 12090, "chamber_filled": 1877}, "total_unique": 12090, "jat_high": 594, "jat_medium": 194, "jat_low": 284, "jat_none": 11018, "ncr_belt": 2797, "muradnagar": 11, "ghaziabad": 1296, "indirapuram": 137, "murad_ghazi": 1297, "noida": 837, "greater_noida": 199, "meerut": 75, "baghpat": 24, "hapur": 61, "faridabad": 247, "gurgaon": 223, "west_delhi": 992, "east_delhi": 1103, "south_delhi": 870, "north_delhi": 731, "cohort": {"junior_2022plus": 3838, "junior_2018_2021": 2576, "mid_2012_2017": 2083, "senior_pre2005": 2043, "mid_2005_2011": 1515, "unknown": 35}, "juniors_2018plus": 6414, "chamber_court": {"No chamber listed": 10213, "Patiala House": 1722, "Other chamber": 138, "Tis Hazari": 9, "Saket": 4, "Rohini": 2, "Karkardooma": 1, "Dwarka": 1}, "phc_chamber": 1722, "practice_hits": 2, "priority": {"P5_general": 4089, "P3_junior": 3443, "P1_phc_junior": 1382, "P0_home_belt": 1297, "P2_ncr_geo": 1211, "P2_caste_high": 386, "P1_geo_caste": 112, "P3_phc_chamber": 111, "P4_caste_med": 59}, "high_surnames_top": [["CHAUDHARY", 219], ["TOMAR", 57], ["MALIK", 52], ["TANWAR", 31], ["SEHRAWAT", 20], ["DAHIYA", 19], ["TOKAS", 17], ["RATHI", 17], ["TEWATIA", 16], ["DAGAR", 14], ["DABAS", 12], ["GULIA", 10], ["NAIN", 7], ["AHLAWAT", 7], ["SANGWAN", 6]], "geo_top": [["Other Delhi-NCR", 4942], ["Ghaziabad", 1296], ["East Delhi", 1103], ["West Delhi", 992], ["South Delhi", 870], ["Noida", 837], ["North Delhi", 731], ["Other/Unclear", 487], ["Other UP/Haryana", 298], ["Faridabad", 247], ["Gurgaon", 223], ["Greater Noida", 199], ["Indirapuram", 137], ["Meerut", 75], ["Hapur", 61], ["Sonipat", 57], ["Central/NDMC", 48], ["Baghpat", 24]], "colony_top": {"NOIDA": 761, "GHAZIABAD": 544, "MAYUR VIHAR": 329, "FARIDABAD": 245, "DWARKA": 238, "ROHINI": 221, "LAXMI NAGAR": 208, "UTTAM NAGAR": 147, "GURGAON": 141, "INDIRAPURAM": 137, "VAISHALI": 132, "SAHIBABAD": 130, "I.P. EXT": 95, "VASUNDHARA": 94, "GURUGRAM": 78}, "email_present": 1485, "mobile_present": 11575, "sanjeev": {"Ndbano": 4557, "Bcdenroll": "D/1627/2012", "FullName": "SANJEEV KUMAR", "Father_name": "ASHOK KUMAR", "Mobile_1": "[hidden for public share]", "addr_full": "H-12, SANJAY VIHAR, OPP. POLICE STATION MURAD NAGAR, GHAZIABAD (U.P)", "enroll_year": 2012, "cohort": "mid_2012_2017", "jat_conf": "none", "priority": "P0_home_belt", "note": "Best sheet match for Muradnagar residence. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Confirm identity with candidate before outreach branding."}}, "charts": {"levers": {"labels": ["Juniors 2018+", "NCR belt geo", "Home belt GZB/Murad", "PHC chambers", "Jat surname HIGH", "Jat surname MED", "Practice keywords"], "values": [6414, 2797, 1297, 1722, 594, 194, 2]}, "cohort": {"labels": ["Junior 2022+", "Junior 2018\u201321", "Mid 2012\u201317", "Mid 2005\u201311", "Senior pre-2005", "Unknown"], "values": [3838, 2576, 2083, 1515, 2043, 35]}, "geo": {"labels": ["Other Delhi-NCR", "Ghaziabad", "East Delhi", "West Delhi", "South Delhi", "Noida", "North Delhi", "Other/Unclear", "Other UP/Haryana", "Faridabad", "Gurgaon", "Greater Noida"], "values": [4942, 1296, 1103, 992, 870, 837, 731, 487, 298, 247, 223, 199]}, "jat": {"labels": ["CHAUDHARY", "TOMAR", "MALIK", "TANWAR", "SEHRAWAT", "DAHIYA", "TOKAS", "RATHI", "TEWATIA", "DAGAR", "DABAS", "GULIA"], "values": [219, 57, 52, 31, 20, 19, 17, 17, 16, 14, 12, 10]}, "priority": {"labels": ["P5_general", "P3_junior", "P1_phc_junior", "P0_home_belt", "P2_ncr_geo", "P2_caste_high", "P1_geo_caste", "P3_phc_chamber", "P4_caste_med"], "values": [4089, 3443, 1382, 1297, 1211, 386, 112, 111, 59]}}}</script>
+<script>
+const DATA = {"levers": {"labels": ["Juniors 2018+", "NCR belt geo", "Home belt GZB/Murad", "PHC chambers", "Jat surname HIGH", "Jat surname MED", "Practice keywords"], "values": [6414, 2797, 1297, 1722, 594, 194, 2]}, "cohort": {"labels": ["Junior 2022+", "Junior 2018\u201321", "Mid 2012\u201317", "Mid 2005\u201311", "Senior pre-2005", "Unknown"], "values": [3838, 2576, 2083, 1515, 2043, 35]}, "geo": {"labels": ["Other Delhi-NCR", "Ghaziabad", "East Delhi", "West Delhi", "South Delhi", "Noida", "North Delhi", "Other/Unclear", "Other UP/Haryana", "Faridabad", "Gurgaon", "Greater Noida"], "values": [4942, 1296, 1103, 992, 870, 837, 731, 487, 298, 247, 223, 199]}, "jat": {"labels": ["CHAUDHARY", "TOMAR", "MALIK", "TANWAR", "SEHRAWAT", "DAHIYA", "TOKAS", "RATHI", "TEWATIA", "DAGAR", "DABAS", "GULIA"], "values": [219, 57, 52, 31, 20, 19, 17, 17, 16, 14, 12, 10]}, "priority": {"labels": ["P5_general", "P3_junior", "P1_phc_junior", "P0_home_belt", "P2_ncr_geo", "P2_caste_high", "P1_geo_caste", "P3_phc_chamber", "P4_caste_med"], "values": [4089, 3443, 1382, 1297, 1211, 386, 112, 111, 59]}};
+const navy = '#0b1f3a', gold = '#c9a227', blue = '#3d6ea5', teal = '#2a9d8f', grey='#8fa1b5';
+function bar(id, labels, values, horizontal=false) {
+  const ctx = document.getElementById(id);
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: labels.map((_,i)=>[gold,navy,blue,teal,grey][i%5]), borderRadius:6 }] },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      plugins: { legend: { display:false } },
+      scales: { x: { ticks: { maxRotation: 45, font: { size:10 } } }, y: { beginAtZero:true } }
+    }
+  });
+}
+bar('cLevers', DATA.levers.labels, DATA.levers.values, true);
+bar('cCohort', DATA.cohort.labels, DATA.cohort.values, false);
+bar('cGeo', DATA.geo.labels, DATA.geo.values, true);
+bar('cJat', DATA.jat.labels, DATA.jat.values, true);
+</script>
+</body>
+</html>
