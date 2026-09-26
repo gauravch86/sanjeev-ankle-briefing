@@ -12,6 +12,9 @@ Open `index.html` in a browser (needs network only for Chart.js CDN). Keep `cate
 - Search box filters the loaded category client-side. Large categories show up to 500 rows (P0 first) with a “Showing 500 of N” note.
 - Secondary **Read strategy** chip jumps to the matching narrative section (`#junior`, `#geo`, `#chamber`, `#caste`, etc.).
 
+## NDBA date filter
+Above the executive snapshot, **From** / **To** filter the whole data view by NDBA membership date (`ndba_date` from the Excel `Ndbadate` column), not Bar Council enrolment year. **Jan–Jun 2025** sets 2025-01-01 through 2025-06-30 (about 336 unique voters). **Apply** filters in memory — `categories.json` loads once. Members with no NDBA date are hidden while a filter is on. **Clear** restores all 12,090 names. Snapshot cards, charts, category counts, and the name table all follow the same filtered set.
+
 ## Share-safe
 Phone numbers are removed from this public page and from `categories.json`. Full contact CSV stays private campaign material only.
 
@@ -20,5 +23,5 @@ The public page uses one hero portrait (`sanjeev-hero.jpg`) plus campaign lines 
 
 ## Files
 - `index.html` — strategy pack UI
-- `categories.json` — category → name rows (no mobiles), built from `../voters-tagged.csv`
+- `categories.json` — category → name rows (no mobiles), each row includes `ndba_date` (`YYYY-MM-DD` or empty). Top-level `filter` documents that field.
 - `sanjeev-hero.jpg` — hero portrait crop

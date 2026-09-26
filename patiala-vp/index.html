@@ -201,6 +201,37 @@ button.stat {
 .brand-card ul { margin:10px 0 0; padding-left:18px; color:#e8eef7; }
 .brand-card li { margin:4px 0; }
 
+.date-filter {
+  background:#fbf8ef; border:1px solid #ead9a0; border-radius:12px;
+  padding:12px 14px; margin:0 0 14px;
+}
+.date-filter .df-title {
+  margin:0 0 8px; font-weight:800; color:var(--navy); font-size:.95rem;
+}
+.date-filter .df-row {
+  display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;
+}
+.date-filter label {
+  display:flex; flex-direction:column; gap:4px;
+  font-size:.78rem; font-weight:700; color:var(--muted);
+  text-transform:uppercase; letter-spacing:.04em;
+}
+.date-filter input[type="date"] {
+  padding:8px 10px; border:1px solid var(--line); border-radius:10px;
+  font:inherit; color:var(--ink); background:#fff; min-height:40px;
+}
+.date-filter button {
+  font:inherit; font-weight:700; border-radius:10px; padding:8px 14px;
+  cursor:pointer; min-height:40px;
+}
+.date-filter button.primary { background:var(--navy); color:var(--gold2); border:1px solid var(--navy); }
+.date-filter button.ghost { background:#fff; color:var(--navy); border:1px solid var(--line); }
+.date-filter button.preset { background:#fffdf6; color:var(--navy); border:1px solid #ead9a0; }
+.date-filter button:hover { filter:brightness(1.05); }
+.date-filter .df-help { margin:8px 0 0; color:var(--muted); font-size:.86rem; }
+.date-filter .df-status { margin:8px 0 0; font-weight:750; color:var(--navy); font-size:.95rem; }
+.date-filter .df-status.warnish { color:var(--danger); }
+
 </style>
 </head>
 <body>
@@ -210,11 +241,11 @@ button.stat {
   <h1>Vice-President Election Strategy Pack</h1>
   <p class="subtitle">Candidate: <strong>Sanjeev (Jat / Chaudhary)</strong> — crime &amp; family practice, Muradnagar (Ghaziabad) · Multi-lever plan for an unbeatable but ethical VP campaign</p>
   <div class="meta">
-    <span class="pill">Voters (unique): 12,090</span>
-    <span class="pill">Juniors 2018+: 6,414</span>
-    <span class="pill">Home belt GZB/Murad: 1,297</span>
-    <span class="pill">PHC chambers tagged: 1,722</span>
-    <span class="pill">Jat surname HIGH (possible): 594</span>
+    <span class="pill" id="pill-unique">Voters (unique): 12,090</span>
+    <span class="pill" id="pill-juniors">Juniors 2018+: 6,414</span>
+    <span class="pill" id="pill-home">Home belt GZB/Murad: 1,297</span>
+    <span class="pill" id="pill-phc">PHC chambers tagged: 1,722</span>
+    <span class="pill" id="pill-jat">Jat surname HIGH (possible): 594</span>
   </div>
 <div style="margin:14px 0 0;padding:10px 14px;border-radius:10px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.45);color:#f3e6b3;font-size:.92rem;">
 <strong>Share link for Sanjeev:</strong> Phone numbers removed from this public page. Full contact CSV is private campaign material only.
@@ -243,6 +274,22 @@ button.stat {
 
 <section id="snap">
   <h2>1. Executive snapshot</h2>
+  <div class="date-filter" id="ndba-filter">
+    <p class="df-title">Filter by NDBA membership date</p>
+    <div class="df-row">
+      <label>From
+        <input type="date" id="ndba-from" name="ndba-from" />
+      </label>
+      <label>To
+        <input type="date" id="ndba-to" name="ndba-to" />
+      </label>
+      <button type="button" class="primary" id="ndba-apply">Apply</button>
+      <button type="button" class="ghost" id="ndba-clear">Clear</button>
+      <button type="button" class="preset" id="ndba-preset">Jan–Jun 2025</button>
+    </div>
+    <p class="df-help">Filtering uses NDBA membership date (not Bar Council year). When a date filter is on, members without an NDBA date are hidden.</p>
+    <p class="df-status" id="ndba-status" role="status">Showing 12,090 of 12,090 · full roll (no NDBA date filter)</p>
+  </div>
   <div class="grid" id="snap-stats">
     <button type="button" class="stat clickable" data-cat="unique_voters" aria-label="View unique voters list, 12090 names">
       <div class="n">12,090</div><div class="l">Unique voters</div><span class="hint">Click for names →</span>
@@ -412,6 +459,9 @@ button.stat {
 
 <section id="coalition">
   <h2>10. Coalition map (beyond any one community)</h2>
+  <div class="charts">
+    <div class="chart-box" style="grid-column:1/-1"><h4>Priority tiers (each member is in one tier)</h4><canvas id="cPriority" height="140"></canvas></div>
+  </div>
   <div class="two-col">
     <div>
       <h3>Micro-coalitions to assemble</h3>
@@ -428,13 +478,14 @@ button.stat {
     <div>
       <h3>Priority tiers in the CSV</h3>
       <ul class="clean">
-        <li>P0 home belt: 1,297</li>
-        <li>P1 PHC juniors: 1,382</li>
-        <li>P1 geo+caste: 112</li>
-        <li>P2 NCR geo: 1,211</li>
-        <li>P2 caste high: 386</li>
-        <li>P3 juniors / PHC: 3,443 / 111</li>
-        <li>P5 general (still needed for turnout): 4,089</li>
+        <li>P0 home belt: <span data-priority="P0_home_belt">1,297</span></li>
+        <li>P1 PHC juniors: <span data-priority="P1_phc_junior">1,382</span></li>
+        <li>P1 geo+caste: <span data-priority="P1_geo_caste">112</span></li>
+        <li>P2 NCR geo: <span data-priority="P2_ncr_geo">1,211</span></li>
+        <li>P2 caste high: <span data-priority="P2_caste_high">386</span></li>
+        <li>P3 juniors / PHC: <span data-priority="P3_junior">3,443</span> / <span data-priority="P3_phc_chamber">111</span></li>
+        <li>P4 caste medium: <span data-priority="P4_caste_med">59</span></li>
+        <li>P5 general (still needed for turnout): <span data-priority="P5_general">4,089</span></li>
       </ul>
     </div>
   </div>
@@ -4033,7 +4084,7 @@ button.stat {
 
 <section id="names-viewer">
   <h2>11b. Category name lists</h2>
-  <p class="note">Click any <strong>Executive snapshot</strong> card or a bar in the lever/cohort charts to load that category here. Phones are omitted (share-safe). Lists are sorted by campaign priority (P0 first). Large lists show up to 500 rows at a time — use search to refine within the full category.</p>
+  <p class="note">Click any <strong>Executive snapshot</strong> card or a bar in the lever/cohort charts to load that category here. Phones are omitted (share-safe). Lists are sorted by campaign priority (P0 first). Large lists show up to 500 rows at a time — use search to refine within the full category. A date filter above the snapshot limits every category to members whose NDBA membership date falls in range (members with no NDBA date are omitted).</p>
   <div class="cat-pills" id="cat-pills" aria-label="Category shortcuts"></div>
   <div class="viewer-toolbar">
     <input type="search" id="cat-search" placeholder="Search name, father, NDBA, address, chamber, geo…" aria-label="Filter category names" disabled />
@@ -4044,11 +4095,11 @@ button.stat {
       <thead>
         <tr>
           <th>NDBA</th><th>Name</th><th>Father</th><th>Address (short)</th>
-          <th>Chamber</th><th>Year</th><th>Geo</th><th>Jat tag</th><th>Priority</th>
+          <th>Chamber</th><th>Year</th><th>NDBA date</th><th>Geo</th><th>Jat tag</th><th>Priority</th>
         </tr>
       </thead>
       <tbody id="cat-table-body">
-        <tr><td colspan="9" style="color:#5c6b7a">No category loaded yet.</td></tr>
+        <tr><td colspan="10" style="color:#5c6b7a">No category loaded yet.</td></tr>
       </tbody>
     </table>
   </div>
@@ -4137,7 +4188,8 @@ button.stat {
   <ul class="clean">
     <li><strong>Universe:</strong> Union of Memberlist (45) + Sheet1; deduped by enrolment, then NDBA, then name+mobile. Sheet1 fully overlapped by enrolment; chambers merged in.</li>
     <li><strong>Geography:</strong> Regex on residential address (+ chamber text). Multi-tag allowed. “Other Delhi-NCR” is a residual bucket — refine manually for priority names.</li>
-    <li><strong>Cohorts:</strong> Year parsed from enrolment like D/1234/2024.</li>
+    <li><strong>Cohorts:</strong> Year parsed from enrolment like D/1234/2024. That year is Bar Council enrolment only.</li>
+    <li><strong>NDBA date filter:</strong> From/To uses <code>ndba_date</code> (Excel Ndbadate, day precision), not the enrolment year. Blank NDBA dates are excluded while a filter is active. Snapshot cards, charts, category counts, and name tables all use that same filtered set. Clear restores the full roll.</li>
     <li><strong>Jat/Chaudhary tags:</strong> Surname/gotra dictionaries from public compilations (SarkariList, Jatland, Wikipedia clan pages). HIGH = distinctive gotras/Chaudhary variants; MEDIUM = surnames shared with other groups; LOW = Singh + belt only. <em>Possible affinity, not fact.</em></li>
     <li><strong>Practice:</strong> Not in source data — manual peer method required.</li>
     <li><strong>No invented lawyers:</strong> All contact table names come from the Excel.</li>
@@ -4176,28 +4228,110 @@ const FALLBACK_META = {
   unknown: {title:"Unknown enrolment year", count:35, meaning:"Enrolment year could not be parsed.", campaign:"Manual clean-up before cohort assignment.", strategy:"#method", anchor:"names-unknown"}
 };
 
-let CAT_DATA = null; // {meta, categories}
+let CAT_DATA = null; // {meta, categories, filter} — loaded once
 let currentKey = null;
 let currentRows = [];
 let loadPromise = null;
+let filteredCats = null; // null = full roll; otherwise category → rows in the active NDBA date range
+let activeFrom = '';
+let activeTo = '';
+const CHARTS = {};
+const CATEGORIES_URL = './categories.json?v=2026-09-26-ndba';
+const PILL_LABELS = [
+  ['pill-unique', 'unique_voters', 'Voters (unique): '],
+  ['pill-juniors', 'juniors_2018plus', 'Juniors 2018+: '],
+  ['pill-home', 'home_belt', 'Home belt GZB/Murad: '],
+  ['pill-phc', 'phc_chamber', 'PHC chambers tagged: '],
+  ['pill-jat', 'jat_high', 'Jat surname HIGH (possible): ']
+];
+const JAT_ALIASES = {
+  CHAUDHARY: ['CHAUDHARY','CHOUDHARY','CHOWDHARY','CHAUDHRY','CHOUDHRY','CHAUDHARI','CHOUDHARI'],
+  TOMAR: ['TOMAR','TOMER'],
+  MALIK: ['MALIK'],
+  TANWAR: ['TANWAR'],
+  SEHRAWAT: ['SEHRAWAT'],
+  DAHIYA: ['DAHIYA','DAHIA'],
+  TOKAS: ['TOKAS'],
+  RATHI: ['RATHI'],
+  TEWATIA: ['TEWATIA','TEOTIA','TEWATIYA'],
+  DAGAR: ['DAGAR'],
+  DABAS: ['DABAS'],
+  GULIA: ['GULIA','GULIYA']
+};
 
 function esc(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function fmt(n) { return Number(n||0).toLocaleString('en-IN'); }
 
+function universeCount() {
+  const rows = CAT_DATA && CAT_DATA.categories && CAT_DATA.categories.unique_voters;
+  return rows ? rows.length : 12090;
+}
+function cats() {
+  if (filteredCats) return filteredCats;
+  return (CAT_DATA && CAT_DATA.categories) || {};
+}
+function metaFor(key) {
+  const base = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[key]) || FALLBACK_META[key] || {title:key, count:0, meaning:'', campaign:'', strategy:'#snap', anchor:'names-viewer'};
+  const list = cats()[key];
+  if (list) return Object.assign({}, base, {count: list.length});
+  return base;
+}
+function inNdbadate(row, from, to) {
+  const d = String((row && row.ndba_date) || '').trim();
+  if (!d) return false;
+  if (from && d < from) return false;
+  if (to && d > to) return false;
+  return true;
+}
+function countLabels(rows, labels, field) {
+  const idx = {};
+  labels.forEach((label, i) => { idx[label] = i; });
+  const counts = labels.map(() => 0);
+  (rows || []).forEach(row => {
+    const v = row[field] || '';
+    if (idx[v] != null) counts[idx[v]] += 1;
+  });
+  return counts;
+}
+function jatCounts(rows) {
+  const labels = DATA.jat.labels;
+  const aliasIndex = {};
+  labels.forEach((label, i) => {
+    (JAT_ALIASES[label] || [label]).forEach(alias => { aliasIndex[alias] = i; });
+  });
+  const counts = labels.map(() => 0);
+  (rows || []).forEach(row => {
+    if ((row.jat || '') !== 'high') return;
+    const seen = new Set();
+    String(row.name || '').toUpperCase().split(/[^A-Z]+/).forEach(token => {
+      const i = aliasIndex[token];
+      if (i == null || seen.has(i)) return;
+      seen.add(i);
+      counts[i] += 1;
+    });
+  });
+  return counts;
+}
+
 async function ensureCategories() {
   if (CAT_DATA) return CAT_DATA;
   if (loadPromise) return loadPromise;
-  loadPromise = fetch('./categories.json')
+  loadPromise = fetch(CATEGORIES_URL)
     .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(j => { CAT_DATA = j; buildPills(); return j; })
+    .then(j => { CAT_DATA = j; refreshDataView(); return j; })
     .catch(err => {
       console.error('categories.json load failed', err);
       CAT_DATA = { meta: FALLBACK_META, categories: {} };
-      buildPills();
+      refreshDataView();
       const metaEl = document.getElementById('cat-viewer-meta');
       if (metaEl) metaEl.textContent = 'Could not load categories.json — summaries still work; names need the JSON file beside this page.';
+      const status = document.getElementById('ndba-status');
+      if (status) {
+        status.textContent = 'Could not load categories.json, so the date filter cannot run.';
+        status.classList.add('warnish');
+      }
       return CAT_DATA;
     });
   return loadPromise;
@@ -4205,21 +4339,147 @@ async function ensureCategories() {
 
 function buildPills() {
   const host = document.getElementById('cat-pills');
-  if (!host || host.dataset.ready) return;
+  if (!host) return;
   const order = Object.keys(FALLBACK_META);
   host.innerHTML = order.map(k => {
-    const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[k]) || FALLBACK_META[k];
-    return `<button type="button" data-cat="${k}">${esc(m.title)} (${fmt(m.count)})</button>`;
+    const m = metaFor(k);
+    const active = k === currentKey ? ' active' : '';
+    return `<button type="button" class="${active.trim()}" data-cat="${k}">${esc(m.title)} (${fmt(m.count)})</button>`;
   }).join('');
-  host.dataset.ready = '1';
-  host.addEventListener('click', e => {
-    const b = e.target.closest('button[data-cat]');
-    if (b) openCategory(b.dataset.cat);
+  if (!host.dataset.ready) {
+    host.dataset.ready = '1';
+    host.addEventListener('click', e => {
+      const b = e.target.closest('button[data-cat]');
+      if (b) openCategory(b.dataset.cat);
+    });
+  }
+}
+
+function updateSnapshot() {
+  document.querySelectorAll('#snap-stats [data-cat]').forEach(btn => {
+    const m = metaFor(btn.dataset.cat);
+    const n = btn.querySelector('.n');
+    if (n) n.textContent = fmt(m.count);
+    btn.setAttribute('aria-label', `View ${m.title} list, ${m.count} names`);
+  });
+  if (!(CAT_DATA && CAT_DATA.categories && CAT_DATA.categories.unique_voters)) return;
+  PILL_LABELS.forEach(([id, key, prefix]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = prefix + fmt(metaFor(key).count);
   });
 }
 
+function updateStatus() {
+  const el = document.getElementById('ndba-status');
+  if (!el) return;
+  const total = universeCount();
+  if (filteredCats) {
+    const shown = (filteredCats.unique_voters || []).length;
+    const fromTxt = activeFrom || '…';
+    const toTxt = activeTo || '…';
+    el.textContent = `Showing ${fmt(shown)} of ${fmt(total)} · NDBA date From ${fromTxt} To ${toTxt}`;
+    el.classList.remove('warnish');
+  } else if (!(CAT_DATA && CAT_DATA.categories && Object.keys(CAT_DATA.categories).length)) {
+    return;
+  } else {
+    el.textContent = `Showing ${fmt(total)} of ${fmt(total)} · full roll (no NDBA date filter)`;
+    el.classList.remove('warnish');
+  }
+}
+
+function refreshCharts() {
+  const c = cats();
+  const rows = c.unique_voters;
+  if (!rows) return;
+  setChartData('cLevers', DATA.levers.labels, LEVER_KEYS.map(k => (c[k] || []).length));
+  setChartData('cCohort', DATA.cohort.labels, COHORT_KEYS.map(k => (c[k] || []).length));
+  if (filteredCats) {
+    setChartData('cGeo', DATA.geo.labels, countLabels(rows, DATA.geo.labels, 'geo'));
+    setChartData('cJat', DATA.jat.labels, jatCounts(rows));
+    setChartData('cPriority', DATA.priority.labels, countLabels(rows, DATA.priority.labels, 'priority'));
+  } else {
+    setChartData('cGeo', DATA.geo.labels, DATA.geo.values);
+    setChartData('cJat', DATA.jat.labels, DATA.jat.values);
+    setChartData('cPriority', DATA.priority.labels, DATA.priority.values);
+  }
+  const pri = filteredCats
+    ? countLabels(rows, DATA.priority.labels, 'priority')
+    : DATA.priority.values;
+  const priIdx = Object.fromEntries(DATA.priority.labels.map((label, i) => [label, pri[i]]));
+  document.querySelectorAll('[data-priority]').forEach(el => {
+    const n = priIdx[el.dataset.priority];
+    if (n != null) el.textContent = fmt(n);
+  });
+}
+
+function refreshDataView() {
+  updateSnapshot();
+  buildPills();
+  refreshCharts();
+  updateStatus();
+  if (!currentKey) return;
+  currentRows = cats()[currentKey] || [];
+  renderSummary(currentKey);
+  const search = document.getElementById('cat-search');
+  renderTable(currentRows, currentRows.length, search ? search.value : '');
+}
+
+async function applyDateFilter() {
+  await ensureCategories();
+  const status = document.getElementById('ndba-status');
+  if (!CAT_DATA || !CAT_DATA.categories || !CAT_DATA.categories.unique_voters) {
+    if (status) {
+      status.textContent = 'Voter roll did not load, so the date filter cannot run.';
+      status.classList.add('warnish');
+    }
+    return;
+  }
+  const from = (document.getElementById('ndba-from') || {}).value || '';
+  const to = (document.getElementById('ndba-to') || {}).value || '';
+  if (from && to && from > to) {
+    if (status) {
+      status.textContent = 'From is after To. Choose a range where From is on or before To.';
+      status.classList.add('warnish');
+    }
+    return;
+  }
+  if (!from && !to) {
+    clearDateFilter();
+    return;
+  }
+  activeFrom = from;
+  activeTo = to;
+  const next = {};
+  Object.keys(CAT_DATA.categories).forEach(key => {
+    next[key] = CAT_DATA.categories[key].filter(row => inNdbadate(row, from, to));
+  });
+  filteredCats = next;
+  refreshDataView();
+}
+
+function clearDateFilter() {
+  activeFrom = '';
+  activeTo = '';
+  filteredCats = null;
+  const fromEl = document.getElementById('ndba-from');
+  const toEl = document.getElementById('ndba-to');
+  if (fromEl) fromEl.value = '';
+  if (toEl) toEl.value = '';
+  refreshDataView();
+}
+
+async function applyPreset() {
+  await ensureCategories();
+  const preset = (CAT_DATA && CAT_DATA.filter && CAT_DATA.filter.presets && CAT_DATA.filter.presets[0]) || {from:'2025-01-01', to:'2025-06-30'};
+  const fromEl = document.getElementById('ndba-from');
+  const toEl = document.getElementById('ndba-to');
+  if (fromEl) fromEl.value = preset.from || '2025-01-01';
+  if (toEl) toEl.value = preset.to || '2025-06-30';
+  return applyDateFilter();
+}
+
 function renderSummary(key) {
-  const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[key]) || FALLBACK_META[key] || {title:key, count:0, meaning:'', campaign:'', strategy:'#snap'};
+  const m = metaFor(key);
   const el = document.getElementById('cat-summary');
   if (!el) return;
   el.classList.add('visible');
@@ -4241,7 +4501,7 @@ function filterRows(rows, q) {
   q = (q || '').trim().toLowerCase();
   if (!q) return rows;
   return rows.filter(r => {
-    const blob = [r.ndba,r.name,r.father,r.address,r.chamber,r.year,r.geo,r.jat,r.priority,r.levers].join(' ').toLowerCase();
+    const blob = [r.ndba,r.name,r.father,r.address,r.chamber,r.year,r.ndba_date,r.geo,r.jat,r.priority,r.levers].join(' ').toLowerCase();
     return blob.includes(q);
   });
 }
@@ -4253,15 +4513,15 @@ function renderTable(rows, totalInCategory, query) {
   const filtered = filterRows(rows, query);
   const shown = filtered.slice(0, MAX_ROWS);
   if (!shown.length) {
-    tbody.innerHTML = `<tr><td colspan="9" style="color:#5c6b7a">No rows match this filter.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10" style="color:#5c6b7a">No rows match this filter.</td></tr>`;
   } else {
     tbody.innerHTML = shown.map(r => `<tr>
       <td>${esc(r.ndba)}</td><td>${esc(r.name)}</td><td>${esc(r.father)}</td>
-      <td>${esc(r.address)}</td><td>${esc(r.chamber)}</td><td>${esc(r.year)}</td>
+      <td>${esc(r.address)}</td><td>${esc(r.chamber)}</td><td>${esc(r.year)}</td><td>${esc(r.ndba_date)}</td>
       <td>${esc(r.geo)}</td><td>${esc(r.jat)}</td><td>${esc(r.priority)}</td>
     </tr>`).join('');
   }
-  const m = (CAT_DATA && CAT_DATA.meta && CAT_DATA.meta[currentKey]) || FALLBACK_META[currentKey] || {};
+  const m = metaFor(currentKey);
   metaEl.textContent = query
     ? `Showing ${fmt(shown.length)} of ${fmt(filtered.length)} matches (category has ${fmt(totalInCategory)}) — ${m.title||currentKey}`
     : `Showing ${fmt(shown.length)} of ${fmt(totalInCategory)} — ${m.title||currentKey}`;
@@ -4283,22 +4543,29 @@ async function openCategory(key, opts={}) {
   if (!key) return;
   await ensureCategories();
   currentKey = key;
-  currentRows = (CAT_DATA.categories && CAT_DATA.categories[key]) || [];
+  currentRows = cats()[key] || [];
   renderSummary(key);
   const search = document.getElementById('cat-search');
   search.disabled = false;
   if (!opts.keepSearch) search.value = '';
-  renderTable(currentRows, currentRows.length || ((CAT_DATA.meta[key]||FALLBACK_META[key]||{}).count||0), search.value);
+  renderTable(currentRows, currentRows.length, search.value);
   const target = document.getElementById('names-viewer');
   if (target && !opts.noScroll) target.scrollIntoView({behavior:'smooth', block:'start'});
-  // also set hash-friendly anchors without breaking history spam
-  try { history.replaceState(null, '', '#' + (((CAT_DATA.meta[key]||FALLBACK_META[key]||{}).anchor) || 'names-viewer')); } catch(e) {}
+  try { history.replaceState(null, '', '#' + (metaFor(key).anchor || 'names-viewer')); } catch(e) {}
+}
+
+function setChartData(id, labels, values) {
+  const chart = CHARTS[id];
+  if (!chart) return;
+  chart.data.labels = labels.slice();
+  chart.data.datasets[0].data = values.slice();
+  chart.update();
 }
 
 function bar(id, labels, values, horizontal=false, keyMap=null) {
   const ctx = document.getElementById(id);
-  if (!ctx) return;
-  new Chart(ctx, {
+  if (!ctx || typeof Chart === 'undefined') return;
+  CHARTS[id] = new Chart(ctx, {
     type: 'bar',
     data: { labels, datasets: [{ data: values, backgroundColor: labels.map((_,i)=>[gold,navy,blue,teal,grey][i%5]), borderRadius:6 }] },
     options: {
@@ -4322,6 +4589,7 @@ bar('cLevers', DATA.levers.labels, DATA.levers.values, true, LEVER_KEYS);
 bar('cCohort', DATA.cohort.labels, DATA.cohort.values, false, COHORT_KEYS);
 bar('cGeo', DATA.geo.labels, DATA.geo.values, true, null);
 bar('cJat', DATA.jat.labels, DATA.jat.values, true, null);
+bar('cPriority', DATA.priority.labels, DATA.priority.values, true, null);
 
 document.getElementById('snap-stats')?.addEventListener('click', e => {
   const b = e.target.closest('[data-cat]');
@@ -4329,10 +4597,18 @@ document.getElementById('snap-stats')?.addEventListener('click', e => {
 });
 document.getElementById('cat-search')?.addEventListener('input', e => {
   if (!currentKey) return;
-  renderTable(currentRows, currentRows.length || ((CAT_DATA?.meta?.[currentKey]||FALLBACK_META[currentKey]||{}).count||0), e.target.value);
+  renderTable(currentRows, currentRows.length, e.target.value);
+});
+document.getElementById('ndba-apply')?.addEventListener('click', () => applyDateFilter());
+document.getElementById('ndba-clear')?.addEventListener('click', () => clearDateFilter());
+document.getElementById('ndba-preset')?.addEventListener('click', () => applyPreset());
+['ndba-from','ndba-to'].forEach(id => {
+  document.getElementById(id)?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); applyDateFilter(); }
+  });
 });
 
-// Preload categories.json
+// Preload categories.json once; Apply/Clear/preset filter that copy in memory.
 ensureCategories();
 
 // Deep-link: #names-juniors-2018 etc.
