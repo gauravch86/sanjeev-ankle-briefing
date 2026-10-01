@@ -149,10 +149,67 @@ button.stat {
 #names-viewer .cat-pills button.active, #names-viewer .cat-pills button:hover {
   background:var(--navy); color:var(--gold2); border-color:var(--navy);
 }
+#names-viewer .table-tools {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:8px 12px; margin:0 0 8px;
+}
+#names-viewer .table-tools-status { flex:1 1 240px; min-width:0; }
+#names-viewer .table-tools .viewer-meta { display:block; color:var(--navy); font-weight:650; }
+#names-viewer .export-note {
+  margin:2px 0 0; color:var(--muted); font-size:.78rem; line-height:1.35;
+}
+#names-viewer .export-actions { display:flex; flex-wrap:wrap; gap:8px; }
+#names-viewer .export-btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:7px;
+  min-height:44px; padding:8px 14px; border-radius:10px;
+  font:inherit; font-weight:750; font-size:.92rem; cursor:pointer;
+  background:#fff;
+}
+#names-viewer .export-btn svg { width:18px; height:18px; flex:none; display:block; }
+#names-viewer .export-btn.excel { background:#eaf7f0; border:1px solid #1f7a4c; color:#145c38; }
+#names-viewer .export-btn.pdf { background:#fceeee; border:1px solid #8b2e2e; color:#8b2e2e; }
+#names-viewer .export-btn:hover:not(:disabled) { filter:brightness(.97); }
+#names-viewer .export-btn:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+#names-viewer .export-btn:disabled { opacity:.45; cursor:not-allowed; filter:grayscale(.35); }
+@media (max-width:640px) {
+  #names-viewer .export-actions { width:100%; }
+  #names-viewer .export-btn { flex:1 1 140px; }
+}
 .chart-box canvas { cursor: pointer; }
+#cat-print-sheet {
+  display:none; position:fixed; inset:0; z-index:80; overflow:auto;
+  background:#fff; color:#1a2332; padding:16px 16px 40px;
+}
+#cat-print-sheet.open { display:block; }
+#cat-print-sheet .print-bar {
+  display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+  position:sticky; top:0; background:#fff; padding:8px 0 12px; z-index:1;
+}
+#cat-print-sheet .print-bar button {
+  font:inherit; font-weight:750; min-height:44px; padding:8px 14px;
+  border-radius:10px; cursor:pointer;
+}
+#cat-print-sheet .print-bar .primary { background:#0b1f3a; color:#e8c547; border:1px solid #0b1f3a; }
+#cat-print-sheet .print-bar .ghost { background:#fff; color:#0b1f3a; border:1px solid #d9e0ea; }
+#cat-print-sheet .print-bar span { flex:1 1 220px; color:var(--muted); font-size:.82rem; line-height:1.35; }
+#cat-print-sheet .sheet-body h1 { margin:0 0 6px; font-size:1.25rem; color:#0b1f3a; }
+#cat-print-sheet .sheet-body p { margin:0 0 4px; font-size:.92rem; }
+#cat-print-sheet .sheet-body table { margin-top:12px; font-size:.78rem; }
+#cat-print-sheet .sheet-body th, #cat-print-sheet .sheet-body td {
+  border:1px solid #d9e0ea; padding:4px 6px;
+}
 @media print {
   #cat-summary { position: static; box-shadow:none; }
   .stat .hint { display:none; }
+  #names-viewer .export-actions, #names-viewer .export-note { display:none; }
+  body.export-print .wrap { display:none !important; }
+  body.export-print #cat-print-sheet {
+    display:block !important; position:static; overflow:visible; padding:0;
+  }
+  body.export-print #cat-print-sheet .print-bar { display:none !important; }
+  body.export-print #cat-print-sheet .sheet-body table { font-size:9pt; }
+  body.export-print #cat-print-sheet tr { break-inside:avoid; page-break-inside:avoid; }
+  body.export-print #cat-print-sheet thead { display:table-header-group; }
 }
 
 
@@ -4084,11 +4141,26 @@ button.stat {
 
 <section id="names-viewer">
   <h2>11b. Category name lists</h2>
-  <p class="note">Click any <strong>Executive snapshot</strong> card or a bar in the lever/cohort charts to load that category here. Phones are omitted (share-safe). Lists are sorted by campaign priority (P0 first). Large lists show up to 500 rows at a time — use search to refine within the full category. A date filter above the snapshot limits every category to members whose NDBA membership date falls in range (members with no NDBA date are omitted).</p>
+  <p class="note">Click any <strong>Executive snapshot</strong> card or a bar in the lever/cohort charts to load that category here. Phones are omitted (share-safe). Lists are sorted by campaign priority (P0 first). Large lists show up to 500 rows at a time — use search to refine within the full category. Excel and PDF above the table export every matching row, not just that preview. A date filter above the snapshot limits every category to members whose NDBA membership date falls in range (members with no NDBA date are omitted).</p>
   <div class="cat-pills" id="cat-pills" aria-label="Category shortcuts"></div>
   <div class="viewer-toolbar">
     <input type="search" id="cat-search" placeholder="Search name, father, NDBA, address, chamber, geo…" aria-label="Filter category names" disabled />
-    <span class="viewer-meta" id="cat-viewer-meta">Select a category above or from the snapshot.</span>
+  </div>
+  <div class="table-tools" id="cat-export-bar">
+    <div class="table-tools-status">
+      <span class="viewer-meta" id="cat-viewer-meta">Select a category above or from the snapshot.</span>
+      <p class="export-note" id="cat-export-note">Excel and PDF export the full filtered list, not the 500-row preview. PDF opens Print / Save as PDF.</p>
+    </div>
+    <div class="export-actions">
+      <button type="button" id="cat-export-excel" class="export-btn excel" disabled aria-describedby="cat-export-note" title="Download an Excel-friendly spreadsheet of the full filtered list">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="3" fill="#1f7a4c"/><path fill="#fff" d="M7.2 7.2h2.1l2.7 3.7 2.7-3.7h2.1l-3.7 4.8 3.7 4.8h-2.1l-2.7-3.7-2.7 3.7H7.2l3.7-4.8z"/></svg>
+        Excel
+      </button>
+      <button type="button" id="cat-export-pdf" class="export-btn pdf" disabled aria-describedby="cat-export-note" title="Open a print view of the full filtered list and save it as PDF">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#8b2e2e" d="M6 2.5h8.2L19.5 8v13.2a1.3 1.3 0 0 1-1.3 1.3H6A1.3 1.3 0 0 1 4.7 21.2V3.8A1.3 1.3 0 0 1 6 2.5z"/><path fill="#f3c1c1" d="M14.2 2.8V8H19.2z"/><path fill="#fff" d="M8 14.2h8v1.4H8zm0 2.6h6.2v1.4H8z"/></svg>
+        PDF
+      </button>
+    </div>
   </div>
   <div class="table-wrap" style="max-height:520px">
     <table>
@@ -4200,6 +4272,14 @@ button.stat {
 <footer>
   Prepared for Gaurav Chaudhary · Candidate Sanjeev · NDBA Patiala House VP strategy · Offline-friendly (Chart.js CDN) · Surname tags = possible affinity only
 </footer>
+</div>
+<div id="cat-print-sheet" role="dialog" aria-modal="true" aria-labelledby="cat-print-title" hidden>
+  <div class="print-bar">
+    <button type="button" class="primary" id="cat-print-now">Print / Save as PDF</button>
+    <button type="button" class="ghost" id="cat-print-close">Close</button>
+    <span id="cat-print-hint">Full filtered list. In the print dialog choose Save as PDF. On iPhone: Share, then Print.</span>
+  </div>
+  <div class="sheet-body" id="cat-print-body"></div>
 </div>
 
 <script id="stats-json" type="application/json">{"stats": {"merge": {"memberlist_rows": 12099, "sheet1_valid_rows": 2618, "overlap": 2618, "sheet1_only": 0, "combined_unique": 12090, "chamber_filled": 1877}, "total_unique": 12090, "jat_high": 594, "jat_medium": 194, "jat_low": 284, "jat_none": 11018, "ncr_belt": 2797, "muradnagar": 11, "ghaziabad": 1296, "indirapuram": 137, "murad_ghazi": 1297, "noida": 837, "greater_noida": 199, "meerut": 75, "baghpat": 24, "hapur": 61, "faridabad": 247, "gurgaon": 223, "west_delhi": 992, "east_delhi": 1103, "south_delhi": 870, "north_delhi": 731, "cohort": {"junior_2022plus": 3838, "junior_2018_2021": 2576, "mid_2012_2017": 2083, "senior_pre2005": 2043, "mid_2005_2011": 1515, "unknown": 35}, "juniors_2018plus": 6414, "chamber_court": {"No chamber listed": 10213, "Patiala House": 1722, "Other chamber": 138, "Tis Hazari": 9, "Saket": 4, "Rohini": 2, "Karkardooma": 1, "Dwarka": 1}, "phc_chamber": 1722, "practice_hits": 2, "priority": {"P5_general": 4089, "P3_junior": 3443, "P1_phc_junior": 1382, "P0_home_belt": 1297, "P2_ncr_geo": 1211, "P2_caste_high": 386, "P1_geo_caste": 112, "P3_phc_chamber": 111, "P4_caste_med": 59}, "high_surnames_top": [["CHAUDHARY", 219], ["TOMAR", 57], ["MALIK", 52], ["TANWAR", 31], ["SEHRAWAT", 20], ["DAHIYA", 19], ["TOKAS", 17], ["RATHI", 17], ["TEWATIA", 16], ["DAGAR", 14], ["DABAS", 12], ["GULIA", 10], ["NAIN", 7], ["AHLAWAT", 7], ["SANGWAN", 6]], "geo_top": [["Other Delhi-NCR", 4942], ["Ghaziabad", 1296], ["East Delhi", 1103], ["West Delhi", 992], ["South Delhi", 870], ["Noida", 837], ["North Delhi", 731], ["Other/Unclear", 487], ["Other UP/Haryana", 298], ["Faridabad", 247], ["Gurgaon", 223], ["Greater Noida", 199], ["Indirapuram", 137], ["Meerut", 75], ["Hapur", 61], ["Sonipat", 57], ["Central/NDMC", 48], ["Baghpat", 24]], "colony_top": {"NOIDA": 761, "GHAZIABAD": 544, "MAYUR VIHAR": 329, "FARIDABAD": 245, "DWARKA": 238, "ROHINI": 221, "LAXMI NAGAR": 208, "UTTAM NAGAR": 147, "GURGAON": 141, "INDIRAPURAM": 137, "VAISHALI": 132, "SAHIBABAD": 130, "I.P. EXT": 95, "VASUNDHARA": 94, "GURUGRAM": 78}, "email_present": 1485, "mobile_present": 11575, "sanjeev": {"Ndbano": 4557, "Bcdenroll": "D/1627/2012", "FullName": "SANJEEV KUMAR", "Father_name": "ASHOK KUMAR", "Mobile_1": "[hidden for public share]", "addr_full": "H-12, SANJAY VIHAR, OPP. POLICE STATION MURAD NAGAR, GHAZIABAD (U.P)", "enroll_year": 2012, "cohort": "mid_2012_2017", "jat_conf": "none", "priority": "P0_home_belt", "note": "Best sheet match for Muradnagar residence. Listed as SANJEEV KUMAR (not Chaudhary in the sheet). Confirm identity with candidate before outreach branding."}}, "charts": {"levers": {"labels": ["Juniors 2018+", "NCR belt geo", "Home belt GZB/Murad", "PHC chambers", "Jat surname HIGH", "Jat surname MED", "Practice keywords"], "values": [6414, 2797, 1297, 1722, 594, 194, 2]}, "cohort": {"labels": ["Junior 2022+", "Junior 2018\u201321", "Mid 2012\u201317", "Mid 2005\u201311", "Senior pre-2005", "Unknown"], "values": [3838, 2576, 2083, 1515, 2043, 35]}, "geo": {"labels": ["Other Delhi-NCR", "Ghaziabad", "East Delhi", "West Delhi", "South Delhi", "Noida", "North Delhi", "Other/Unclear", "Other UP/Haryana", "Faridabad", "Gurgaon", "Greater Noida"], "values": [4942, 1296, 1103, 992, 870, 837, 731, 487, 298, 247, 223, 199]}, "jat": {"labels": ["CHAUDHARY", "TOMAR", "MALIK", "TANWAR", "SEHRAWAT", "DAHIYA", "TOKAS", "RATHI", "TEWATIA", "DAGAR", "DABAS", "GULIA"], "values": [219, 57, 52, 31, 20, 19, 17, 17, 16, 14, 12, 10]}, "priority": {"labels": ["P5_general", "P3_junior", "P1_phc_junior", "P0_home_belt", "P2_ncr_geo", "P2_caste_high", "P1_geo_caste", "P3_phc_chamber", "P4_caste_med"], "values": [4089, 3443, 1382, 1297, 1211, 386, 112, 111, 59]}}}</script>
@@ -4506,6 +4586,129 @@ function filterRows(rows, q) {
   });
 }
 
+// Columns already shown in the names table. Phones and other private fields stay out.
+const EXPORT_COLS = [
+  ['ndba', 'NDBA'],
+  ['name', 'Name'],
+  ['father', 'Father'],
+  ['address', 'Address'],
+  ['chamber', 'Chamber'],
+  ['year', 'Year'],
+  ['ndba_date', 'NDBA date'],
+  ['geo', 'Geo'],
+  ['jat', 'Jat tag'],
+  ['priority', 'Priority']
+];
+
+function searchQuery() {
+  const el = document.getElementById('cat-search');
+  return el ? el.value.trim() : '';
+}
+function currentExportRows() {
+  if (!currentKey) return [];
+  return filterRows(currentRows, searchQuery());
+}
+function setExportEnabled(on) {
+  ['cat-export-excel', 'cat-export-pdf'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.disabled = !on;
+  });
+}
+function dateFilterLabel() {
+  if (activeFrom && activeTo) return `From ${activeFrom} To ${activeTo}`;
+  if (activeFrom) return `From ${activeFrom}`;
+  if (activeTo) return `To ${activeTo}`;
+  return 'full roll (no NDBA date filter)';
+}
+function exportBaseName() {
+  const slug = String(currentKey || 'category').replace(/_/g, '-');
+  let name = slug;
+  if (activeFrom && activeTo) name += `_${activeFrom}_${activeTo}`;
+  else if (activeFrom) name += `_from-${activeFrom}`;
+  else if (activeTo) name += `_to-${activeTo}`;
+  const q = searchQuery().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+  if (q) name += `_search-${q}`;
+  return name;
+}
+function csvCell(value) {
+  let s = String(value ?? '');
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+  return s;
+}
+function buildCsv(rows) {
+  const lines = [EXPORT_COLS.map(([, label]) => csvCell(label)).join(',')];
+  rows.forEach(row => {
+    lines.push(EXPORT_COLS.map(([key]) => csvCell(row[key])).join(','));
+  });
+  return lines.join('\r\n');
+}
+function downloadBlob(filename, blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+function exportExcel() {
+  if (!currentKey) return;
+  const rows = currentExportRows();
+  const csv = '\uFEFF' + buildCsv(rows);
+  downloadBlob(exportBaseName() + '.csv', new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+}
+function buildPrintBody(rows) {
+  const m = metaFor(currentKey);
+  const q = searchQuery();
+  const head = EXPORT_COLS.map(([, label]) => `<th>${esc(label)}</th>`).join('');
+  const body = rows.map(row => `<tr>${EXPORT_COLS.map(([key]) => `<td>${esc(row[key])}</td>`).join('')}</tr>`).join('');
+  const searchLine = q ? `<p>Search: ${esc(q)}</p>` : '';
+  return `
+    <h1 id="cat-print-title">${esc(m.title || currentKey)}</h1>
+    <p>NDBA date: ${esc(dateFilterLabel())}</p>
+    ${searchLine}
+    <p><strong>${fmt(rows.length)}</strong> names</p>
+    <p>Phones omitted. This print view is the full filtered list, not the 500-row on-screen preview. Use Print / Save as PDF.</p>
+    <table>
+      <thead><tr>${head}</tr></thead>
+      <tbody>${body || '<tr><td colspan="10">No rows match this filter.</td></tr>'}</tbody>
+    </table>`;
+}
+function closePrintSheet() {
+  const sheet = document.getElementById('cat-print-sheet');
+  if (!sheet || sheet.hidden) return;
+  sheet.classList.remove('open');
+  sheet.hidden = true;
+  document.body.classList.remove('export-print');
+  const body = document.getElementById('cat-print-body');
+  if (body) body.innerHTML = '';
+}
+function printExportSheet() {
+  const prev = document.title;
+  document.title = exportBaseName();
+  const restore = () => {
+    document.title = prev;
+    window.removeEventListener('afterprint', restore);
+  };
+  window.addEventListener('afterprint', restore);
+  window.print();
+}
+function exportPdf() {
+  if (!currentKey) return;
+  const sheet = document.getElementById('cat-print-sheet');
+  const body = document.getElementById('cat-print-body');
+  if (!sheet || !body) return;
+  body.innerHTML = buildPrintBody(currentExportRows());
+  sheet.hidden = false;
+  sheet.classList.add('open');
+  document.body.classList.add('export-print');
+  const primary = document.getElementById('cat-print-now');
+  if (primary) primary.focus();
+}
+
 function renderTable(rows, totalInCategory, query) {
   const tbody = document.getElementById('cat-table-body');
   const metaEl = document.getElementById('cat-viewer-meta');
@@ -4525,12 +4728,18 @@ function renderTable(rows, totalInCategory, query) {
   metaEl.textContent = query
     ? `Showing ${fmt(shown.length)} of ${fmt(filtered.length)} matches (category has ${fmt(totalInCategory)}) — ${m.title||currentKey}`
     : `Showing ${fmt(shown.length)} of ${fmt(totalInCategory)} — ${m.title||currentKey}`;
+  const exportNote = document.getElementById('cat-export-note');
+  if (exportNote) {
+    const scope = query ? `${fmt(filtered.length)} search matches` : `${fmt(totalInCategory)} names`;
+    exportNote.textContent = `Excel and PDF include all ${scope} after the active filters, not the ${fmt(MAX_ROWS)}-row preview. PDF opens Print / Save as PDF.`;
+  }
+  setExportEnabled(true);
   if (!query && totalInCategory > MAX_ROWS) {
     note.style.display = 'block';
-    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(totalInCategory)}</strong> — sorted by priority (P0 first). Refine with the search box above to scan the full embedded category.`;
+    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(totalInCategory)}</strong> — sorted by priority (P0 first). The preview is capped; Excel and PDF above export all ${fmt(totalInCategory)} rows.`;
   } else if (query && filtered.length > MAX_ROWS) {
     note.style.display = 'block';
-    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(filtered.length)} matches</strong> — narrow the search further.`;
+    note.innerHTML = `<strong>Showing ${fmt(MAX_ROWS)} of ${fmt(filtered.length)} matches</strong> — the preview is capped. Excel and PDF export all ${fmt(filtered.length)} matches.`;
   } else {
     note.style.display = 'none';
   }
@@ -4598,6 +4807,13 @@ document.getElementById('snap-stats')?.addEventListener('click', e => {
 document.getElementById('cat-search')?.addEventListener('input', e => {
   if (!currentKey) return;
   renderTable(currentRows, currentRows.length, e.target.value);
+});
+document.getElementById('cat-export-excel')?.addEventListener('click', exportExcel);
+document.getElementById('cat-export-pdf')?.addEventListener('click', exportPdf);
+document.getElementById('cat-print-now')?.addEventListener('click', printExportSheet);
+document.getElementById('cat-print-close')?.addEventListener('click', closePrintSheet);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePrintSheet();
 });
 document.getElementById('ndba-apply')?.addEventListener('click', () => applyDateFilter());
 document.getElementById('ndba-clear')?.addEventListener('click', () => clearDateFilter());

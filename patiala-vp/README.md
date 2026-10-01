@@ -10,6 +10,7 @@ Open `index.html` in a browser (needs network only for Chart.js CDN). Keep `cate
   1. Open a sticky summary panel (count + plain-English meaning + campaign use)
   2. Jump to **11b. Category name lists** and populate the table (phones stripped)
 - Search box filters the loaded category client-side. Large categories show up to 500 rows (P0 first) with a “Showing 500 of N” note.
+- **Excel** and **PDF** sit above the names table once a category is loaded. Excel downloads a UTF-8 CSV (opens in Excel) of every row in the current category after the active NDBA date filter and the search box. PDF opens a print-ready view of that same full set — use Print / Save as PDF. Neither export is capped at 500, and neither includes phone numbers. Example filename: `unique-voters_2023-08-01_2025-10-01.csv`.
 - Secondary **Read strategy** chip jumps to the matching narrative section (`#junior`, `#geo`, `#chamber`, `#caste`, etc.).
 
 ## NDBA date filter
